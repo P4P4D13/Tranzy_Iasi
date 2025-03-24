@@ -40,12 +40,15 @@
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
+<<<<<<< HEAD
     
     <dependency>
     <groupId>org.apache.httpcomponents.client5</groupId>
     <artifactId>httpclient5</artifactId>
     <version>5.4.2</version>
     </dependency>
+=======
+>>>>>>> 6f0f0b2abd797647087bdfcac34349099eca56db
   </dependencies>
 
   <build>
