@@ -50,7 +50,7 @@ public class InterfataGrafica extends JFrame {
 	 */
 	public InterfataGrafica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 545);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -90,25 +90,25 @@ public class InterfataGrafica extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton next = new JButton(">");
-		next.setBounds(195, 161, 52, 27);
+		next.setBounds(241, 259, 52, 27);
 		contentPane.add(next);
 		
 		statie_plecare = new JTextField();
-		statie_plecare.setBounds(161, 63, 96, 19);
+		statie_plecare.setBounds(207, 161, 96, 19);
 		contentPane.add(statie_plecare);
 		statie_plecare.setColumns(10);
 		
 		statie_sosire = new JTextField();
 		statie_sosire.setColumns(10);
-		statie_sosire.setBounds(161, 109, 96, 19);
+		statie_sosire.setBounds(207, 207, 96, 19);
 		contentPane.add(statie_sosire);
 		
 		JLabel lbStart = new JLabel("Starting point:");
-		lbStart.setBounds(45, 66, 106, 13);
+		lbStart.setBounds(91, 164, 106, 13);
 		contentPane.add(lbStart);
 		
 		JLabel lbStop = new JLabel("    Destination:");
-		lbStop.setBounds(45, 110, 89, 16);
+		lbStop.setBounds(91, 208, 89, 16);
 		contentPane.add(lbStop);
 	}
 }
