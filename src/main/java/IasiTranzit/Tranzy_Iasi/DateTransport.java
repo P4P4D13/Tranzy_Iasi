@@ -7,17 +7,17 @@ import java.net.URL;
 
 public class DateTransport {
     private static final String API_URL = "https://api.tranzy.ai/v1/opendata/vehicles";
-    private static final String API_KEY = "oQh5WQTQi6aYXGNe9tl0II0AtMvAdaYVrYd27hvOI"; // Înlocuiește cu cheia API
-    private static final String API_ID = "1";
+    private static final String API_KEY = "oQh5WQTQi6aYXGNe9tl0II0AtMvAdaYVrYd27hvO"; // Înlocuiește cu cheia API
+    private static final String AGENCY_ID = "1"; // ID-ul agenției
 
     public static String getTransportData() throws Exception {
         URL url = new URL(API_URL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Authorization", "Bearer " + API_KEY);
-        conn.setRequestProperty("X-API-ID", API_ID);
-        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Adăugăm User-Agent
+        conn.setRequestProperty("X-API-KEY", API_KEY); // Modificat corect
+        conn.setRequestProperty("X-Agency-Id", AGENCY_ID); // Modificat corect
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Evităm blocarea cererii
 
         if (conn.getResponseCode() != 200) {
             throw new RuntimeException("HTTP error code : " + conn.getResponseCode());
