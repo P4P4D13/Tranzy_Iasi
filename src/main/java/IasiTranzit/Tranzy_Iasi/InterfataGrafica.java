@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
 
 public class InterfataGrafica extends JFrame {
 
@@ -25,6 +26,8 @@ public class InterfataGrafica extends JFrame {
 	private JPanel contentPane;
 	private JTextField statie_plecare;
 	private JTextField statie_sosire;
+	private final ButtonGroup grupFont = new ButtonGroup();
+	private final ButtonGroup grupTheme = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -56,21 +59,26 @@ public class InterfataGrafica extends JFrame {
 		menuBar.add(mnFont);
 		
 		JRadioButton b12 = new JRadioButton("12");
+		grupFont.add(b12);
 		mnFont.add(b12);
 		
 		JRadioButton b14 = new JRadioButton("14");
+		grupFont.add(b14);
 		mnFont.add(b14);
 		
 		JRadioButton b16 = new JRadioButton("16");
+		grupFont.add(b16);
 		mnFont.add(b16);
 		
 		JMenu mnTheme = new JMenu("Theme");
 		menuBar.add(mnTheme);
 		
 		JRadioButton rbLight = new JRadioButton("Light");
+		grupTheme.add(rbLight);
 		mnTheme.add(rbLight);
 		
 		JRadioButton rbDark = new JRadioButton("Dark");
+		grupTheme.add(rbDark);
 		mnTheme.add(rbDark);
 		
 		JMenuBar menuBar_1 = new JMenuBar();
@@ -96,11 +104,11 @@ public class InterfataGrafica extends JFrame {
 		contentPane.add(statie_sosire);
 		
 		JLabel lbStart = new JLabel("Starting point:");
-		lbStart.setBounds(75, 66, 76, 13);
+		lbStart.setBounds(45, 66, 106, 13);
 		contentPane.add(lbStart);
 		
-		JLabel lbStop = new JLabel("Destination:");
-		lbStop.setBounds(75, 110, 59, 16);
+		JLabel lbStop = new JLabel("    Destination:");
+		lbStop.setBounds(45, 110, 89, 16);
 		contentPane.add(lbStop);
 	}
 }
