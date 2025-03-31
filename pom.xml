@@ -34,20 +34,19 @@
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- Optionally: parameterized tests support -->
+   
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
-<<<<<<< HEAD
+
 <dependency>
     <groupId>org.apache.httpcomponents.client5</groupId>
     <artifactId>httpclient5</artifactId>
     <version>5.4.2</version>
 </dependency>
-=======
->>>>>>> 08a0bc43436f62e5221f6de523d684b12d03a153
+
   </dependencies>
 
   <build>
