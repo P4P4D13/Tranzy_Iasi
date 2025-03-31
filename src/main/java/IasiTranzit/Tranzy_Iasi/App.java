@@ -1,5 +1,6 @@
 package IasiTranzit.Tranzy_Iasi;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -42,3 +43,14 @@ e.printStackTrace();
 }
 }
 }
+=======
+/**
+ * Hello world!
+ */
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        System.out.println("AlexL");
+    }
+}
+>>>>>>> 08a0bc43436f62e5221f6de523d684b12d03a153
