@@ -36,6 +36,11 @@
     </dependency>
     <!-- Optionally: parameterized tests support -->
     <dependency>
+    <groupId>com.formdev</groupId>
+    <artifactId>flatlaf</artifactId>
+    <version>3.4.1</version> </dependency>
+    <dependency>
+
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
