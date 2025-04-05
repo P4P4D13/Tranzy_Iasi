@@ -1,11 +1,5 @@
 package IasiTranzit.Tranzy_Iasi;
 
-<<<<<<< HEAD
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-=======
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -25,45 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
->>>>>>> adaugare_animatie
 import javax.swing.border.EmptyBorder;
 
 public class InterfataGrafica extends JFrame {
 
-<<<<<<< HEAD
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfataGrafica frame = new InterfataGrafica();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public InterfataGrafica() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-	}
-
-}
-=======
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField statie_plecare;
@@ -77,7 +36,7 @@ public class InterfataGrafica extends JFrame {
 
     // --- Animation Variables ---
     private Timer animationTimer;
-    private final int ANIMATION_DURATION_MS = 500; // Keep it slow
+    private final int ANIMATION_DURATION_MS = 800; // Keep it slow
     private final int TIMER_DELAY_MS = 10;
     private long animationStartTime;
     private Point initialPosPlecare, initialPosSosire;
@@ -353,4 +312,3 @@ public class InterfataGrafica extends JFrame {
         }
     }
 }
->>>>>>> adaugare_animatie
