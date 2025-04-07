@@ -8,6 +8,7 @@ import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -33,6 +34,7 @@ public class InterfataGrafica extends JFrame {
     private final ButtonGroup grupTheme = new ButtonGroup();
 
     private JButton nextButton;
+    private JButton backButton;
     private JButton settingsButton;
     private JRadioButton b12, b14, b16;
     private JRadioButton rbLight, rbDark;
@@ -127,7 +129,132 @@ public class InterfataGrafica extends JFrame {
     
     private void openSettingsDialog() {
       JDialog settingsDialog = new JDialog(this, "Settings", true);
-    //creaza dialog pt font si tema
+      JFrame settingsFrame = new JFrame("Settings");
+      settingsFrame.setSize(300, 200);
+      settingsFrame.setLocationRelativeTo(this);  // Center the new window relative to the main window
+      settingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+      // Create a panel for the content of the settings window
+      JPanel settingsPanel = new JPanel();
+      settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));  // Use vertical box layout
+
+      // Theme settings
+      JLabel themeLabel = new JLabel("Choose Theme:");
+      JRadioButton lightTheme = new JRadioButton("Light Theme");
+      JRadioButton darkTheme = new JRadioButton("Dark Theme");
+      ButtonGroup themeGroup = new ButtonGroup();
+      themeGroup.add(lightTheme);
+      themeGroup.add(darkTheme);
+
+      // Set the initial theme based on current LookAndFeel
+      if (UIManager.getLookAndFeel().getName().toLowerCase().contains("dark")) {
+          darkTheme.setSelected(true);
+      } else {
+          lightTheme.setSelected(true);
+      }
+
+      // Font size settings
+      JLabel fontSizeLabel = new JLabel("Choose Font Size:");
+      JRadioButton font12 = new JRadioButton("12");
+      JRadioButton font14 = new JRadioButton("14");
+      JRadioButton font16 = new JRadioButton("16");
+      ButtonGroup fontSizeGroup = new ButtonGroup();
+      fontSizeGroup.add(font12);
+      fontSizeGroup.add(font14);
+      fontSizeGroup.add(font16);
+
+      // Set the initial font size based on the current font
+      int currentFontSize = getCurrentFontSize();
+      if (currentFontSize == 12) {
+          font12.setSelected(true);
+      } else if (currentFontSize == 14) {
+          font14.setSelected(true);
+      } else if (currentFontSize == 16) {
+          font16.setSelected(true);
+      }
+
+      // Add components to the settings panel
+      settingsPanel.add(themeLabel);
+      settingsPanel.add(lightTheme);
+      settingsPanel.add(darkTheme);
+      settingsPanel.add(fontSizeLabel);
+      settingsPanel.add(font12);
+      settingsPanel.add(font14);
+      settingsPanel.add(font16);
+
+      // Create Save and Cancel buttons
+      JPanel buttonPanel = new JPanel();
+      JButton saveButton = new JButton("Save");
+      JButton cancelButton = new JButton("Cancel");
+
+      // Save Button ActionListener
+      saveButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              // Change theme based on user selection
+              if (lightTheme.isSelected()) {
+                  try {
+                      UIManager.setLookAndFeel(new FlatLightLaf());
+                  } catch (UnsupportedLookAndFeelException ex) {
+                      ex.printStackTrace();
+                  }
+              } else if (darkTheme.isSelected()) {
+                  try {
+                      UIManager.setLookAndFeel(new FlatDarkLaf());
+                  } catch (UnsupportedLookAndFeelException ex) {
+                      ex.printStackTrace();
+                  }
+              }
+
+              // Change font size based on user selection
+              int selectedFontSize = 12;
+              if (font14.isSelected()) {
+                  selectedFontSize = 14;
+              } else if (font16.isSelected()) {
+                  selectedFontSize = 16;
+              }
+
+              updateFontSize(selectedFontSize);
+
+              // Revalidate and repaint the main frame to apply changes
+              SwingUtilities.updateComponentTreeUI(InterfataGrafica.this); // Refresh main window
+              settingsFrame.dispose(); // Close the settings window
+          }
+      });
+
+      // Cancel Button ActionListener
+      cancelButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              settingsFrame.dispose(); // Close the settings frame without making changes
+          }
+      });
+
+      // Add buttons to the button panel
+      buttonPanel.add(saveButton);
+      buttonPanel.add(cancelButton);
+      settingsFrame.add(buttonPanel, BorderLayout.SOUTH);
+
+      // Add settings panel to the frame
+      settingsFrame.add(settingsPanel, BorderLayout.CENTER);
+
+      // Make the settings window visible
+      settingsFrame.setVisible(true);
+  }
+
+  // Helper method to get the current font size
+  private int getCurrentFontSize() {
+      Font currentFont = statie_plecare.getFont(); // Get the font of any component (like text field)
+      return currentFont.getSize();
+  }
+
+  // Helper method to update the font size for all components
+  private void updateFontSize(int newSize) {
+      Font currentFont = new Font("Arial", Font.PLAIN, newSize); // Update to new font size
+      statie_plecare.setFont(currentFont);
+      statie_sosire.setFont(currentFont);
+      nextButton.setFont(currentFont);
+      // Update other components' font size as needed
   }
     
     private float easeOutSine(float t) {
