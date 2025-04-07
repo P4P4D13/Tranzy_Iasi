@@ -17,6 +17,8 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,8 +33,10 @@ public class InterfataGrafica extends JFrame {
     private final ButtonGroup grupTheme = new ButtonGroup();
 
     private JButton nextButton;
+    private JButton settingsButton;
     private JRadioButton b12, b14, b16;
     private JRadioButton rbLight, rbDark;
+  
 
     // --- Animation Variables ---
     private Timer animationTimer;
@@ -48,6 +52,7 @@ public class InterfataGrafica extends JFrame {
     private float targetButtonAlpha = 0.0f;
     private LayoutManager originalInputLayout;
     private JPanel inputPanel;
+    private JPanel footerPanel;
 
     // --- Results Panel ---
     private JPanel resultsPanel;
@@ -62,7 +67,7 @@ public class InterfataGrafica extends JFrame {
 
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
-
+        
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
         contentPane.add(inputPanel, BorderLayout.CENTER);
@@ -91,13 +96,40 @@ public class InterfataGrafica extends JFrame {
 
         resultsPanel = new JPanel();
         resultsPanel.add(new JLabel("Search results will appear here..."));
+        
+        createFooterPanel();
+        contentPane.add(footerPanel, BorderLayout.SOUTH);
 
         nextButton.addActionListener(e -> startAnimation());
-
+        
         pack();
         setLocationRelativeTo(null);
     }
 
+    private void createFooterPanel() {
+      footerPanel = new JPanel(new BorderLayout());
+      footerPanel.setBorder(new EmptyBorder(5, 10, 10, 10));
+      
+      settingsButton = new JButton("Settings");
+      settingsButton.putClientProperty("JButton.buttonType", "roundRect");
+      settingsButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
+      settingsButton.setFocusPainted(false);
+      
+      // Set a preferred size for the button to make it smaller
+      settingsButton.setPreferredSize(new Dimension(100, 30));
+      
+      // Add action listener to the settings button
+      settingsButton.addActionListener(e -> openSettingsDialog());
+      
+      // Add the button to the right side of the footer panel
+      footerPanel.add(settingsButton, BorderLayout.WEST);
+    }
+    
+    private void openSettingsDialog() {
+      JDialog settingsDialog = new JDialog(this, "Settings", true);
+    //creaza dialog pt font si tema
+  }
+    
     private float easeOutSine(float t) {
         return (float) Math.sin(t * Math.PI / 2.0);
     }
@@ -311,4 +343,5 @@ public class InterfataGrafica extends JFrame {
             g2d.dispose();
         }
     }
+    
 }
