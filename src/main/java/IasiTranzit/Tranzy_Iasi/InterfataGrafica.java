@@ -85,10 +85,11 @@ public class InterfataGrafica extends JFrame {
         gbc.gridx = 0; gbc.gridy = 0;
         inputPanel.add(statie_plecare, gbc);
 
-        statie_sosire = new JTextField(20);
+       /* statie_sosire = new JTextField(20);
         statie_sosire.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Destination");
         gbc.gridx = 0; gbc.gridy = 1;
         inputPanel.add(statie_sosire, gbc);
+        */ //de sters 
 
         nextButton = new FadeButton("Find Route");
         nextButton.putClientProperty("JButton.buttonType", "roundRect");
