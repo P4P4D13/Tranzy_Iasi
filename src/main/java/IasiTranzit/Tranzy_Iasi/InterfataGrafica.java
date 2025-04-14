@@ -33,7 +33,7 @@ public class InterfataGrafica extends JFrame {
 
 
     private JButton nextButton;
-    //private JButton backButton;
+    private JButton backButton;
     private JButton settingsButton;
     private JRadioButton b12, b14, b16;
     private JRadioButton rbLight, rbDark;
@@ -116,14 +116,22 @@ public class InterfataGrafica extends JFrame {
       settingsButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
       settingsButton.setFocusPainted(false);
       
+      backButton=new JButton("<");
+      settingsButton.putClientProperty("JButton.buttonType", "roundRect");
+      settingsButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
+      settingsButton.setFocusPainted(false);
+      
       // Set a preferred size for the button to make it smaller
       settingsButton.setPreferredSize(new Dimension(100, 30));
+      backButton.setPreferredSize(new Dimension(50, 30));
       
       // Add action listener to the settings button
+      settingsButton.addActionListener(e -> openSettingsDialog());
       settingsButton.addActionListener(e -> openSettingsDialog());
       
       // Add the button to the right side of the footer panel
       footerPanel.add(settingsButton, BorderLayout.WEST);
+      footerPanel.add(backButton,BorderLayout.EAST);
     }
     
     private void openSettingsDialog() {
