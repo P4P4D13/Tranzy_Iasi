@@ -38,7 +38,8 @@ return response.toString();
 
 public static void writeToFile(String jsonContent, String filename) {
     try (FileWriter file = new FileWriter(filename)) {
-        file.write(jsonContent); 
+    	JSONArray json=new JSONArray(jsonContent);
+        file.write(json.toString(4)); 
         System.out.println("Datele au fost scrise în fișierul: " + filename);
     } catch (IOException e) {
         e.printStackTrace();
