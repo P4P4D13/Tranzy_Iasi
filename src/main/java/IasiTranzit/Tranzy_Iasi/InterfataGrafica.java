@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -117,9 +118,9 @@ public class InterfataGrafica extends JFrame {
       settingsButton.setFocusPainted(false);
       
       backButton=new JButton("<");
-      settingsButton.putClientProperty("JButton.buttonType", "roundRect");
-      settingsButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
-      settingsButton.setFocusPainted(false);
+      backButton.putClientProperty("JButton.buttonType", "roundRect");
+      backButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
+      backButton.setFocusPainted(false);
       
       // Set a preferred size for the button to make it smaller
       settingsButton.setPreferredSize(new Dimension(100, 30));
@@ -127,10 +128,24 @@ public class InterfataGrafica extends JFrame {
       
       // Add action listener to the settings button
       settingsButton.addActionListener(e -> openSettingsDialog());
+<<<<<<< HEAD
+=======
+      backButton.addActionListener(e -> backFunc());
+>>>>>>> 64045b14df7bb20f240da9bd1ab291153fdd8891
       
       // Add the button to the right side of the footer panel
       footerPanel.add(settingsButton, BorderLayout.WEST);
       footerPanel.add(backButton,BorderLayout.EAST);
+    }
+    
+    private void backFunc() {
+    	
+    	// Creates a new window
+    	InterfataGrafica newFrame = new InterfataGrafica();
+    	newFrame.setVisible(true);
+    	
+    	// Close the initial window
+    	this.dispose();
     }
     
     private void openSettingsDialog() {
