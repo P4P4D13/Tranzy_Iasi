@@ -127,7 +127,6 @@ public class InterfataGrafica extends JFrame {
       
       // Add action listener to the settings button
       settingsButton.addActionListener(e -> openSettingsDialog());
-      settingsButton.addActionListener(e -> openSettingsDialog());
       
       // Add the button to the right side of the footer panel
       footerPanel.add(settingsButton, BorderLayout.WEST);
