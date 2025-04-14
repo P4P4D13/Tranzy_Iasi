@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -136,6 +137,12 @@ public class InterfataGrafica extends JFrame {
     
     private void backFunc() {
     	
+    	// Creates a new window
+    	InterfataGrafica newFrame = new InterfataGrafica();
+    	newFrame.setVisible(true);
+    	
+    	// Close the initial window
+    	this.dispose();
     }
     
     private void openSettingsDialog() {
