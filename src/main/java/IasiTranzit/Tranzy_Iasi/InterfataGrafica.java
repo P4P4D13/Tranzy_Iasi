@@ -52,11 +52,12 @@ public class InterfataGrafica extends JFrame {
     // --- Results Panel ---
     private JPanel resultsPanel;
 
+    
     public InterfataGrafica() {
         setTitle("Tranzy Iasi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 500));
-        setResizable(false);
+        setResizable(true);
 
         setupMenuBar();
 
