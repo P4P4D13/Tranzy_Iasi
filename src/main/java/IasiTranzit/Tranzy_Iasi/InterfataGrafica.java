@@ -117,9 +117,9 @@ public class InterfataGrafica extends JFrame {
       settingsButton.setFocusPainted(false);
       
       backButton=new JButton("<");
-      settingsButton.putClientProperty("JButton.buttonType", "roundRect");
-      settingsButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
-      settingsButton.setFocusPainted(false);
+      backButton.putClientProperty("JButton.buttonType", "roundRect");
+      backButton.putClientProperty(FlatClientProperties.BUTTON_TYPE, "toolBarButton");
+      backButton.setFocusPainted(false);
       
       // Set a preferred size for the button to make it smaller
       settingsButton.setPreferredSize(new Dimension(100, 30));
@@ -127,11 +127,15 @@ public class InterfataGrafica extends JFrame {
       
       // Add action listener to the settings button
       settingsButton.addActionListener(e -> openSettingsDialog());
-      settingsButton.addActionListener(e -> openSettingsDialog());
+      backButton.addActionListener(e -> backFunc());
       
       // Add the button to the right side of the footer panel
       footerPanel.add(settingsButton, BorderLayout.WEST);
       footerPanel.add(backButton,BorderLayout.EAST);
+    }
+    
+    private void backFunc() {
+    	
     }
     
     private void openSettingsDialog() {
