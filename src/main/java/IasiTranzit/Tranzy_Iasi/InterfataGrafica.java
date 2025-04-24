@@ -29,6 +29,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class InterfataGrafica extends JFrame {
+	//logica buna aici
     private static final long serialVersionUID = 1L;
 
     private static final String API_KEY = "7DgYhGzTQc5Nn8FfFeuFmhCAWcbadYQEShUjwu3e";
@@ -38,6 +39,9 @@ public class InterfataGrafica extends JFrame {
     private static final String VEHICLES_ENDPOINT = API_BASE_URL + "vehicles";
     private static final String ROUTES_ENDPOINT = API_BASE_URL + "routes";
     private static final String TRIPS_ENDPOINT = API_BASE_URL + "trips";
+    //nefunctional nuj de ce 
+    //la stops e https://api.tranzy.ai/v1/opendata/stops si
+    //https://api.tranzy.ai/v1/opendata/stop_times
     private static final String STOPS_ENDPOINT = API_BASE_URL + "stops";
     private static final String STOP_TIMES_ENDPOINT = API_BASE_URL + "stop_times";
 
@@ -50,7 +54,8 @@ public class InterfataGrafica extends JFrame {
     private JRadioButton b12, b14, b16;
     private JRadioButton rbLight, rbDark;
     private Timer animationTimer;
-    private final int ANIMATION_DURATION_MS = 800;
+    //aici modificam viteza la animatie dupa buton
+    private final int ANIMATION_DURATION_MS = 500;
     private final int TIMER_DELAY_MS = 10;
     private long animationStartTime;
     private Point initialPosInput;
@@ -65,7 +70,7 @@ public class InterfataGrafica extends JFrame {
     private JPanel resultsPanel;
     private JScrollPane resultsScrollPane;
     private JLabel statusLabel;
-
+//Route==Trip ??? sau nu?
     private Map<String, Route> routesMap = new HashMap<>();
     private Map<String, Trip> tripsMap = new HashMap<>();
 /**
@@ -113,7 +118,7 @@ public class InterfataGrafica extends JFrame {
         gbc.ipady = 0;
         inputPanel.add(statusLabel, gbc);
 
-
+//ca sa putem da scroll, e ok 
         resultsPanel = new JPanel();
         resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
         resultsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -133,7 +138,7 @@ public class InterfataGrafica extends JFrame {
 
         loadStaticData();
     }
-
+// de revizuit logica, prea multe exceptii care nu pot sa apara,
     private String fetchData(String endpointUrl) throws IOException {
         URL url = new URL(endpointUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -174,7 +179,9 @@ public class InterfataGrafica extends JFrame {
         connection.disconnect();
         return response.toString();
     }
-
+//poate facem altfel aici sa se schimbe culoarea la buton in verde dupa ce isi da load sau ceva
+    //momentan asa
+    //mult SLOP aici, recomand sa scapam de ce nu e nevoie;
     private void loadStaticData() {
         statusLabel.setText("Loading Routes and Trips...");
         trackButton.setEnabled(false);
@@ -250,7 +257,8 @@ public class InterfataGrafica extends JFrame {
         };
         staticDataLoader.execute();
     }
-
+//folosit la animatie ca sa incetineasca cand ajunge aprope de bara de sus
+    //din nou mult slop aici
     private float easeOutSine(float t) {
         return (float) Math.sin(t * Math.PI / 2.0);
     }
@@ -321,7 +329,8 @@ public class InterfataGrafica extends JFrame {
         });
         animationTimer.start();
     }
-
+//seteaza layout ul nou acum ca animatia e gata
+     //foarte multe exceptii inutile
     private void onAnimationFinished() {
         inputPanel.remove(vehicleIdInput);
         inputPanel.remove(trackButton);
@@ -461,7 +470,8 @@ public class InterfataGrafica extends JFrame {
         };
         worker.execute();
     }
-
+//functie importanta, nu alterati prea tare
+    
     private JPanel createVehiclePanel(DisplayVehicleInfo info) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -486,7 +496,9 @@ public class InterfataGrafica extends JFrame {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(1, 0, 1, 10);
-
+        
+        //ciudat, poate incercam sa vedem ce inseamna N/A (not applicable) poate indica ca trebuei sa mearga in DEPOU
+        //de discutat
         String locationStr = "N/A";
         if (info.vehicle.latitude != null && info.vehicle.longitude != null) {
             locationStr = String.format("%.5f, %.5f", info.vehicle.latitude, info.vehicle.longitude);
@@ -495,11 +507,14 @@ public class InterfataGrafica extends JFrame {
         String speedStr = "N/A";
         if (info.vehicle.speedKmH != null) {
             speedStr = String.format("%.1f km/h", info.vehicle.speedKmH);
+            //aveam probleme aici, nu imi dau seama daca era problema de ziua de paste dar aveam viteze de peste 130 la ora la unele autobuze
+            //posibila eroare la Tranzy.ai de testat in cod
             if (info.vehicle.speedKmH > 100.0) { 
-                speedStr += " (Possibly inaccurate)";
+                speedStr += "viteza neprecisa";
             }
         }
-
+        //recomandat aici, 
+        //sectiunile: Last known position, sau Last stop
         gbc.gridx = 0; gbc.gridy = 0;
         detailsPanel.add(new JLabel("Location:"), gbc);
         gbc.gridx++;
@@ -520,26 +535,27 @@ public class InterfataGrafica extends JFrame {
         detailsPanel.add(new JLabel("Type:"), gbc);
         gbc.gridx++;
         detailsPanel.add(new JLabel(info.vehicle.getVehicleTypeString()), gbc);
-
-        if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.wheelchairAccessible)) {
-             gbc.gridx = 0; gbc.gridy++;
-             detailsPanel.add(new JLabel("Wheelchair:"), gbc);
-             gbc.gridx++;
-             detailsPanel.add(new JLabel(info.vehicle.wheelchairAccessible), gbc);
-        }
-         if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.bikeAccessible)) {
-             gbc.gridx = 0; gbc.gridy++;
-             detailsPanel.add(new JLabel("Bike:"), gbc);
-             gbc.gridx++;
-             detailsPanel.add(new JLabel(info.vehicle.bikeAccessible), gbc);
-         }
+//
+        //Cam inutil aici
+//        if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.wheelchairAccessible)) {
+//             gbc.gridx = 0; gbc.gridy++;
+//             detailsPanel.add(new JLabel("Wheelchair:"), gbc);
+//             gbc.gridx++;
+//             detailsPanel.add(new JLabel(info.vehicle.wheelchairAccessible), gbc);
+//        }
+//         if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.bikeAccessible)) {
+//             gbc.gridx = 0; gbc.gridy++;
+//             detailsPanel.add(new JLabel("Bike:"), gbc);
+//             gbc.gridx++;
+//             detailsPanel.add(new JLabel(info.vehicle.bikeAccessible), gbc);
+//         }
 
         panel.add(detailsPanel);
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
 
         return panel;
     }
-
+//basic aici
     private void setupMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -603,7 +619,7 @@ public class InterfataGrafica extends JFrame {
 
         SwingUtilities.invokeLater(this::updateFont);
     }
-
+//fonturile 
     private void updateFont() {
         if (grupFont.getSelection() == null) return;
 
@@ -675,6 +691,7 @@ public class InterfataGrafica extends JFrame {
             return alpha;
         }
 
+        //BUTON CU FADE, functia pare ok nu e incarcata
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g.create();
@@ -695,6 +712,7 @@ public class InterfataGrafica extends JFrame {
             g2d.dispose();
         }
 
+        //probabil e pentru bara de sus, nu sunt sigur
         @Override
         public Dimension getPreferredSize() {
              boolean ocf = isContentAreaFilled();
@@ -720,8 +738,9 @@ public class InterfataGrafica extends JFrame {
         Double longitude;
         long timestampEpochSeconds;
         int vehicleType;
-        String bikeAccessible;
-        String wheelchairAccessible;
+        //consider inutil momentan adaugam poate mai tarziu
+//        String bikeAccessible;
+//        String wheelchairAccessible;
         Double speedKmH;
         String routeId;
         String tripId;
@@ -750,7 +769,7 @@ public class InterfataGrafica extends JFrame {
             } else {
                 v.longitude = null;
             }
-
+             //aici sunt probleme, nu merge
             try {
                 v.timestampEpochSeconds = json.getLong("timestamp");
             } catch (JSONException e) {
@@ -772,9 +791,9 @@ public class InterfataGrafica extends JFrame {
             }
 
             v.vehicleType = json.optInt("vehicle_type", -1);
-            v.bikeAccessible = json.optString("bike_accessible", "UNKNOWN");
-            v.wheelchairAccessible = json.optString("wheelchair_accessible", "UNKNOWN");
-
+//            v.bikeAccessible = json.optString("bike_accessible", "UNKNOWN");
+//            v.wheelchairAccessible = json.optString("wheelchair_accessible", "UNKNOWN");
+            // aici viteza e transformata in km/h teoretic corect din nou nu sunt sigur de ce sunt erori in viteza 
             if (json.has("speed") && !json.isNull("speed")) {
                 double speedMs = json.optDouble("speed", Double.NaN);
                 if (!Double.isNaN(speedMs)) {
@@ -785,7 +804,8 @@ public class InterfataGrafica extends JFrame {
             } else {
                 v.speedKmH = null;
             }
-
+//aici se repeta astea doua
+            //1
             Object routeIdObj = json.opt("route_id");
              if (routeIdObj == null || routeIdObj == JSONObject.NULL) {
                  v.routeId = null;
@@ -797,8 +817,7 @@ public class InterfataGrafica extends JFrame {
                      v.routeId = routeIdStr;
                  }
              }
-
-
+            //2
             Object tripIdObj = json.opt("trip_id");
               if (tripIdObj == null || tripIdObj == JSONObject.NULL) {
                   v.tripId = null;
