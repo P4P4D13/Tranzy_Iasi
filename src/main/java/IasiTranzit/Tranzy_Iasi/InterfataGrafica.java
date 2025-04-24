@@ -68,9 +68,11 @@ public class InterfataGrafica extends JFrame {
 
     private Map<String, Route> routesMap = new HashMap<>();
     private Map<String, Trip> tripsMap = new HashMap<>();
-
+/**
+ * Configurare de bază a proiectului setare titlu dimensiuni,layout, content
+ */
     public InterfataGrafica() {
-        setTitle("Tranzy Iasi - Vehicle Tracker");
+        setTitle("Tranzy Iasi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(450, 650));
         setResizable(true);
@@ -83,7 +85,9 @@ public class InterfataGrafica extends JFrame {
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
         contentPane.add(inputPanel, BorderLayout.CENTER);
-
+        /**
+         * gbc= layout ul gridbag pentru pozitonare elemente
+         */
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 5, 10, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -93,7 +97,9 @@ public class InterfataGrafica extends JFrame {
         vehicleIdInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter Bus/Tram Label or Route (e.g., 3b, 7, 123)");
         gbc.gridx = 0; gbc.gridy = 0;
         inputPanel.add(vehicleIdInput, gbc);
-
+        /**
+         * 
+         */
         trackButton = new FadeButton("Track Vehicle");
         trackButton.putClientProperty("JButton.buttonType", "roundRect");
         trackButton.setEnabled(false);
@@ -639,7 +645,7 @@ public class InterfataGrafica extends JFrame {
             } else {
                 UIManager.setLookAndFeel(new FlatLightLaf());
             }
-            UIManager.put("TextComponent.arc", 10);
+            UIManager.put("TextComponent.arc"	, 10);
             UIManager.put("Button.arc", 10);
 
             SwingUtilities.updateComponentTreeUI(this);
