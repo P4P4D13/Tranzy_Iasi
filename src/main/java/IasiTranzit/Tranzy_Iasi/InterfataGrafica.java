@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+//tot nu functioneaza aici
 import java.util.TimeZone; // <<< FIX: Added this import
 import java.util.concurrent.ExecutionException;
 import javax.swing.*;
@@ -179,10 +180,6 @@ public class InterfataGrafica extends JFrame {
         connection.disconnect();
         return response.toString();
     }
-//poate facem altfel aici sa se schimbe culoarea la buton in verde dupa ce isi da load sau ceva
-    //momentan asa
-    //mult SLOP aici, recomand sa scapam de ce nu e nevoie;
- 
     /**
      * Inacarca date statice, rute si trasee, folosind SwingWorker
      * Actualizeaza interfata in functie de succesul sau esecul operatiei
@@ -196,33 +193,8 @@ public class InterfataGrafica extends JFrame {
             @Override
             protected Boolean doInBackground() throws Exception {
                 try {
-                	/*
-                    System.out.println("Fetching routes from: " + ROUTES_ENDPOINT);
-                    String routesJson = fetchData(ROUTES_ENDPOINT);
-                    JSONArray routesArray = new JSONArray(routesJson);
-                    Map<String, Route> tempRoutesMap = new HashMap<>();
-                    for (int i = 0; i < routesArray.length(); i++) {
-                        Route route = Route.fromJson(routesArray.getJSONObject(i));
-                        tempRoutesMap.put(route.id, route);
-                    }
-                    
-                    routesMap = tempRoutesMap;
-                    System.out.println("Loaded " + routesMap.size() + " routes.");
-
-                    System.out.println("Fetching trips from: " + TRIPS_ENDPOINT);
-                    String tripsJson = fetchData(TRIPS_ENDPOINT);
-                    JSONArray tripsArray = new JSONArray(tripsJson);
-                    Map<String, Trip> tempTripsMap = new HashMap<>();
-                    for (int i = 0; i < tripsArray.length(); i++) {
-                        Trip trip = Trip.fromJson(tripsArray.getJSONObject(i));
-                        tempTripsMap.put(trip.id, trip);
-                    }
-                    tripsMap = tempTripsMap;
-                    System.out.println("Loaded " + tripsMap.size() + " trips.");
-*/
                 	 routesMap = loadRoutes();
                 	 tripsMap=loadTrips();
-                	
                     return true;
                 } catch (IOException | JSONException e) {
                     System.err.println("Error during static data loading: " + e.getMessage());
@@ -236,45 +208,15 @@ public class InterfataGrafica extends JFrame {
                 try {
                     Boolean success = get();
                     if (success) {
-                    	/*
-                        statusLabel.setText("Data loaded. Ready.");
-                        trackButton.setEnabled(true);
-    					*/
                     	loadingSuccess();
                     } else {
-                        /*
-                    	statusLabel.setText("Failed to load static data (unexpected).");
-                         JOptionPane.showMessageDialog(InterfataGrafica.this,
-                                "Failed to load necessary route/trip data.\nPlease check configuration or network.",
-                                "Data Loading Error", JOptionPane.ERROR_MESSAGE);
-   						*/
                     	loadingFail("Failed to load necessary route/trip data.\\nPlease check configuration or network.");
                     }
                 } catch (InterruptedException e) {
                      Thread.currentThread().interrupt();
                      loadingWarning("Data loading interrupted");
-                     /*
-                     System.err.println("Static data loading interrupted: " + e.getMessage());
-                     statusLabel.setText("Data loading interrupted.");
-                     JOptionPane.showMessageDialog(InterfataGrafica.this, "Data loading was interrupted.", "Interrupted", JOptionPane.WARNING_MESSAGE);
-                     */
                 } catch (ExecutionException e) {
                 	onLoadingException(e.getCause());
-                	/*
-                    e.printStackTrace();
-                    statusLabel.setText("Error loading static data!");
-                    Throwable cause = e.getCause();
-                     String errorMsg = "Failed to load necessary route/trip data.\n";
-                    if (cause instanceof IOException) {
-                        errorMsg += "Network or API Error: " + cause.getMessage();
-                    } else if (cause instanceof JSONException) {
-                         errorMsg += "Error parsing data from API. Check JSON format.";
-                         System.err.println("JSON Parsing Error: " + cause.getMessage());
-                     } else {
-                         errorMsg += "An unexpected error occurred: " + cause.getMessage();
-                     }
-                    JOptionPane.showMessageDialog(InterfataGrafica.this, errorMsg, "Data Loading Error", JOptionPane.ERROR_MESSAGE);
-                	*/
                 }
             }
         };
@@ -392,23 +334,6 @@ public class InterfataGrafica extends JFrame {
         }
 
         trackButton.setEnabled(false);
-/*
-        initialPosInput = vehicleIdInput.getLocation();
-        initialSizeInput = vehicleIdInput.getSize();
-        targetWidth = inputPanel.getWidth() - (2 * horizontalPadding);
-
-        inputPanel.setLayout(null);
-        vehicleIdInput.setBounds(initialPosInput.x, initialPosInput.y, initialSizeInput.width, initialSizeInput.height);
-
-        Point initialPosButton = trackButton.getLocation();
-        Dimension initialSizeButton = trackButton.getSize();
-        trackButton.setBounds(initialPosButton.x, initialPosButton.y, initialSizeButton.width, initialSizeButton.height);
-
-        inputPanel.add(vehicleIdInput);
-        inputPanel.add(trackButton);
-        inputPanel.revalidate();
-        inputPanel.repaint();
-*/
         prepareAnimation();
         
         animationStartTime = System.currentTimeMillis();
@@ -425,22 +350,6 @@ public class InterfataGrafica extends JFrame {
 
                 updateInputAnimation(easedProgress);
                 updateButtonAnimation(easedProgress);
-                /*
-                int targetYInput = targetYText;
-                int newYInput = Math.round(initialPosInput.y + (targetYInput - initialPosInput.y) * easedProgress);
-                int newWidth = Math.round(initialSizeInput.width + (targetWidth - initialSizeInput.width) * easedProgress);
-                int centeredTargetX = (inputPanel.getWidth() - newWidth) / 2;
-                int newXInput = Math.round(initialPosInput.x + (centeredTargetX - initialPosInput.x) * easedProgress);
-                int currentHeightInput = initialSizeInput.height;
-                vehicleIdInput.setBounds(newXInput, newYInput, newWidth, currentHeightInput);
-
-                float newAlpha = initialButtonAlpha + (targetButtonAlpha - initialButtonAlpha) * easedProgress;
-                if (trackButton instanceof FadeButton) {
-                    ((FadeButton) trackButton).setAlpha(newAlpha);
-                } else {
-                    trackButton.setVisible(newAlpha > 0.05f);
-                }
-                */
                 inputPanel.repaint();
 
                 if (linearProgress >= 1.0f) {
@@ -451,8 +360,6 @@ public class InterfataGrafica extends JFrame {
         });
         animationTimer.start();
     }
-     
-     //setari necesare inainte de a incepe animatia
      /**
       * Pregateste parametrii initiali necesari pentru animatie
       */
@@ -507,31 +414,6 @@ public class InterfataGrafica extends JFrame {
 //seteaza layout ul nou acum ca animatia e gata
      //foarte multe exceptii inutile
     private void onAnimationFinished() {
-        /*
-    	inputPanel.remove(vehicleIdInput);
-        inputPanel.remove(trackButton);
-        contentPane.remove(inputPanel);
-
-        topPanel.removeAll();
-        GridBagConstraints gbcTop = new GridBagConstraints();
-        gbcTop.gridx = 0; gbcTop.gridy = 0;
-        gbcTop.fill = GridBagConstraints.HORIZONTAL;
-        gbcTop.weightx = 1.0;
-        gbcTop.insets = new Insets(0, 0, 5, 0);
-        topPanel.add(vehicleIdInput, gbcTop);
-
-        contentPane.add(topPanel, BorderLayout.NORTH);
-        contentPane.add(resultsScrollPane, BorderLayout.CENTER);
-
-        if (trackButton instanceof FadeButton) {
-            ((FadeButton) trackButton).setAlpha(initialButtonAlpha);
-        }
-        trackButton.setVisible(false);
-
-        contentPane.revalidate();
-        contentPane.repaint();
-         */
-    	
     	resetInputPanel();
     	resetTopPanelLayout();
     	resetButtonState();
@@ -761,20 +643,6 @@ public class InterfataGrafica extends JFrame {
         detailsPanel.add(new JLabel("Type:"), gbc);
         gbc.gridx++;
         detailsPanel.add(new JLabel(info.vehicle.getVehicleTypeString()), gbc);
-//
-        //Cam inutil aici
-//        if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.wheelchairAccessible)) {
-//             gbc.gridx = 0; gbc.gridy++;
-//             detailsPanel.add(new JLabel("Wheelchair:"), gbc);
-//             gbc.gridx++;
-//             detailsPanel.add(new JLabel(info.vehicle.wheelchairAccessible), gbc);
-//        }
-//         if (!"UNKNOWN".equalsIgnoreCase(info.vehicle.bikeAccessible)) {
-//             gbc.gridx = 0; gbc.gridy++;
-//             detailsPanel.add(new JLabel("Bike:"), gbc);
-//             gbc.gridx++;
-//             detailsPanel.add(new JLabel(info.vehicle.bikeAccessible), gbc);
-//         }
 
         panel.add(detailsPanel);
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
@@ -1030,7 +898,8 @@ public class InterfataGrafica extends JFrame {
             } else {
                 v.speedKmH = null;
             }
-//aici se repeta astea doua
+//aici se repeta astea doua 
+            //nu cred ca e bine trebuie sa clarificam diferenta dintre route si trip
             //1
             Object routeIdObj = json.opt("route_id");
              if (routeIdObj == null || routeIdObj == JSONObject.NULL) {
