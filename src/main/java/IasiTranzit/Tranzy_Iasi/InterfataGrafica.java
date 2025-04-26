@@ -349,7 +349,7 @@ public class InterfataGrafica extends JFrame {
         }
 
         trackButton.setEnabled(false);
-
+/*
         initialPosInput = vehicleIdInput.getLocation();
         initialSizeInput = vehicleIdInput.getSize();
         targetWidth = inputPanel.getWidth() - (2 * horizontalPadding);
@@ -365,7 +365,9 @@ public class InterfataGrafica extends JFrame {
         inputPanel.add(trackButton);
         inputPanel.revalidate();
         inputPanel.repaint();
-
+*/
+        prepareAnimation();
+        
         animationStartTime = System.currentTimeMillis();
         if (animationTimer != null && animationTimer.isRunning()) {
             animationTimer.stop();
@@ -378,6 +380,9 @@ public class InterfataGrafica extends JFrame {
                 float linearProgress = Math.min(1.0f, (float) elapsed / ANIMATION_DURATION_MS);
                 float easedProgress = easeOutSine(linearProgress);
 
+                updateInputAnimation(easedProgress);
+                updateButtonAnimation(easedProgress);
+                /*
                 int targetYInput = targetYText;
                 int newYInput = Math.round(initialPosInput.y + (targetYInput - initialPosInput.y) * easedProgress);
                 int newWidth = Math.round(initialSizeInput.width + (targetWidth - initialSizeInput.width) * easedProgress);
@@ -392,7 +397,7 @@ public class InterfataGrafica extends JFrame {
                 } else {
                     trackButton.setVisible(newAlpha > 0.05f);
                 }
-
+                */
                 inputPanel.repaint();
 
                 if (linearProgress >= 1.0f) {
@@ -403,10 +408,53 @@ public class InterfataGrafica extends JFrame {
         });
         animationTimer.start();
     }
+     
+     //setari necesare inainte de a incepe animatia
+     private void prepareAnimation() {
+
+         initialPosInput = vehicleIdInput.getLocation();
+         initialSizeInput = vehicleIdInput.getSize();
+         targetWidth = inputPanel.getWidth() - (2 * horizontalPadding);
+
+         inputPanel.setLayout(null);
+         vehicleIdInput.setBounds(initialPosInput.x, initialPosInput.y, initialSizeInput.width, initialSizeInput.height);
+
+         Point initialPosButton = trackButton.getLocation();
+         Dimension initialSizeButton = trackButton.getSize();
+         trackButton.setBounds(initialPosButton.x, initialPosButton.y, initialSizeButton.width, initialSizeButton.height);
+
+         inputPanel.add(vehicleIdInput);
+         inputPanel.add(trackButton);
+         inputPanel.revalidate();
+         inputPanel.repaint();
+     }
+     
+     private void updateInputAnimation(float progress) {
+    	 
+         int targetYInput = targetYText;
+         int newYInput = Math.round(initialPosInput.y + (targetYInput - initialPosInput.y) * progress);
+         int newWidth = Math.round(initialSizeInput.width + (targetWidth - initialSizeInput.width) * progress);
+         int centeredTargetX = (inputPanel.getWidth() - newWidth) / 2;
+         int newXInput = Math.round(initialPosInput.x + (centeredTargetX - initialPosInput.x) * progress);
+         int currentHeightInput = initialSizeInput.height;
+         
+         vehicleIdInput.setBounds(newXInput, newYInput, newWidth, currentHeightInput);
+     }
+     
+     private void updateButtonAnimation(float progress) {
+    	 float newAlpha = initialButtonAlpha + (targetButtonAlpha - initialButtonAlpha) * progress;
+         if (trackButton instanceof FadeButton) {
+             ((FadeButton) trackButton).setAlpha(newAlpha);
+         } else {
+             trackButton.setVisible(newAlpha > 0.05f);
+         }
+     }
+     
 //seteaza layout ul nou acum ca animatia e gata
      //foarte multe exceptii inutile
     private void onAnimationFinished() {
-        inputPanel.remove(vehicleIdInput);
+        /*
+    	inputPanel.remove(vehicleIdInput);
         inputPanel.remove(trackButton);
         contentPane.remove(inputPanel);
 
@@ -428,8 +476,58 @@ public class InterfataGrafica extends JFrame {
 
         contentPane.revalidate();
         contentPane.repaint();
-
+         */
+    	
+    	resetInputPanel();
+    	resetTopPanelLayout();
+    	resetButtonState();
+    	refreshUI();
+    	
         fetchAndDisplayVehicleData();
+    }
+    
+    //fiecare fct verifica conditia de null -> se reduc sansele de aparitie a erorilor
+    
+    private void resetInputPanel() {
+    	if(inputPanel != null) {
+    		inputPanel.remove(vehicleIdInput);
+            inputPanel.remove(trackButton);
+    	}
+    	if(contentPane != null) {
+    		contentPane.remove(inputPanel);
+    	}
+    }
+    
+    private void resetTopPanelLayout() {
+    	if(topPanel!= null) {
+    		topPanel.removeAll();
+            GridBagConstraints gbcTop = new GridBagConstraints();
+            gbcTop.gridx = 0; gbcTop.gridy = 0;
+            gbcTop.fill = GridBagConstraints.HORIZONTAL;
+            gbcTop.weightx = 1.0;
+            gbcTop.insets = new Insets(0, 0, 5, 0);
+            topPanel.add(vehicleIdInput, gbcTop);
+    	}
+    	if(contentPane != null) {
+    		 contentPane.add(topPanel, BorderLayout.NORTH);
+    	     contentPane.add(resultsScrollPane, BorderLayout.CENTER);
+    	}
+    }
+    
+    private void resetButtonState() {
+    	if (trackButton instanceof FadeButton) {
+            ((FadeButton) trackButton).setAlpha(initialButtonAlpha);
+        }
+    	if(trackButton != null) {
+        trackButton.setVisible(false);
+    	}
+    }
+    
+    private void refreshUI() {
+    	if(contentPane != null) {
+    		 contentPane.revalidate();
+    	     contentPane.repaint();
+    	}
     }
 
     private void fetchAndDisplayVehicleData() {
