@@ -103,9 +103,6 @@ public class InterfataGrafica extends JFrame {
         vehicleIdInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter Bus/Tram Label or Route (e.g., 3b, 7, 123)");
         gbc.gridx = 0; gbc.gridy = 0;
         inputPanel.add(vehicleIdInput, gbc);
-        /**
-         * 
-         */
         trackButton = new FadeButton("Track Vehicle");
         trackButton.putClientProperty("JButton.buttonType", "roundRect");
         trackButton.setEnabled(false);
@@ -147,13 +144,10 @@ public class InterfataGrafica extends JFrame {
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("X-API-KEY", API_KEY);
         connection.setRequestProperty("X-Agency-Id", AGENCY_ID);
-
         connection.setConnectTimeout(10000);
         connection.setReadTimeout(15000);
-
         int responseCode = connection.getResponseCode();
         StringBuilder response = new StringBuilder();
-
         if (responseCode == HttpURLConnection.HTTP_OK) {
             try (InputStream inputStream = connection.getInputStream();
                  BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -410,9 +404,6 @@ public class InterfataGrafica extends JFrame {
              trackButton.setVisible(newAlpha > 0.05f);
          }
      }
-     
-//seteaza layout ul nou acum ca animatia e gata
-     //foarte multe exceptii inutile
     private void onAnimationFinished() {
     	resetInputPanel();
     	resetTopPanelLayout();
