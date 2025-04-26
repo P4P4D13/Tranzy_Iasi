@@ -190,6 +190,7 @@ public class InterfataGrafica extends JFrame {
             @Override
             protected Boolean doInBackground() throws Exception {
                 try {
+                	/*
                     System.out.println("Fetching routes from: " + ROUTES_ENDPOINT);
                     String routesJson = fetchData(ROUTES_ENDPOINT);
                     JSONArray routesArray = new JSONArray(routesJson);
@@ -198,6 +199,7 @@ public class InterfataGrafica extends JFrame {
                         Route route = Route.fromJson(routesArray.getJSONObject(i));
                         tempRoutesMap.put(route.id, route);
                     }
+                    
                     routesMap = tempRoutesMap;
                     System.out.println("Loaded " + routesMap.size() + " routes.");
 
@@ -211,7 +213,10 @@ public class InterfataGrafica extends JFrame {
                     }
                     tripsMap = tempTripsMap;
                     System.out.println("Loaded " + tripsMap.size() + " trips.");
-
+*/
+                	 routesMap = loadRoutes();
+                	 tripsMap=loadTrips();
+                	
                     return true;
                 } catch (IOException | JSONException e) {
                     System.err.println("Error during static data loading: " + e.getMessage());
@@ -219,26 +224,37 @@ public class InterfataGrafica extends JFrame {
                     throw e;
                 }
             }
-
+            
             @Override
             protected void done() {
                 try {
                     Boolean success = get();
                     if (success) {
+                    	/*
                         statusLabel.setText("Data loaded. Ready.");
                         trackButton.setEnabled(true);
+    					*/
+                    	loadingSuccess();
                     } else {
-                        statusLabel.setText("Failed to load static data (unexpected).");
+                        /*
+                    	statusLabel.setText("Failed to load static data (unexpected).");
                          JOptionPane.showMessageDialog(InterfataGrafica.this,
                                 "Failed to load necessary route/trip data.\nPlease check configuration or network.",
                                 "Data Loading Error", JOptionPane.ERROR_MESSAGE);
+   						*/
+                    	loadingFail("Failed to load necessary route/trip data.\\nPlease check configuration or network.");
                     }
                 } catch (InterruptedException e) {
                      Thread.currentThread().interrupt();
+                     loadingWarning("Data loading interrupted");
+                     /*
                      System.err.println("Static data loading interrupted: " + e.getMessage());
                      statusLabel.setText("Data loading interrupted.");
                      JOptionPane.showMessageDialog(InterfataGrafica.this, "Data loading was interrupted.", "Interrupted", JOptionPane.WARNING_MESSAGE);
+                     */
                 } catch (ExecutionException e) {
+                	onLoadingException(e.getCause());
+                	/*
                     e.printStackTrace();
                     statusLabel.setText("Error loading static data!");
                     Throwable cause = e.getCause();
@@ -252,11 +268,69 @@ public class InterfataGrafica extends JFrame {
                          errorMsg += "An unexpected error occurred: " + cause.getMessage();
                      }
                     JOptionPane.showMessageDialog(InterfataGrafica.this, errorMsg, "Data Loading Error", JOptionPane.ERROR_MESSAGE);
+                	*/
                 }
             }
         };
         staticDataLoader.execute();
     }
+    
+
+    //fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
+    private Map<String,Route> loadRoutes() throws IOException,JSONException{
+    	String routesJson = fetchData(ROUTES_ENDPOINT);
+    	JSONArray routesArray = new JSONArray(routesJson);
+    	Map<String, Route> tempRoutesMap = new HashMap<>();
+    	for (int i = 0; i < routesArray.length(); i++) {
+    		Route route = Route.fromJson(routesArray.getJSONObject(i));
+    		tempRoutesMap.put(route.id, route);
+    	}
+    return tempRoutesMap;
+    }
+    
+    //fct pt incarcarea traseelor,luat codul din functia doInBackground
+    private Map<String,Trip> loadTrips()throws IOException,JSONException{
+    	String tripsJson = fetchData(TRIPS_ENDPOINT);
+        JSONArray tripsArray = new JSONArray(tripsJson);
+        Map<String, Trip> tempTripsMap = new HashMap<>();
+        for (int i = 0; i < tripsArray.length(); i++) {
+            Trip trip = Trip.fromJson(tripsArray.getJSONObject(i));
+            tempTripsMap.put(trip.id, trip);
+        }
+		return tempTripsMap;
+    }
+    
+    //fct mici pt a nu fi incarcat codul din fct princiapal
+    private void loadingSuccess() {
+    	 statusLabel.setText("Data loaded. Ready.");
+         trackButton.setEnabled(true);
+    }
+    
+    private void loadingWarning(String message) {
+    	statusLabel.setText("Data loading interrupted.");
+    	JOptionPane.showMessageDialog(this, message,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    private void loadingFail(String message) {
+    	statusLabel.setText("Failed to load static data.");
+    	JOptionPane.showMessageDialog(this, message,"Data Loading Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void onLoadingException(Throwable cause) {
+    	statusLabel.setText("Error loading static data!");
+    	 String errorMsg = "Failed to load necessary route/trip data.\n";
+         if (cause instanceof IOException) {
+             errorMsg += "Network or API Error: " + cause.getMessage();
+         } else if (cause instanceof JSONException) {
+              errorMsg += "Error parsing data from API. Check JSON format.";
+              System.err.println("JSON Parsing Error: " + cause.getMessage());
+          } else {
+              errorMsg += "An unexpected error occurred: " + cause.getMessage();
+          }
+         JOptionPane.showMessageDialog(InterfataGrafica.this, errorMsg, "Data Loading Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
 //folosit la animatie ca sa incetineasca cand ajunge aprope de bara de sus
     //din nou mult slop aici
     private float easeOutSine(float t) {
