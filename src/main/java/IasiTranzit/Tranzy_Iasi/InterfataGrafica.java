@@ -74,7 +74,7 @@ public class InterfataGrafica extends JFrame {
     private Map<String, Route> routesMap = new HashMap<>();
     private Map<String, Trip> tripsMap = new HashMap<>();
 /**
- * Configurare de bază a proiectului setare titlu dimensiuni,layout, content
+ * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
  */
     public InterfataGrafica() {
         setTitle("Tranzy Iasi");
@@ -182,6 +182,12 @@ public class InterfataGrafica extends JFrame {
 //poate facem altfel aici sa se schimbe culoarea la buton in verde dupa ce isi da load sau ceva
     //momentan asa
     //mult SLOP aici, recomand sa scapam de ce nu e nevoie;
+ 
+    /**
+     * Inacarca date statice, rute si trasee, folosind SwingWorker
+     * Actualizeaza interfata in functie de succesul sau esecul operatiei
+     */
+    
     private void loadStaticData() {
         statusLabel.setText("Loading Routes and Trips...");
         trackButton.setEnabled(false);
@@ -277,6 +283,12 @@ public class InterfataGrafica extends JFrame {
     
 
     //fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
+/**
+ * 
+ * @return o harta a ID-urilor de ruta catre obiectele Route
+ * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
+ * @throws JSONException daca datele JSON nu sunt valide(alt format)
+ */
     private Map<String,Route> loadRoutes() throws IOException,JSONException{
     	String routesJson = fetchData(ROUTES_ENDPOINT);
     	JSONArray routesArray = new JSONArray(routesJson);
@@ -289,6 +301,13 @@ public class InterfataGrafica extends JFrame {
     }
     
     //fct pt incarcarea traseelor,luat codul din functia doInBackground
+    /**
+     * Incarca datele despre trasee de la un anumit endpoint
+     * 
+     * @return o harta a ID-urilor de traseu catre obiectele Trip
+     * @throws IOException aca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
+     * @throws JSONException daca datele JSON nu sunt valide(alt format)
+     */
     private Map<String,Trip> loadTrips()throws IOException,JSONException{
     	String tripsJson = fetchData(TRIPS_ENDPOINT);
         JSONArray tripsArray = new JSONArray(tripsJson);
@@ -300,22 +319,38 @@ public class InterfataGrafica extends JFrame {
 		return tempTripsMap;
     }
     
-    //fct mici pt a nu fi incarcat codul din fct princiapal
+    //fct mici pt a nu fi incarcat codul din fct principala
+    /**
+     * Actualizeaza interfata pentru a indica faptul ca datele au fost incarcate cu succes
+     */
     private void loadingSuccess() {
     	 statusLabel.setText("Data loaded. Ready.");
          trackButton.setEnabled(true);
     }
     
+    /**
+     * Afiseaza un mesaj de avertizare daca incarcarea datelor e intrerupta
+     * @param message mesajul de avertizare care va fi afisat
+     */
     private void loadingWarning(String message) {
     	statusLabel.setText("Data loading interrupted.");
     	JOptionPane.showMessageDialog(this, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
     
+    /**
+     * Afiseaza un mesaj de eroare in cazul esuarii incarcarii datelor statice 
+     * @param message mesajul de eroare care va fi afisat
+     */
     private void loadingFail(String message) {
     	statusLabel.setText("Failed to load static data.");
     	JOptionPane.showMessageDialog(this, message,"Data Loading Error", JOptionPane.ERROR_MESSAGE);
     }
     
+    /**
+     * Gestioneaza eorile aparute in timpul incarcarii datelor statice
+     * afiseaza un mesaj de eroare detaliat
+     * @param cause cauza exceptiei aparute
+     */
     private void onLoadingException(Throwable cause) {
     	statusLabel.setText("Error loading static data!");
     	 String errorMsg = "Failed to load necessary route/trip data.\n";
@@ -333,10 +368,18 @@ public class InterfataGrafica extends JFrame {
     
 //folosit la animatie ca sa incetineasca cand ajunge aprope de bara de sus
     //din nou mult slop aici
+    /**
+     * Aplica functia pentru a obtine o tranzitie cat mai lina in animatie
+     * @param t progresul liniar al animatiei
+     * @return progresul ajustat conform curbei de easing
+     */
     private float easeOutSine(float t) {
         return (float) Math.sin(t * Math.PI / 2.0);
     }
 
+    /**
+     * Porneste animatia pentru campul de input si butonul de tracking
+     */
      private void startAnimation() {
         String vehicleId = vehicleIdInput.getText().trim();
         if (vehicleId.isEmpty()) {
@@ -410,6 +453,9 @@ public class InterfataGrafica extends JFrame {
     }
      
      //setari necesare inainte de a incepe animatia
+     /**
+      * Pregateste parametrii initiali necesari pentru animatie
+      */
      private void prepareAnimation() {
 
          initialPosInput = vehicleIdInput.getLocation();
@@ -429,6 +475,10 @@ public class InterfataGrafica extends JFrame {
          inputPanel.repaint();
      }
      
+     /**
+      * Actualizeaza pozitia si dimensiunea campului de input in functie de progresul animatiei
+      * @param progress progresul animatiei, intre 0=start si 1=final
+      */
      private void updateInputAnimation(float progress) {
     	 
          int targetYInput = targetYText;
@@ -441,6 +491,10 @@ public class InterfataGrafica extends JFrame {
          vehicleIdInput.setBounds(newXInput, newYInput, newWidth, currentHeightInput);
      }
      
+     /**
+      * Actualizeaza transparenta si vizibilitatea butonului de tracking in functie de progresul animatiei
+      * @param progress progresul animatiei, intre 0=start si 1=final
+      */
      private void updateButtonAnimation(float progress) {
     	 float newAlpha = initialButtonAlpha + (targetButtonAlpha - initialButtonAlpha) * progress;
          if (trackButton instanceof FadeButton) {
