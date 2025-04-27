@@ -33,18 +33,6 @@ public class InterfataGrafica extends JFrame {
 	//logica buna aici
     private static final long serialVersionUID = 1L;
 
-    private static final String API_KEY = "7DgYhGzTQc5Nn8FfFeuFmhCAWcbadYQEShUjwu3e";
-    private static final String AGENCY_ID = "1";
-
-    private static final String API_BASE_URL = "https://api.tranzy.ai/v1/opendata/";
-    private static final String VEHICLES_ENDPOINT = API_BASE_URL + "vehicles";
-    private static final String ROUTES_ENDPOINT = API_BASE_URL + "routes";
-    private static final String TRIPS_ENDPOINT = API_BASE_URL + "trips";
-    //nefunctional nuj de ce 
-    //la stops e https://api.tranzy.ai/v1/opendata/stops si
-    //https://api.tranzy.ai/v1/opendata/stop_times
-    private static final String STOPS_ENDPOINT = API_BASE_URL + "stops";
-    private static final String STOP_TIMES_ENDPOINT = API_BASE_URL + "stop_times";
 
 
     private JPanel contentPane;
@@ -166,6 +154,8 @@ public class InterfataGrafica extends JFrame {
                 try {
                 	 routesMap = loadRoutes();
                 	 tripsMap=loadTrips();
+                	 stopsMap = loadStops();
+                	 stopTimesList = loadStopTimes();
                     return true;
                 } catch (IOException | JSONException e) {
                     System.err.println("Error during static data loading: " + e.getMessage());
@@ -230,6 +220,30 @@ public class InterfataGrafica extends JFrame {
             tempTripsMap.put(trip.id, trip);
         }
 		return tempTripsMap;
+    }
+    private Map<String, Stop> stopsMap = new HashMap<>();
+    private List<StopTime> stopTimesList = new ArrayList<>();
+
+    private Map<String, Stop> loadStops() throws IOException, JSONException {
+        String stopsJson = fetchData("date_stops.json");
+        JSONArray stopsArray = new JSONArray(stopsJson);
+        Map<String, Stop> tempStopsMap = new HashMap<>();
+        for (int i = 0; i < stopsArray.length(); i++) {
+            Stop stop = Stop.fromJson(stopsArray.getJSONObject(i));
+            tempStopsMap.put(stop.id, stop);
+        }
+        return tempStopsMap;
+    }
+
+    private List<StopTime> loadStopTimes() throws IOException, JSONException {
+        String stopTimesJson = fetchData("date_stops_times.json");
+        JSONArray stopTimesArray = new JSONArray(stopTimesJson);
+        List<StopTime> tempList = new ArrayList<>();
+        for (int i = 0; i < stopTimesArray.length(); i++) {
+            StopTime st = StopTime.fromJson(stopTimesArray.getJSONObject(i));
+            tempList.add(st);
+        }
+        return tempList;
     }
     
     //fct mici pt a nu fi incarcat codul din fct principala
@@ -614,8 +628,53 @@ public class InterfataGrafica extends JFrame {
 
         panel.add(detailsPanel);
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+        
+        String currentStopName = findClosestStopName(info.vehicle);
+        panel.add(new JLabel("Current Stop: " + currentStopName));
 
         return panel;
+    }
+    private String findClosestStopName(Vehicle vehicle) {
+        if (vehicle.latitude == null || vehicle.longitude == null || vehicle.tripId == null) {
+            return "Unknown";
+        }
+
+        List<StopTime> stopsForTrip = new ArrayList<>();
+        for (StopTime st : stopTimesList) {
+            if (vehicle.tripId.equals(st.tripId)) {
+                stopsForTrip.add(st);
+            }
+        }
+
+        if (stopsForTrip.isEmpty()) {
+            return "No stops found";
+        }
+
+        Stop closestStop = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (StopTime st : stopsForTrip) {
+            Stop stop = stopsMap.get(st.stopId);
+            if (stop != null) {
+                double distance = haversine(vehicle.latitude, vehicle.longitude, stop.latitude, stop.longitude);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestStop = stop;
+                }
+            }
+        }
+
+        return closestStop != null ? closestStop.name : "Unknown";
+    }
+    private double haversine(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Earth radius in km
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                 + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
     }
 //basic aici
     private void setupMenuBar() {
@@ -945,6 +1004,33 @@ public class InterfataGrafica extends JFrame {
             t.headsign = json.optString("trip_headsign", "N/A");
             t.directionId = json.optInt("direction_id", -1);
             return t;
+        }
+    }
+    private static class Stop {
+        String id, name;
+        double latitude, longitude;
+
+        static Stop fromJson(JSONObject json) {
+            Stop s = new Stop();
+            s.id = json.optString("stop_id");
+            s.name = json.optString("stop_name");
+            s.latitude = json.optDouble("stop_lat");
+            s.longitude = json.optDouble("stop_lon");
+            return s;
+        }
+    }
+
+    private static class StopTime {
+        String tripId;
+        String stopId;
+        int stopSequence;
+
+        static StopTime fromJson(JSONObject json) {
+            StopTime st = new StopTime();
+            st.tripId = json.optString("trip_id");
+            st.stopId = json.optString("stop_id");
+            st.stopSequence = json.optInt("stop_sequence");
+            return st;
         }
     }
 
