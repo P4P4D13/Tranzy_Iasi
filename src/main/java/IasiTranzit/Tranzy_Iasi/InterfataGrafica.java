@@ -29,52 +29,138 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Clasa {@code InterfataGrafica} reprezinta fereastra pricipala a aplicatiei,
+ * ce gestioneaza interfata grafica si comunicarea cu API-ul Tranzy OpenData.
+ * Aceasta clasa extinde {@link JFrame} si include componente pentru introducerea datelor,
+ * afisarea rezultatelor, selectarea temei si a dimensiunii fontului, precum si elemente 
+ * pentru animatii simple ale interfetei.
+ * Utilizeaza un API extern pentru a prelua informatii despre vehicule, rute, curse si statii.
+ */
+
 public class InterfataGrafica extends JFrame {
 	//logica buna aici
+	
+	/** Serial version UID generat automat pentru clasa JFrame */
     private static final long serialVersionUID = 1L;
 
+    /** Cheia API folosita pentru autentificare la Tranzy OpenData */
     private static final String API_KEY = "7DgYhGzTQc5Nn8FfFeuFmhCAWcbadYQEShUjwu3e";
+    
+    /** ID-ul agentiei de transport utilizat in cererile API */
     private static final String AGENCY_ID = "1";
-
+    
+    /** URL-ul de baza pentru API-ul Tranzy OpenData */
     private static final String API_BASE_URL = "https://api.tranzy.ai/v1/opendata/";
+    
+    /** Endpoint-ul API pentru obtinerea datelor despre vehicule in timp real */
     private static final String VEHICLES_ENDPOINT = API_BASE_URL + "vehicles";
+    
+    /** Endpoint-ul API pentru obtinerea datelor despre rute */
     private static final String ROUTES_ENDPOINT = API_BASE_URL + "routes";
+    
+    /** Endpoint-ul API pentru obtinerea datelor despre curse */
     private static final String TRIPS_ENDPOINT = API_BASE_URL + "trips";
+    
     //nefunctional nuj de ce 
     //la stops e https://api.tranzy.ai/v1/opendata/stops si
     //https://api.tranzy.ai/v1/opendata/stop_times
+    
+    /** Endpoint-ul API pentru obtinerea datelor despre statii */
     private static final String STOPS_ENDPOINT = API_BASE_URL + "stops";
+    
+    /** Endpoint-ul API pentru obtinerea datelor despre orele de oprire in statii */
     private static final String STOP_TIMES_ENDPOINT = API_BASE_URL + "stop_times";
 
 
+    /** Panoul principal de continut al ferestrei */
     private JPanel contentPane;
+    
+    /** Camp text unde utilizatorul introduce ID-ul vehiculului de urmarit */
     private JTextField vehicleIdInput;
+    
+    /** 
+     * Grup de butoane pentru a asigura selectarea exclusiva a unui singur radio button
+     * pentru dimensiunea fontului
+     */
     private final ButtonGroup grupFont = new ButtonGroup();
+    
+    /**
+     * Grup de butoane pentru a asigura selectarea exclusiva a unui singur radio button
+     * pentru tema interfetei
+     */
     private final ButtonGroup grupTheme = new ButtonGroup();
+    
+    /** Buton pentru initierea urmaririi vehiculului */
     private JButton trackButton;
+    
+    /** Radio buttons pentru selectarea dimensiunii fontului */
     private JRadioButton b12, b14, b16;
+    
+    /** Radio buttons pentru selectarea temei (luminoasa/intunecata) */
     private JRadioButton rbLight, rbDark;
+
     private JButton backButton;
+
+    /** Timer folosit pentru animarea tranzitiilor UI */
+
     private Timer animationTimer;
+    
     //aici modificam viteza la animatie dupa buton
+    
+    /** Durata totala a unei animatii, in milisecunde */
     private final int ANIMATION_DURATION_MS = 500;
+    
+    /** Intervalul de timp intre doua actualizari ale animatiei, in milisecunde */
     private final int TIMER_DELAY_MS = 10;
+    
+    /** Momentul de start al animatiei, in milisecunde */
     private long animationStartTime;
+    
+    /** Pozitia initiala a campului de introducere */
     private Point initialPosInput;
+    
+    /** Dimensiunea initiala a campului de introducere */
     private Dimension initialSizeInput;
+    
+    /** Pozitia tinta pe axa Y pentru textul de input */
     private int targetYText = 10;
+    
+    /** Latimea tinta pentru campul de input */
     private int targetWidth;
+    
+    /** Spatiul orizontal folosit in layout/animatie */
     private int horizontalPadding = 10;
+    
+    /** Opacitatea initiala a butonului de urmarire */
     private float initialButtonAlpha = 1.0f;
+    
+    /** Opacitatea tinta a butonului de urmarire dupa animatie */
     private float targetButtonAlpha = 0.0f;
+    
+    /** Panou pentru campul de introducere */
     private JPanel inputPanel;
+    
+    /** Panou superior pentru titlu si selectii */
     private JPanel topPanel;
+    
+    /** Panou destinat afisarii rezultatelor */
     private JPanel resultsPanel;
+    
+    /** ScrollPane pentru lista de rezultate */
     private JScrollPane resultsScrollPane;
+    
+    /** Eticheta pentru afisarea statusului aplicatiei */
     private JLabel statusLabel;
+    
 //Route==Trip ??? sau nu?
+    
+    /** Mapare ID ruta catre obiect */
     private Map<String, Route> routesMap = new HashMap<>();
+    
+    /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
+    
 /**
  * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
  */
@@ -405,11 +491,13 @@ public class InterfataGrafica extends JFrame {
              trackButton.setVisible(newAlpha > 0.05f);
          }
      }
+
      
      /**
       * La terminarea animatiei se reseteaza panoruile si butonul
       * se afiseaza datele vehiculului 
       */
+
     private void onAnimationFinished() {
     	resetInputPanel();
     	resetTopPanelLayout();
@@ -475,6 +563,7 @@ public class InterfataGrafica extends JFrame {
     	}
     }
 
+    
     private void fetchAndDisplayVehicleData() {
         String targetId = vehicleIdInput.getText().trim().toLowerCase();
         resultsPanel.removeAll();
@@ -669,7 +758,7 @@ public class InterfataGrafica extends JFrame {
         contentPane.repaint();
     }
 //functie importanta, nu alterati prea tare
-    
+
     private JPanel createVehiclePanel(DisplayVehicleInfo info) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -1097,7 +1186,13 @@ public class InterfataGrafica extends JFrame {
         String tripHeadsign;
     }
 
-
+    /** 
+     * Metoda principala care porneste aplicatia.
+     * Initializeaza tema vizuala FlatLaf Light si configureaza aspectul componentelor
+     * grafice, apoi lanseaza interfata grafica {@link InterfataGrafica}
+     *
+     * @param args argumentele din linia de comanda (neutilizate)
+     */
     public static void main(String[] args) {
        try {
            UIManager.setLookAndFeel(new FlatLightLaf());
