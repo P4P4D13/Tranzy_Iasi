@@ -1,1 +1,641 @@
-[{"agency_id":"1","route_id":1,"route_short_name":"13","route_long_name":"Copou - Targu Cucu - Tatarasi - Podu Ros - Copou","route_color":"#00adef","route_type":0,"route_desc":"Copou - Targu Cucu - Tatarasi - Baza 3 - Podu Ros - Copou"},{"agency_id":"1","route_id":2,"route_short_name":"43","route_long_name":"CUG I - Poitiers - Tudor Vladimirescu - Pacurari","route_color":"#a2238e","route_type":3,"route_desc":"CUG I - Poitiers - Tudor Vladimirescu - Pacurari"},{"agency_id":"1","route_id":4,"route_short_name":"30","route_long_name":"Bucium - N. Iorga - Gara - Canta","route_color":"#a2238e","route_type":3,"route_desc":"Bucium - N. Iorga - Gara - Canta"},{"agency_id":"1","route_id":6,"route_short_name":"42","route_long_name":"Copou - Tudor Vladimirescu - Potiers - CUG I","route_color":"#a2238e","route_type":3,"route_desc":"Copou - Tudor Vladimirescu - Potiers - CUG I"},{"agency_id":"1","route_id":8,"route_short_name":"46","route_long_name":"Bucium - Tudor Vladimirescu - Targu Cucu - Pacurari","route_color":"#a2238e","route_type":3,"route_desc":"Bucium - Tudor Vladimirescu - Targu Cucu - Pacurari"},{"agency_id":"1","route_id":9,"route_short_name":"30b","route_long_name":"Bucium - Gara - Canta - ERA","route_color":"#a2238e","route_type":3,"route_desc":"Bucium - Gara - Canta - ERA"},{"agency_id":"1","route_id":10,"route_short_name":"28","route_long_name":"Dacia - Mircea - Podu Ros - Targu Cucu - Triumf","route_color":"#a2238e","route_type":3,"route_desc":"Dacia - Mircea - Podu Ros - Targu Cucu - Triumf"},{"agency_id":"1","route_id":12,"route_short_name":"41","route_long_name":"Piata Independentei - Podu Ros - Ciurea","route_color":"#a2238e","route_type":3,"route_desc":"Piata Independentei - Podu Ros - Ciurea"},{"agency_id":"1","route_id":13,"route_short_name":"8","route_long_name":"Copou - Targu Cucu - Tudor Vladimirescu - Tutora","route_color":"#121407","route_type":0,"route_desc":"Copou - Targu Cucu - Tudor Vladimirescu - Tutora"},{"agency_id":"1","route_id":14,"route_short_name":"7","route_long_name":"Canta-Tg. Cucu - Podu Ros - Baza 3-Rond Tutora","route_color":"#2e3092","route_type":0,"route_desc":"Canta-Tg. Cucu - Podu Ros - Baza 3-Rond Tutora"},{"agency_id":"1","route_id":16,"route_short_name":"20","route_long_name":"Tatarasi Sud - Targu Cucu - Pacurari - ERA - Metro","route_color":"#a2238e","route_type":3,"route_desc":"Tatarasi Sud - Targu Cucu - Pacurari - ERA - Metro"},{"agency_id":"1","route_id":17,"route_short_name":"43c","route_long_name":"CUG I - Poitiers - T. Vladimirescu - Pacurari - ERA","route_color":"#a2238e","route_type":3,"route_desc":"CUG I - Poitiers - T. Vladimirescu - Pacurari - ERA"},{"agency_id":"1","route_id":18,"route_short_name":"11","route_long_name":"Dacia - N. Iorga - Baza 3 - Tatarasi Nord","route_color":"#f05b72","route_type":0,"route_desc":"Dacia - N. Iorga - Baza 3 - Tatarasi Nord"},{"agency_id":"1","route_id":19,"route_short_name":"6","route_long_name":"Dacia - Gara - Targu Cucu","route_color":"#c0caf9","route_type":0,"route_desc":"Dacia - Gara - Targu Cucu"},{"agency_id":"1","route_id":23,"route_short_name":"9","route_long_name":"Copou - Targu Cucu - Podu Ros - Tehnopolis","route_color":"#4ea391","route_type":0,"route_desc":"Copou - Targu Cucu - Podu Ros - Tehnopolis"},{"agency_id":"1","route_id":25,"route_short_name":"27","route_long_name":"Tatarasi Nord - Baza 3 - Poitiers - Ciurea","route_color":"#a2238e","route_type":3,"route_desc":"Tatarasi Nord - Baza 3 - Poitiers - Ciurea"},{"agency_id":"1","route_id":26,"route_short_name":"29","route_long_name":"Podu Ros - Baza 3 - Tomesti","route_color":"#a2238e","route_type":3,"route_desc":"Podu Ros - Baza 3 - Tomesti"},{"agency_id":"1","route_id":27,"route_short_name":"44","route_long_name":"Dacia - Mircea - Frumoasa - Ciurea","route_color":"#a2238e","route_type":3,"route_desc":"Dacia - Mircea - Frumoasa - Ciurea"},{"agency_id":"1","route_id":37,"route_short_name":"48","route_long_name":"Targu Cucu - Complex Roua","route_color":"#a2238e","route_type":3,"route_desc":"Targu Cucu - Ciric"},{"agency_id":"1","route_id":41,"route_short_name":"1","route_long_name":"Copou - Targu Cucu - Podu Ros - Tatarasi - Copou","route_color":"#f22c9f","route_type":0,"route_desc":"Copou - Podu Ros - CFS II - Tatarasi - Copou"},{"agency_id":"1","route_id":42,"route_short_name":"36","route_long_name":"Dacia - Gara - Copou - Breazu","route_color":"#a2238e","route_type":3,"route_desc":"Dacia - Gara - Copou - Breazu"},{"agency_id":"1","route_id":43,"route_short_name":"50","route_long_name":"Gara - Piata Unirii - Targu Cucu - Aeroport","route_color":"#000","route_type":3,"route_desc":"Gara - Piata Unirii - Targu Cucu - Aeroport"},{"agency_id":"1","route_id":48,"route_short_name":"19","route_long_name":"Canta - Gara - Podu Ros - CUG I","route_color":"#b00a87","route_type":3,"route_desc":"Canta - Gara - Podu Ros - CUG I"},{"agency_id":"1","route_id":51,"route_short_name":"44B","route_long_name":"Dacia - Mircea - Frumoasa - Tehnopolis","route_color":"#000","route_type":3,"route_desc":"Dacia - Mircea - Frumoasa - Tehnopolis"},{"agency_id":"1","route_id":52,"route_short_name":"27b","route_long_name":"Tatarasi Nord - Baza 3 - Poitiers - Tehnopolis","route_color":"#203d4d","route_type":3,"route_desc":"Tatarasi Nord - Baza 3 - Poitiers - Tehnopolis"},{"agency_id":"1","route_id":54,"route_short_name":"52","route_long_name":"Piata A.C.B. - Zimbru - O. Bancila - Copou","route_color":"#000000","route_type":3,"route_desc":"Piata A.C.B. - Zimbru - O. Bancila - Copou"},{"agency_id":"1","route_id":57,"route_short_name":"18","route_long_name":"Tatarasi Sud -  Aviatiei","route_color":"#000","route_type":3,"route_desc":"Tatarasi Sud - Aviatiei"},{"agency_id":"1","route_id":63,"route_short_name":"23","route_long_name":"Podu Ros - Centru Miroslava","route_color":"#ac07b5","route_type":3,"route_desc":"Podu Ros - Centru Miroslava"},{"agency_id":"1","route_id":68,"route_short_name":"47","route_long_name":"Dacia - Mircea - Podu Ros - T. Vladimirescu - Tatarasi Sud","route_color":"#c90eaa","route_type":3,"route_desc":"Dacia - Mircea - Podu Ros - T. Vladimirescu - Tatarasi Sud"},{"agency_id":"1","route_id":69,"route_short_name":"54","route_long_name":"Targu Cucu - Sararie - Pod Cacaina - Albinet","route_color":"#b70dbd","route_type":3,"route_desc":"Tg. Cucu - Sararie - Pod Cacaina - Albinet"},{"agency_id":"1","route_id":79,"route_short_name":"3e","route_long_name":"Dancu-Tatarasi Nord-Piata Unirii-Copou ","route_color":"#000","route_type":0,"route_desc":"Dancu-Tatarasi Nord-Piata Unirii-Copou "},{"agency_id":"1","route_id":81,"route_short_name":"3","route_long_name":"Dancu-Tatarasi-Tg.Cucu-Gara","route_color":"#1fa633","route_type":0,"route_desc":"Gara - Targu Cucu - Tatarasi - Dancu"},{"agency_id":"1","route_id":85,"route_short_name":"5","route_long_name":"Dacia - N. Iorga - Baza 3 - Tutora","route_color":"#000","route_type":0,"route_desc":"Dacia - N. Iorga - Baza 3 - Tutora"},{"agency_id":"1","route_id":87,"route_short_name":"101","route_long_name":"Targu Cucu - Roua Residence - Dorobant","route_color":"#000","route_type":3,"route_desc":"Targu Cucu - Roua Residence - Dorobant"},{"agency_id":"1","route_id":88,"route_short_name":"102","route_long_name":"Targu Cucu - Roua Residence - Rond Aroneanu","route_color":"#000","route_type":3,"route_desc":"Tg. Cucu - Complex Roua Residence - Rond Aroneanu"},{"agency_id":"1","route_id":89,"route_short_name":"104","route_long_name":"Rond Aroneanu - Rediu Aldei","route_color":"#000","route_type":3,"route_desc":"Rond Aroneanu - Rediu Aldei"},{"agency_id":"1","route_id":90,"route_short_name":"803","route_long_name":"Rond Tutora - Tomesti - Tutora - Opriseni","route_color":"#000","route_type":3,"route_desc":"Rond Tutora - Tomesti - Tutora - Opriseni"},{"agency_id":"1","route_id":91,"route_short_name":"801","route_long_name":"Rond Tutora - Tomesti - Goruni","route_color":"#000","route_type":3,"route_desc":"Rond Tutora - Tomesti - Goruni"},{"agency_id":"1","route_id":92,"route_short_name":"702","route_long_name":"Pacurari - Rediu - Breazu - Rond Copou","route_color":"#000","route_type":3,"route_desc":"Pacurari - Rediu - Breazu - Rond Copou"},{"agency_id":"1","route_id":93,"route_short_name":"701","route_long_name":"Rond Copou - Breazu - Horlesti","route_color":"#000","route_type":3,"route_desc":"Rond Copou - Breazu - Horlesti"},{"agency_id":"1","route_id":94,"route_short_name":"601","route_long_name":"Tg. Cucu - C.A.Rosetti - Carlig - Popricani-Carlig-Sararie-Tg.Cucu","route_color":"#000","route_type":3,"route_desc":"Tg. Cucu - C.A.Rosetti - Carlig - Popricani-Carlig-Sararie-Tg.Cucu"},{"agency_id":"1","route_id":95,"route_short_name":"503","route_long_name":"C.U.G. I-Valea Adanca","route_color":"#000","route_type":3,"route_desc":"C.U.G. I - Valea Adanca "},{"agency_id":"1","route_id":96,"route_short_name":"501","route_long_name":"Podu Ros - Primaria Miroslava - Vorovesti","route_color":"#000","route_type":3,"route_desc":"Podu Ros - Primaria Miroslava - Vorovesti"},{"agency_id":"1","route_id":97,"route_short_name":"401","route_long_name":"Tatarasi Sud - Dancu - Rusenii Vechi - Rusenii Noi","route_color":"#000","route_type":3,"route_desc":"Tatarasi Sud - Dancu - Rusenii Vechi - Rusenii Noi"},{"agency_id":"1","route_id":98,"route_short_name":"202","route_long_name":"Podu Ros - Bucium - Paun","route_color":"#000","route_type":3,"route_desc":"Podu Ros - Bucium - Paun"},{"agency_id":"1","route_id":99,"route_short_name":"103","route_long_name":"Targu Cucu - Roua Residence - Sorogari","route_color":"#000","route_type":3,"route_desc":"Targu Cucu - Roua Residence - Sorogari"},{"agency_id":"1","route_id":100,"route_short_name":"203","route_long_name":"Podu Ros-Frigorifer–Visan","route_color":"#000","route_type":3,"route_desc":"P.Ros-Frigorifer–Visan"},{"agency_id":"1","route_id":101,"route_short_name":"301","route_long_name":"CUG I - Dumbrava","route_color":"#000","route_type":3,"route_desc":""},{"agency_id":"1","route_id":102,"route_short_name":"502","route_long_name":"C.U.G. I - Ciurbesti","route_color":"#000","route_type":3,"route_desc":"C.U.G. I - Ciurbesti"},{"agency_id":"1","route_id":103,"route_short_name":"802","route_long_name":"Rond Tutora - Chicerea","route_color":"#000","route_type":3,"route_desc":"Rond Tutora - Chicerea"},{"agency_id":"1","route_id":110,"route_short_name":"802b","route_long_name":"Rond Tutora-Tomesti-Goruni-Chicerea","route_color":"#000","route_type":3,"route_desc":"R.Tutora-Tomesti-Goruni-Chicerea"},{"agency_id":"1","route_id":114,"route_short_name":"6*","route_long_name":"6*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":115,"route_short_name":"7*","route_long_name":"7*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":116,"route_short_name":"8*","route_long_name":"8*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":117,"route_short_name":"9*","route_long_name":"9*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":118,"route_short_name":"3*","route_long_name":"3*","route_color":"#000","route_type":3,"route_desc":""},{"agency_id":"1","route_id":119,"route_short_name":"1*","route_long_name":"1*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":120,"route_short_name":"13*","route_long_name":"13*","route_color":"#000","route_type":0,"route_desc":""},{"agency_id":"1","route_id":121,"route_short_name":"901","route_long_name":"Valea Lupului - Str. Bacinschi","route_color":"#000","route_type":3,"route_desc":"Valea Lupului - Iasi (Bacinschi)"},{"agency_id":"1","route_id":122,"route_short_name":"902","route_long_name":"Valea Lupului - Canta","route_color":"#000","route_type":3,"route_desc":"Valea Lupului - Canta"},{"agency_id":"1","route_id":123,"route_short_name":"23b","route_long_name":"Podu Ros - Miroslava - Proselnici","route_color":"#000","route_type":3,"route_desc":""},{"agency_id":"1","route_id":124,"route_short_name":"501b","route_long_name":"Podu Ros - Miroslava - Ferma Liliac","route_color":"#000","route_type":3,"route_desc":""},{"agency_id":"1","route_id":125,"route_short_name":"503b","route_long_name":"C.U.G. I - Valea Adanca - Miroslava","route_color":"#000","route_type":3,"route_desc":""},{"agency_id":"1","route_id":133,"route_short_name":"Cafe","route_long_name":"Cafenea","route_color":"#000","route_type":0,"route_desc":"Targu Cucu - Piata Unirii - Copou"},{"agency_id":"1","route_id":135,"route_short_name":"CS9","route_long_name":"CS9","route_color":"#000","route_type":3,"route_desc":"Podu Ros - Tehnopolis"}]
+[
+    {
+        "route_id": 1,
+        "route_long_name": "Copou - Targu Cucu - Tatarasi - Podu Ros - Copou",
+        "route_type": 0,
+        "route_desc": "Copou - Targu Cucu - Tatarasi - Baza 3 - Podu Ros - Copou",
+        "agency_id": "1",
+        "route_short_name": "13",
+        "route_color": "#00adef"
+    },
+    {
+        "route_id": 2,
+        "route_long_name": "CUG I - Poitiers - Tudor Vladimirescu - Pacurari",
+        "route_type": 3,
+        "route_desc": "CUG I - Poitiers - Tudor Vladimirescu - Pacurari",
+        "agency_id": "1",
+        "route_short_name": "43",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 4,
+        "route_long_name": "Bucium - N. Iorga - Gara - Canta",
+        "route_type": 3,
+        "route_desc": "Bucium - N. Iorga - Gara - Canta",
+        "agency_id": "1",
+        "route_short_name": "30",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 6,
+        "route_long_name": "Copou - Tudor Vladimirescu - Potiers - CUG I",
+        "route_type": 3,
+        "route_desc": "Copou - Tudor Vladimirescu - Potiers - CUG I",
+        "agency_id": "1",
+        "route_short_name": "42",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 8,
+        "route_long_name": "Bucium - Tudor Vladimirescu - Targu Cucu - Pacurari",
+        "route_type": 3,
+        "route_desc": "Bucium - Tudor Vladimirescu - Targu Cucu - Pacurari",
+        "agency_id": "1",
+        "route_short_name": "46",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 9,
+        "route_long_name": "Bucium - Gara - Canta - MALL MOLDOVA",
+        "route_type": 3,
+        "route_desc": "Bucium - Gara - Canta - MALL MOLDOVA",
+        "agency_id": "1",
+        "route_short_name": "30b",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 10,
+        "route_long_name": "Dacia - Mircea - Podu Ros - Targu Cucu - Triumf",
+        "route_type": 3,
+        "route_desc": "Dacia - Mircea - Podu Ros - Targu Cucu - Triumf",
+        "agency_id": "1",
+        "route_short_name": "28",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 12,
+        "route_long_name": "Piata Independentei - Podu Ros - Ciurea",
+        "route_type": 3,
+        "route_desc": "Piata Independentei - Podu Ros - Ciurea",
+        "agency_id": "1",
+        "route_short_name": "41",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 13,
+        "route_long_name": "Copou - Targu Cucu - Tudor Vladimirescu - Tutora",
+        "route_type": 0,
+        "route_desc": "Copou - Targu Cucu - Tudor Vladimirescu - Tutora",
+        "agency_id": "1",
+        "route_short_name": "8",
+        "route_color": "#121407"
+    },
+    {
+        "route_id": 14,
+        "route_long_name": "Canta-Tg. Cucu - Podu Ros - Baza 3-Rond Tutora",
+        "route_type": 0,
+        "route_desc": "Canta-Tg. Cucu - Podu Ros - Baza 3-Rond Tutora",
+        "agency_id": "1",
+        "route_short_name": "7",
+        "route_color": "#2e3092"
+    },
+    {
+        "route_id": 16,
+        "route_long_name": "Tatarasi Sud - Targu Cucu - Pacurari - MALL MOLDOVA - Metro",
+        "route_type": 3,
+        "route_desc": "Tatarasi Sud - Targu Cucu - Pacurari - MALL MOLDOVA - Metro",
+        "agency_id": "1",
+        "route_short_name": "20",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 17,
+        "route_long_name": "CUG I - Poitiers - T. Vladimirescu - Pacurari - MALL MOLDOVA",
+        "route_type": 3,
+        "route_desc": "CUG I - Poitiers - T. Vladimirescu - Pacurari - MALL MOLDOVA",
+        "agency_id": "1",
+        "route_short_name": "43c",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 18,
+        "route_long_name": "Dacia - N. Iorga - Baza 3 - Tatarasi Nord",
+        "route_type": 0,
+        "route_desc": "Dacia - N. Iorga - Baza 3 - Tatarasi Nord",
+        "agency_id": "1",
+        "route_short_name": "11",
+        "route_color": "#f05b72"
+    },
+    {
+        "route_id": 19,
+        "route_long_name": "Dacia - Gara - Targu Cucu",
+        "route_type": 0,
+        "route_desc": "Dacia - Gara - Targu Cucu",
+        "agency_id": "1",
+        "route_short_name": "6",
+        "route_color": "#c0caf9"
+    },
+    {
+        "route_id": 23,
+        "route_long_name": "Copou - Targu Cucu - Podu Ros - Tehnopolis",
+        "route_type": 0,
+        "route_desc": "Copou - Targu Cucu - Podu Ros - Tehnopolis",
+        "agency_id": "1",
+        "route_short_name": "9",
+        "route_color": "#4ea391"
+    },
+    {
+        "route_id": 25,
+        "route_long_name": "Tatarasi Nord - Baza 3 - Poitiers - Ciurea",
+        "route_type": 3,
+        "route_desc": "Tatarasi Nord - Baza 3 - Poitiers - Ciurea",
+        "agency_id": "1",
+        "route_short_name": "27",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 26,
+        "route_long_name": "Podu Ros - Baza 3 - Tomesti",
+        "route_type": 3,
+        "route_desc": "Podu Ros - Baza 3 - Tomesti",
+        "agency_id": "1",
+        "route_short_name": "29",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 27,
+        "route_long_name": "Dacia - Mircea - Frumoasa - Ciurea",
+        "route_type": 3,
+        "route_desc": "Dacia - Mircea - Frumoasa - Ciurea",
+        "agency_id": "1",
+        "route_short_name": "44",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 37,
+        "route_long_name": "Targu Cucu - Complex Roua",
+        "route_type": 3,
+        "route_desc": "Targu Cucu - Ciric",
+        "agency_id": "1",
+        "route_short_name": "48",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 41,
+        "route_long_name": "Copou - Targu Cucu - Podu Ros - Tatarasi - Copou",
+        "route_type": 0,
+        "route_desc": "Copou - Podu Ros - CFS II - Tatarasi - Copou",
+        "agency_id": "1",
+        "route_short_name": "1",
+        "route_color": "#f22c9f"
+    },
+    {
+        "route_id": 42,
+        "route_long_name": "Dacia - Gara - Copou - Breazu",
+        "route_type": 3,
+        "route_desc": "Dacia - Gara - Copou - Breazu",
+        "agency_id": "1",
+        "route_short_name": "36",
+        "route_color": "#a2238e"
+    },
+    {
+        "route_id": 43,
+        "route_long_name": "Gara - Piata Unirii - Targu Cucu - Aeroport",
+        "route_type": 3,
+        "route_desc": "Gara - Piata Unirii - Targu Cucu - Aeroport",
+        "agency_id": "1",
+        "route_short_name": "50",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 48,
+        "route_long_name": "Canta - Gara - Podu Ros - CUG I",
+        "route_type": 3,
+        "route_desc": "Canta - Gara - Podu Ros - CUG I",
+        "agency_id": "1",
+        "route_short_name": "19",
+        "route_color": "#b00a87"
+    },
+    {
+        "route_id": 51,
+        "route_long_name": "Dacia - Mircea - Frumoasa - Tehnopolis",
+        "route_type": 3,
+        "route_desc": "Dacia - Mircea - Frumoasa - Tehnopolis",
+        "agency_id": "1",
+        "route_short_name": "44B",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 52,
+        "route_long_name": "Tatarasi Nord - Baza 3 - Poitiers - Tehnopolis",
+        "route_type": 3,
+        "route_desc": "Tatarasi Nord - Baza 3 - Poitiers - Tehnopolis",
+        "agency_id": "1",
+        "route_short_name": "27b",
+        "route_color": "#203d4d"
+    },
+    {
+        "route_id": 54,
+        "route_long_name": "Piata A.C.B. - Zimbru - O. Bancila - Copou",
+        "route_type": 3,
+        "route_desc": "Piata A.C.B. - Zimbru - O. Bancila - Copou",
+        "agency_id": "1",
+        "route_short_name": "52",
+        "route_color": "#000000"
+    },
+    {
+        "route_id": 57,
+        "route_long_name": "Tatarasi Sud -  Aviatiei",
+        "route_type": 3,
+        "route_desc": "Tatarasi Sud - Aviatiei",
+        "agency_id": "1",
+        "route_short_name": "18",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 63,
+        "route_long_name": "Podu Ros - Centru Miroslava",
+        "route_type": 3,
+        "route_desc": "Podu Ros - Centru Miroslava",
+        "agency_id": "1",
+        "route_short_name": "23",
+        "route_color": "#ac07b5"
+    },
+    {
+        "route_id": 68,
+        "route_long_name": "Dacia - Mircea - Podu Ros - T. Vladimirescu - Tatarasi Sud",
+        "route_type": 3,
+        "route_desc": "Dacia - Mircea - Podu Ros - T. Vladimirescu - Tatarasi Sud",
+        "agency_id": "1",
+        "route_short_name": "47",
+        "route_color": "#c90eaa"
+    },
+    {
+        "route_id": 69,
+        "route_long_name": "Targu Cucu - Sararie - Pod Cacaina - Albinet",
+        "route_type": 3,
+        "route_desc": "Tg. Cucu - Sararie - Pod Cacaina - Albinet",
+        "agency_id": "1",
+        "route_short_name": "54",
+        "route_color": "#b70dbd"
+    },
+    {
+        "route_id": 79,
+        "route_long_name": "Dancu-Tatarasi Nord-Piata Unirii-Copou ",
+        "route_type": 0,
+        "route_desc": "Dancu-Tatarasi Nord-Piata Unirii-Copou ",
+        "agency_id": "1",
+        "route_short_name": "3e",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 81,
+        "route_long_name": "Dancu-Tatarasi-Tg.Cucu-Gara",
+        "route_type": 0,
+        "route_desc": "Gara - Targu Cucu - Tatarasi - Dancu",
+        "agency_id": "1",
+        "route_short_name": "3",
+        "route_color": "#1fa633"
+    },
+    {
+        "route_id": 82,
+        "route_long_name": "13DEV",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "13.",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 85,
+        "route_long_name": "Dacia - N. Iorga - Baza 3 - Tutora",
+        "route_type": 0,
+        "route_desc": "Dacia - N. Iorga - Baza 3 - Tutora",
+        "agency_id": "1",
+        "route_short_name": "5",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 87,
+        "route_long_name": "Targu Cucu - Roua Residence - Dorobant",
+        "route_type": 3,
+        "route_desc": "Targu Cucu - Roua Residence - Dorobant",
+        "agency_id": "1",
+        "route_short_name": "101",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 88,
+        "route_long_name": "Targu Cucu - Roua Residence - Rond Aroneanu",
+        "route_type": 3,
+        "route_desc": "Tg. Cucu - Complex Roua Residence - Rond Aroneanu",
+        "agency_id": "1",
+        "route_short_name": "102",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 89,
+        "route_long_name": "Rond Aroneanu - Rediu Aldei",
+        "route_type": 3,
+        "route_desc": "Rond Aroneanu - Rediu Aldei",
+        "agency_id": "1",
+        "route_short_name": "104",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 90,
+        "route_long_name": "Rond Tutora - Tomesti - Tutora - Opriseni",
+        "route_type": 3,
+        "route_desc": "Rond Tutora - Tomesti - Tutora - Opriseni",
+        "agency_id": "1",
+        "route_short_name": "803",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 91,
+        "route_long_name": "Rond Tutora - Tomesti - Goruni",
+        "route_type": 3,
+        "route_desc": "Rond Tutora - Tomesti - Goruni",
+        "agency_id": "1",
+        "route_short_name": "801",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 92,
+        "route_long_name": "Pacurari - Rediu - Breazu - Rond Copou",
+        "route_type": 3,
+        "route_desc": "Pacurari - Rediu - Breazu - Rond Copou",
+        "agency_id": "1",
+        "route_short_name": "702",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 93,
+        "route_long_name": "Rond Copou - Breazu - Horlesti",
+        "route_type": 3,
+        "route_desc": "Rond Copou - Breazu - Horlesti",
+        "agency_id": "1",
+        "route_short_name": "701",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 94,
+        "route_long_name": "Tg. Cucu - C.A.Rosetti - Carlig - Popricani-Carlig-Sararie-Tg.Cucu",
+        "route_type": 3,
+        "route_desc": "Tg. Cucu - C.A.Rosetti - Carlig - Popricani-Carlig-Sararie-Tg.Cucu",
+        "agency_id": "1",
+        "route_short_name": "601",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 95,
+        "route_long_name": "C.U.G. I-Valea Adanca",
+        "route_type": 3,
+        "route_desc": "C.U.G. I - Valea Adanca ",
+        "agency_id": "1",
+        "route_short_name": "503",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 96,
+        "route_long_name": "Podu Ros - Primaria Miroslava - Vorovesti",
+        "route_type": 3,
+        "route_desc": "Podu Ros - Primaria Miroslava - Vorovesti",
+        "agency_id": "1",
+        "route_short_name": "501",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 97,
+        "route_long_name": "Tatarasi Sud - Dancu - Rusenii Vechi - Rusenii Noi",
+        "route_type": 3,
+        "route_desc": "Tatarasi Sud - Dancu - Rusenii Vechi - Rusenii Noi",
+        "agency_id": "1",
+        "route_short_name": "401",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 98,
+        "route_long_name": "Podu Ros - Bucium - Paun",
+        "route_type": 3,
+        "route_desc": "Podu Ros - Bucium - Paun",
+        "agency_id": "1",
+        "route_short_name": "202",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 99,
+        "route_long_name": "Targu Cucu - Roua Residence - Sorogari",
+        "route_type": 3,
+        "route_desc": "Targu Cucu - Roua Residence - Sorogari",
+        "agency_id": "1",
+        "route_short_name": "103",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 100,
+        "route_long_name": "Podu Ros-Frigorifer\u2013Visan",
+        "route_type": 3,
+        "route_desc": "P.Ros-Frigorifer\u2013Visan",
+        "agency_id": "1",
+        "route_short_name": "203",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 101,
+        "route_long_name": "CUG I - Dumbrava",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "301",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 102,
+        "route_long_name": "C.U.G. I - Ciurbesti",
+        "route_type": 3,
+        "route_desc": "C.U.G. I - Ciurbesti",
+        "agency_id": "1",
+        "route_short_name": "502",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 103,
+        "route_long_name": "Rond Tutora - Chicerea",
+        "route_type": 3,
+        "route_desc": "Rond Tutora - Chicerea",
+        "agency_id": "1",
+        "route_short_name": "802",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 104,
+        "route_long_name": "1DEV",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "1.",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 105,
+        "route_long_name": "7DEV",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "7.",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 107,
+        "route_long_name": "41DEV",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "41.",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 108,
+        "route_long_name": "28DEV",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "28.",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 110,
+        "route_long_name": "Rond Tutora-Tomesti-Goruni-Chicerea",
+        "route_type": 3,
+        "route_desc": "R.Tutora-Tomesti-Goruni-Chicerea",
+        "agency_id": "1",
+        "route_short_name": "802b",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 114,
+        "route_long_name": "6*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "6*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 115,
+        "route_long_name": "7*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "7*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 116,
+        "route_long_name": "8*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "8*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 117,
+        "route_long_name": "9*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "9*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 118,
+        "route_long_name": "3*",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "3*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 119,
+        "route_long_name": "1*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "1*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 120,
+        "route_long_name": "13*",
+        "route_type": 0,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "13*",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 121,
+        "route_long_name": "Valea Lupului - Str. Bacinschi",
+        "route_type": 3,
+        "route_desc": "Valea Lupului - Iasi (Bacinschi)",
+        "agency_id": "1",
+        "route_short_name": "901",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 122,
+        "route_long_name": "Valea Lupului - Canta",
+        "route_type": 3,
+        "route_desc": "Valea Lupului - Canta",
+        "agency_id": "1",
+        "route_short_name": "902",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 123,
+        "route_long_name": "Podu Ros - Miroslava - Proselnici",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "23b",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 124,
+        "route_long_name": "Podu Ros - Miroslava - Ferma Liliac",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "501b",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 125,
+        "route_long_name": "C.U.G. I - Valea Adanca - Miroslava",
+        "route_type": 3,
+        "route_desc": "",
+        "agency_id": "1",
+        "route_short_name": "503b",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 133,
+        "route_long_name": "Cafenea",
+        "route_type": 0,
+        "route_desc": "Targu Cucu - Piata Unirii - Copou",
+        "agency_id": "1",
+        "route_short_name": "Cafe",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 135,
+        "route_long_name": "CS9",
+        "route_type": 3,
+        "route_desc": "Podu Ros - Tehnopolis",
+        "agency_id": "1",
+        "route_short_name": "CS9",
+        "route_color": "#000"
+    },
+    {
+        "route_id": 137,
+        "route_long_name": "42.",
+        "route_type": 3,
+        "route_desc": "Copou - Tudor Vladimirescu - Potiers - CUG I",
+        "agency_id": "1",
+        "route_short_name": "42.",
+        "route_color": "#000"
+    }
+]
