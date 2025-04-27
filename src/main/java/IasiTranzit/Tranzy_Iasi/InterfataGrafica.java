@@ -124,7 +124,7 @@ public class InterfataGrafica extends JFrame {
 
         loadStaticData();
     }
-// de revizuit logica, prea multe exceptii care nu pot sa apara,
+    //OK 
     private String fetchData(String fileName) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -627,11 +627,13 @@ public class InterfataGrafica extends JFrame {
         detailsPanel.add(new JLabel(info.vehicle.getVehicleTypeString()), gbc);
 
         panel.add(detailsPanel);
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
-        
+
         String currentStopName = findClosestStopName(info.vehicle);
         panel.add(new JLabel("Current Stop: " + currentStopName));
-
+        //ATENTIE
+        //maximum size trebuie pus dupa ce sunt puse toate componentele
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+        
         return panel;
     }
     private String findClosestStopName(Vehicle vehicle) {
