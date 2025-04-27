@@ -1,0 +1,59 @@
+[
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "SCTP Iasi",
+        "agency_url": "https://www.sctpiasi.ro/",
+        "agency_fare_url": null,
+        "agency_phone": null,
+        "agency_id": 1,
+        "agency_lang": "ro"
+    },
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "CTP Cluj",
+        "agency_url": "https://www.ctpcluj.ro/",
+        "agency_fare_url": null,
+        "agency_phone": null,
+        "agency_id": 2,
+        "agency_lang": "ro"
+    },
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "RTEC&PUA Chisinau",
+        "agency_fare_url": null,
+        "agency_urls": [
+            "https://www.rtec.md/",
+            "https://www.autourban.md/"
+        ],
+        "agency_phone": null,
+        "agency_id": 4,
+        "agency_lang": "ro"
+    },
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "Eltrans Botosani",
+        "agency_url": "https://www.eltransbt.ro/",
+        "agency_fare_url": null,
+        "agency_phone": null,
+        "agency_id": 6,
+        "agency_lang": "ro"
+    },
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "STPT Timisoara",
+        "agency_url": "https://www.ratt.ro/",
+        "agency_fare_url": null,
+        "agency_phone": null,
+        "agency_id": 8,
+        "agency_lang": "ro"
+    },
+    {
+        "agency_timezone": "Europe/Bucharest",
+        "agency_name": "OTL Oradea",
+        "agency_url": "https://www.otlra.ro/",
+        "agency_fare_url": null,
+        "agency_phone": null,
+        "agency_id": 9,
+        "agency_lang": "ro"
+    }
+]

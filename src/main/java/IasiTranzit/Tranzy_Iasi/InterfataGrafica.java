@@ -137,42 +137,19 @@ public class InterfataGrafica extends JFrame {
         loadStaticData();
     }
 // de revizuit logica, prea multe exceptii care nu pot sa apara,
-    private String fetchData(String endpointUrl) throws IOException {
-        URL url = new URL(endpointUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("X-API-KEY", API_KEY);
-        connection.setRequestProperty("X-Agency-Id", AGENCY_ID);
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(15000);
-        int responseCode = connection.getResponseCode();
-        StringBuilder response = new StringBuilder();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            try (InputStream inputStream = connection.getInputStream();
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-            }
-        } else {
-            String errorDetails = "";
-             try (InputStream errorStream = connection.getErrorStream();
-                  BufferedReader reader = (errorStream != null) ? new BufferedReader(new InputStreamReader(errorStream)) : null) {
-                 if (reader != null) {
-                     String line;
-                     while ((line = reader.readLine()) != null) {
-                         errorDetails += line;
-                     }
-                 }
-             } catch (IOException e) {
-                 System.err.println("Error reading error stream details: " + e.getMessage());
-             }
-            throw new IOException("HTTP Error: " + responseCode + " " + connection.getResponseMessage() + " - Details: " + errorDetails);
+    private String fetchData(String fileName) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        if (inputStream == null) {
+            throw new IOException("Fisierul nu a fost gasit: " + fileName);
         }
-        connection.disconnect();
-        return response.toString();
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+        }
+        return content.toString();
     }
     /**
      * Inacarca date statice, rute si trasee, folosind SwingWorker
@@ -225,15 +202,15 @@ public class InterfataGrafica extends JFrame {
  * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
  * @throws JSONException daca datele JSON nu sunt valide(alt format)
  */
-    private Map<String,Route> loadRoutes() throws IOException,JSONException{
-    	String routesJson = fetchData(ROUTES_ENDPOINT);
-    	JSONArray routesArray = new JSONArray(routesJson);
-    	Map<String, Route> tempRoutesMap = new HashMap<>();
-    	for (int i = 0; i < routesArray.length(); i++) {
-    		Route route = Route.fromJson(routesArray.getJSONObject(i));
-    		tempRoutesMap.put(route.id, route);
-    	}
-    return tempRoutesMap;
+    private Map<String, Route> loadRoutes() throws IOException, JSONException {
+        String routesJson = fetchData("date_rute.json");
+        JSONArray routesArray = new JSONArray(routesJson);
+        Map<String, Route> tempRoutesMap = new HashMap<>();
+        for (int i = 0; i < routesArray.length(); i++) {
+            Route route = Route.fromJson(routesArray.getJSONObject(i));
+            tempRoutesMap.put(route.id, route);
+        }
+        return tempRoutesMap;
     }
     
     //fct pt incarcarea traseelor,luat codul din functia doInBackground
@@ -245,7 +222,7 @@ public class InterfataGrafica extends JFrame {
      * @throws JSONException daca datele JSON nu sunt valide(alt format)
      */
     private Map<String,Trip> loadTrips()throws IOException,JSONException{
-    	String tripsJson = fetchData(TRIPS_ENDPOINT);
+    	String tripsJson = fetchData("date_trips.json");
         JSONArray tripsArray = new JSONArray(tripsJson);
         Map<String, Trip> tempTripsMap = new HashMap<>();
         for (int i = 0; i < tripsArray.length(); i++) {
@@ -470,7 +447,7 @@ public class InterfataGrafica extends JFrame {
                 List<DisplayVehicleInfo> foundVehicles = new ArrayList<>();
                 try {
                     publish("Fetching vehicle data...");
-                    String vehiclesJson = fetchData(VEHICLES_ENDPOINT);
+                    String vehiclesJson = fetchData("date_vehicule.json");
                     JSONArray vehiclesArray = new JSONArray(vehiclesJson);
                     publish("Processing " + vehiclesArray.length() + " vehicles...");
 
