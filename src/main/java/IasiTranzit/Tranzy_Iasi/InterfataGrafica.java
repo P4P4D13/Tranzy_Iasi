@@ -595,9 +595,11 @@ public class InterfataGrafica extends JFrame {
      * adauga butonul in coltul din dreapta jos
      * se verifica existenta sa pentru a evita crearea multipla
      */
+    
+    //nu e ok, freaca layout ul de grid cu layout ul Flow, crreaza un panel nou pentru buton eventual
     private void addBackButton() {
     	if(backButton == null) {
-    		backButton = new JButton("<");
+    		backButton = new JButton("Back");
     		backButton.addActionListener(e -> goBackToInitial());
     	}
     	
