@@ -99,8 +99,11 @@ public class InterfataGrafica extends JFrame {
     
     /** Radio buttons pentru selectarea temei (luminoasa/intunecata) */
     private JRadioButton rbLight, rbDark;
-    
+
+    private JButton backButton;
+
     /** Timer folosit pentru animarea tranzitiilor UI */
+
     private Timer animationTimer;
     
     //aici modificam viteza la animatie dupa buton
@@ -157,6 +160,8 @@ public class InterfataGrafica extends JFrame {
     
     /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
+
+	private JPanel backButtonPanel;
     
     /** Layout ul gridbag pentru pozitonare elemente */
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -263,7 +268,7 @@ public class InterfataGrafica extends JFrame {
         return response.toString();
     }
     /**
-     * Inacarca date statice, rute si trasee, folosind SwingWorker
+     * Incarca date statice, rute si trasee, folosind SwingWorker
      * Actualizeaza interfata in functie de succesul sau esecul operatiei
      */
     
@@ -508,11 +513,13 @@ public class InterfataGrafica extends JFrame {
     }
     
     //fiecare fct verifica conditia de null -> se reduc sansele de aparitie a erorilor
+
     
     /**
      * Elimina componentele de input si butonul de urmarire din panoul de input si din cel principal.
      * Verifica daca nu sunt null pentru a evita eventualele erori la rulare.
      */
+
     private void resetInputPanel() {
     	if(inputPanel != null) {
     		inputPanel.remove(vehicleIdInput);
@@ -525,6 +532,7 @@ public class InterfataGrafica extends JFrame {
     
     /**
      * Reseteaza panoul superior si rearanjeaza componentele principale.
+     * Elimina componentele asociate panoului de sus si adauga un nou imput pentru ID-ul vehiculului.
      */
     private void resetTopPanelLayout() {
     	if(topPanel!= null) {
@@ -544,7 +552,7 @@ public class InterfataGrafica extends JFrame {
     
     /**
      * Reseteaza starea vizuala a butonului de urmarire.
-     */
+	 */
     private void resetButtonState() {
     	if (trackButton instanceof FadeButton) {
             ((FadeButton) trackButton).setAlpha(initialButtonAlpha);
@@ -556,7 +564,8 @@ public class InterfataGrafica extends JFrame {
     
     /**
      * Actualizeaza interfata grafica prin revalidarea si reimprospatarea panoului principal.
-     */
+	 */
+
     private void refreshUI() {
     	if(contentPane != null) {
     		 contentPane.revalidate();
@@ -672,10 +681,116 @@ public class InterfataGrafica extends JFrame {
                      resultsPanel.revalidate();
                      resultsPanel.repaint();
                      trackButton.setEnabled(true);
+                     //fct noua pt buton de back
+                     addBackButton();
                 }
             }
         };
         worker.execute();
+    }
+    
+    //adaug butonul in dreapta jos
+    /**
+     * adauga butonul in coltul din dreapta jos
+     * se verifica existenta sa pentru a evita crearea multipla
+     */
+    
+    //nu e ok, freaca layout ul de grid cu layout ul Flow, crreaza un panel nou pentru buton eventual
+    private void addBackButton() {
+    	
+    	
+    	backButtonPanel = new JPanel();
+        backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual
+        backButtonPanel.setPreferredSize(new Dimension(450, 65));
+
+        if(backButton ==null) {
+        
+        // creare buton Back
+        backButton = new JButton("Back");
+        backButton.setBounds(335, 30, 75, 30); 
+        backButton.setFocusable(false);
+        backButton.setVisible(true);  
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goBackToInitial();
+               
+            }
+        });
+
+        
+        backButtonPanel.add(backButton);
+        contentPane.add(backButtonPanel, BorderLayout.NORTH); 
+
+        contentPane.revalidate();
+        contentPane.repaint();  
+    	
+        }
+    }
+    
+
+//pt claritate, mai pot fi facute modificari
+//posibil sa poata fi apelata si sus la generarea initiala????
+    /**
+     * opreste animatiile si reconstruieste interfata
+     */
+    private void goBackToInitial() {
+    	if(animationTimer != null && animationTimer.isRunning()) {
+    		animationTimer.stop();
+    	}
+    	
+    	//golesc contentPane
+    	if(contentPane != null) {
+    		contentPane.removeAll();
+    	}
+    	
+    	//sterg butonul de back
+    	if (backButtonPanel != null) {
+            contentPane.remove(backButtonPanel);
+            backButtonPanel = null;
+            backButton = null;
+            contentPane.revalidate();
+            contentPane.repaint();
+        }
+    	
+    	// reconstruire
+        inputPanel.removeAll();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 5, 10, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(vehicleIdInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.ipady = 10;
+        gbc.insets = new Insets(20, 5, 10, 5);
+        inputPanel.add(trackButton, gbc);
+
+        if (trackButton instanceof FadeButton) {
+            ((FadeButton) trackButton).setAlpha(1.0f);
+        }
+        trackButton.setVisible(true);
+        trackButton.setEnabled(true);
+
+        statusLabel.setText("Ready to search.");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.ipady = 0;
+        gbc.insets = new Insets(10, 5, 10, 5);
+        inputPanel.add(statusLabel, gbc);
+
+        contentPane.add(inputPanel, BorderLayout.CENTER);
+
+        SwingUtilities.updateComponentTreeUI(this);
+        contentPane.revalidate();
+        contentPane.repaint();
     }
 //functie importanta, nu alterati prea tare
 
@@ -845,7 +960,11 @@ public class InterfataGrafica extends JFrame {
              }
          }
     }
-
+    
+/**
+ * Actualizeaza tema aplicatiei in functie de alegerea utilizatorului
+ * @param e evenimentul generat de selectia temei
+ */
     private void updateTheme(ActionEvent e) {
         String theme = e.getActionCommand();
         try {
@@ -858,12 +977,29 @@ public class InterfataGrafica extends JFrame {
             UIManager.put("Button.arc", 10);
 
             SwingUtilities.updateComponentTreeUI(this);
+            
+            //revalidare completa
+            refreshUI();
+            resetBackgrounds();
 
         } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Failed to set theme: " + ex.getMessage());
         }
     }
 
+    //necesar, daca aleg Dark theme fundalul ramane partial alb
+    /**
+     * Reseteaza culoarea de fundal a tuturor componentelor pentru a se potrivi cu tema
+     * Asigura uniformitatea culorii de fundal dupa schimbarea temei
+     */
+    private void resetBackgrounds() {
+    	Color defaultBg=UIManager.getColor("Panel.background");
+    	if(contentPane != null) contentPane.setBackground(defaultBg);
+    	if(inputPanel != null) inputPanel.setBackground(defaultBg);
+    	if(topPanel != null) topPanel.setBackground(defaultBg);
+    	if(resultsPanel != null) resultsPanel.setBackground(defaultBg);
+    }
+    
     private static class FadeButton extends JButton {
         private static final long serialVersionUID = 1L;
         private float alpha = 1.0f;
