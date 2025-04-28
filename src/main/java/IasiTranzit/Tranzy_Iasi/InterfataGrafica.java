@@ -158,9 +158,16 @@ public class InterfataGrafica extends JFrame {
     /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
     
+    /** Layout ul gridbag pentru pozitonare elemente */
+    private GridBagConstraints gbc = new GridBagConstraints();
+    
 /**
- * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
+ * Constructorul {@code InterfataGrafica} initializeaza si configureaza 
+ * interfata grafica a aplicatiei.
+ * Seteaza titlul, dimensiunile, layout-ul, content-ul. 
+ * 
  */
+
     public InterfataGrafica() {
         setTitle("Tranzy Iasi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,10 +182,7 @@ public class InterfataGrafica extends JFrame {
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
         contentPane.add(inputPanel, BorderLayout.CENTER);
-        /**
-         * gbc= layout ul gridbag pentru pozitonare elemente
-         */
-        GridBagConstraints gbc = new GridBagConstraints();
+        
         gbc.insets = new Insets(10, 5, 10, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -488,7 +492,12 @@ public class InterfataGrafica extends JFrame {
              trackButton.setVisible(newAlpha > 0.05f);
          }
      }
-
+     
+     /**
+      * Metoda apelata la finalizarea animatiei.
+      * Reseteaza panourile de input si top, reseteaza starea butonului, 
+      * actualizeaza interfata grafica si initiaza incarcarea datelor despre vehicule.
+      */
     private void onAnimationFinished() {
     	resetInputPanel();
     	resetTopPanelLayout();
@@ -500,6 +509,10 @@ public class InterfataGrafica extends JFrame {
     
     //fiecare fct verifica conditia de null -> se reduc sansele de aparitie a erorilor
     
+    /**
+     * Elimina componentele de input si butonul de urmarire din panoul de input si din cel principal.
+     * Verifica daca nu sunt null pentru a evita eventualele erori la rulare.
+     */
     private void resetInputPanel() {
     	if(inputPanel != null) {
     		inputPanel.remove(vehicleIdInput);
@@ -510,6 +523,9 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Reseteaza panoul superior si rearanjeaza componentele principale.
+     */
     private void resetTopPanelLayout() {
     	if(topPanel!= null) {
     		topPanel.removeAll();
@@ -526,6 +542,9 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Reseteaza starea vizuala a butonului de urmarire.
+     */
     private void resetButtonState() {
     	if (trackButton instanceof FadeButton) {
             ((FadeButton) trackButton).setAlpha(initialButtonAlpha);
@@ -535,6 +554,9 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Actualizeaza interfata grafica prin revalidarea si reimprospatarea panoului principal.
+     */
     private void refreshUI() {
     	if(contentPane != null) {
     		 contentPane.revalidate();
