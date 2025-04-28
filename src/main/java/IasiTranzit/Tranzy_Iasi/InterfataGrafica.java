@@ -160,6 +160,8 @@ public class InterfataGrafica extends JFrame {
     
     /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
+
+	private JPanel backButtonPanel;
     
 /**
  * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
@@ -687,19 +689,35 @@ public class InterfataGrafica extends JFrame {
     
     //nu e ok, freaca layout ul de grid cu layout ul Flow, crreaza un panel nou pentru buton eventual
     private void addBackButton() {
-    	if(backButton == null) {
-    		backButton = new JButton("Back");
-    		backButton.addActionListener(e -> goBackToInitial());
-    	}
     	
-    	JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-    	backButtonPanel.add(backButton);
     	
-    	resultsPanel.add(Box.createVerticalStrut(20)); //spatiu de separare
-    	resultsPanel.add(backButtonPanel);
- 	
-    	resultsPanel.revalidate();
-    	resultsPanel.repaint();
+    	backButtonPanel = new JPanel();
+        backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual
+        backButtonPanel.setPreferredSize(new Dimension(450, 65));
+
+        if(backButton ==null) {
+        
+        // creare buton Back
+        backButton = new JButton("Back");
+        backButton.setBounds(335, 30, 75, 30); 
+        backButton.setFocusable(false);
+        backButton.setVisible(true);  
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goBackToInitial();
+               
+            }
+        });
+
+        
+        backButtonPanel.add(backButton);
+        contentPane.add(backButtonPanel, BorderLayout.NORTH); 
+
+        contentPane.revalidate();
+        contentPane.repaint();  
+    	
+        }
     }
     
 
@@ -717,6 +735,15 @@ public class InterfataGrafica extends JFrame {
     	if(contentPane != null) {
     		contentPane.removeAll();
     	}
+    	
+    	//sterg butonul de back
+    	if (backButtonPanel != null) {
+            contentPane.remove(backButtonPanel);
+            backButtonPanel = null;
+            backButton = null;
+            contentPane.revalidate();
+            contentPane.repaint();
+        }
     	
     	// reconstruire
         inputPanel.removeAll();
