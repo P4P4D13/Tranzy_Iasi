@@ -639,7 +639,7 @@ public class InterfataGrafica extends JFrame {
     private String findClosestStopName(Vehicle vehicle) {
         if (vehicle.tripId == null) {
             return "Depou";
-        }else if(vehicle.latitude == null || vehicle.longitude == null || ) {
+        }else if(vehicle.latitude == null || vehicle.longitude == null ) {
         	return "Unknown";
         }
 
