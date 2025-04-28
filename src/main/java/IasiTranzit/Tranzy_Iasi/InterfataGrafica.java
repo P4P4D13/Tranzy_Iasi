@@ -637,8 +637,10 @@ public class InterfataGrafica extends JFrame {
         return panel;
     }
     private String findClosestStopName(Vehicle vehicle) {
-        if (vehicle.latitude == null || vehicle.longitude == null || vehicle.tripId == null) {
-            return "Unknown";
+        if (vehicle.tripId == null) {
+            return "Depou";
+        }else if(vehicle.latitude == null || vehicle.longitude == null || ) {
+        	return "Unknown";
         }
 
         List<StopTime> stopsForTrip = new ArrayList<>();
