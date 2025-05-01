@@ -50,7 +50,7 @@ public class Date_stop_times {
 	try {
 	String jsonResponse = getTransportData();
 	System.out.println("Response from API:\n" + jsonResponse);
-	writeToFile(jsonResponse, "date_stops_times.json"); 
+	writeToFile(jsonResponse, "resources/date_stops_times.json"); 
 	} catch (Exception e) {
 	e.printStackTrace();
 	}

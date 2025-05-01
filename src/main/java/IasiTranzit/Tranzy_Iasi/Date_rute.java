@@ -51,7 +51,7 @@ public static void main(String[] args) {
 try {
 String jsonResponse = getTransportData();
 System.out.println("Response from API:\n" + jsonResponse);
-writeToFile(jsonResponse, "date_rute.json"); 
+writeToFile(jsonResponse, "resources/date_rute.json"); 
 } catch (Exception e) {
 e.printStackTrace();
 }

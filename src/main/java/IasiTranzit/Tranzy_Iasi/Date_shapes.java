@@ -51,7 +51,7 @@ package IasiTranzit.Tranzy_Iasi;
 	try {
 	String jsonResponse = getTransportData();
 	System.out.println("Response from API:\n" + jsonResponse);
-	writeToFile(jsonResponse, "date_shapes.json"); 
+	writeToFile(jsonResponse, "resources/date_shapes.json"); 
 	} catch (Exception e) {
 	e.printStackTrace();
 	}

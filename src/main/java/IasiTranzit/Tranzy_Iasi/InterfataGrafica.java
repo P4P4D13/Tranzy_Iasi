@@ -19,6 +19,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +33,6 @@ import javax.swing.border.EmptyBorder;
 public class InterfataGrafica extends JFrame {
 	//logica buna aici
     private static final long serialVersionUID = 1L;
-
-
-
     private JPanel contentPane;
     private JTextField vehicleIdInput;
     private final ButtonGroup grupFont = new ButtonGroup();
@@ -59,9 +57,11 @@ public class InterfataGrafica extends JFrame {
     private JPanel resultsPanel;
     private JScrollPane resultsScrollPane;
     private JLabel statusLabel;
-//Route==Trip ??? sau nu?
+    //Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari
     private Map<String, Route> routesMap = new HashMap<>();
     private Map<String, Trip> tripsMap = new HashMap<>();
+    private Map<String, Stop> stopsMap = new HashMap<>();
+    private List<StopTime> stopTimesList = new ArrayList<>();
 /**
  * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
  */
@@ -125,6 +125,7 @@ public class InterfataGrafica extends JFrame {
         loadStaticData();
     }
     //OK 
+    //Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
     private String fetchData(String fileName) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -145,7 +146,7 @@ public class InterfataGrafica extends JFrame {
      */
     
     private void loadStaticData() {
-        statusLabel.setText("Loading Routes and Trips...");
+        statusLabel.setText("Loading Data...");
         trackButton.setEnabled(false);
 
         SwingWorker<Boolean, Void> staticDataLoader = new SwingWorker<Boolean, Void>() {
@@ -221,8 +222,7 @@ public class InterfataGrafica extends JFrame {
         }
 		return tempTripsMap;
     }
-    private Map<String, Stop> stopsMap = new HashMap<>();
-    private List<StopTime> stopTimesList = new ArrayList<>();
+
 
     private Map<String, Stop> loadStops() throws IOException, JSONException {
         String stopsJson = fetchData("date_stops.json");
@@ -628,8 +628,8 @@ public class InterfataGrafica extends JFrame {
 
         panel.add(detailsPanel);
 
-        String currentStopName = findClosestStopName(info.vehicle);
-        panel.add(new JLabel("Current Stop: " + currentStopName));
+    
+        panel.add(new JLabel(findClosestStopName(info.vehicle)));
         //ATENTIE
         //maximum size trebuie pus dupa ce sunt puse toate componentele
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
@@ -637,39 +637,47 @@ public class InterfataGrafica extends JFrame {
         return panel;
     }
     private String findClosestStopName(Vehicle vehicle) {
-        if (vehicle.tripId == null) {
-            return "Depou";
-        }else if(vehicle.latitude == null || vehicle.longitude == null ) {
-        	return "Unknown";
-        }
+        if (vehicle.tripId == null || vehicle.latitude == null || vehicle.longitude == null)
+            return "Depou / Poziție necunoscută";
 
-        List<StopTime> stopsForTrip = new ArrayList<>();
-        for (StopTime st : stopTimesList) {
-            if (vehicle.tripId.equals(st.tripId)) {
-                stopsForTrip.add(st);
-            }
-        }
-
-        if (stopsForTrip.isEmpty()) {
-            return "No stops found";
-        }
+        List<StopTime> stopsForTrip = stopTimesList.stream()
+            .filter(st -> vehicle.tripId.equals(st.tripId))
+            .sorted(Comparator.comparingInt(st -> st.stopSequence))
+            .toList();
 
         Stop closestStop = null;
         double minDistance = Double.MAX_VALUE;
+        int currentIndex = -1;
 
-        for (StopTime st : stopsForTrip) {
+        for (int i = 0; i < stopsForTrip.size(); i++) {
+            StopTime st = stopsForTrip.get(i);
             Stop stop = stopsMap.get(st.stopId);
-            if (stop != null) {
-                double distance = haversine(vehicle.latitude, vehicle.longitude, stop.latitude, stop.longitude);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestStop = stop;
-                }
+            if (stop == null) continue;
+
+            double distance = haversine(vehicle.latitude, vehicle.longitude, stop.latitude, stop.longitude);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestStop = stop;
+                currentIndex = i;
             }
         }
 
-        return closestStop != null ? closestStop.name : "Unknown";
+        if (closestStop == null)
+            return "Fără stații pe traseu";
+
+        if (minDistance < 0.01) // Aproape de o stație (10 metri)
+            return "Stația curentă: " + closestStop.name;
+
+        if (currentIndex + 1 < stopsForTrip.size()) {
+            StopTime nextStopTime = stopsForTrip.get(currentIndex + 1);
+            Stop nextStop = stopsMap.get(nextStopTime.stopId);
+            if (nextStop != null)
+                return "Următoarea stație: " + nextStop.name;
+        }
+
+        return "Traseu necunoscut";
     }
+
     private double haversine(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371; // Earth radius in km
         double latDistance = Math.toRadians(lat2 - lat1);
@@ -1046,6 +1054,13 @@ public class InterfataGrafica extends JFrame {
 
 
     public static void main(String[] args) {
+    	Date_agentie.main(args);
+    	Date_rute.main(args);
+    	Date_stop_times.main(args);
+    	Date_stops.main(args);
+    	Date_trips.main(args);
+    	Date_vehicule.main(args);
+    	
        try {
            UIManager.setLookAndFeel(new FlatLightLaf());
            UIManager.put( "TextComponent.arc", 10 );
