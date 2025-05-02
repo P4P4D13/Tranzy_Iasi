@@ -490,6 +490,11 @@ public class InterfataGrafica extends JFrame {
                              System.err.println("Skipping vehicle due to JSON parsing error: " + jsonEx.getMessage() + " in JSON: " + vehicleJson.toString(2));
                         }
                     }
+                foundVehicles.sort((a, b) -> {
+                        boolean aActive = a.vehicle.latitude != null && a.vehicle.longitude != null && a.vehicle.speedKmH != null && a.vehicle.speedKmH > 0;
+                        boolean bActive = b.vehicle.latitude != null && b.vehicle.longitude != null && b.vehicle.speedKmH != null && b.vehicle.speedKmH > 0;
+                        return Boolean.compare(!aActive, !bActive);
+                    });
                 } catch (IOException | JSONException e) {
                      System.err.println("Error fetching or parsing vehicle data: " + e.getMessage());
                      e.printStackTrace();
@@ -632,8 +637,20 @@ public class InterfataGrafica extends JFrame {
         panel.add(new JLabel(findClosestStopName(info.vehicle)));
         //ATENTIE
         //maximum size trebuie pus dupa ce sunt puse toate componentele
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+       
         
+        
+        gbc.gridx = 0; gbc.gridy++;
+        detailsPanel.add(new JLabel("Bike Access:"), gbc);
+        gbc.gridx++;
+        detailsPanel.add(new JLabel(info.vehicle.bikeAccessible), gbc);
+
+        gbc.gridx = 0; gbc.gridy++;
+        detailsPanel.add(new JLabel("Wheelchair Access:"), gbc);
+        gbc.gridx++;
+        detailsPanel.add(new JLabel(info.vehicle.wheelchairAccessible), gbc);
+
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
         return panel;
     }
     private String findClosestStopName(Vehicle vehicle) {
@@ -871,16 +888,20 @@ public class InterfataGrafica extends JFrame {
         Double longitude;
         long timestampEpochSeconds;
         int vehicleType;
-        //consider inutil momentan adaugam poate mai tarziu
-//        String bikeAccessible;
-//        String wheelchairAccessible;
+        
+        String bikeAccessible;
+        String wheelchairAccessible;
         Double speedKmH;
         String routeId;
         String tripId;
 
         static Vehicle fromJson(JSONObject json) throws JSONException {
             Vehicle v = new Vehicle();
-
+            
+            v.bikeAccessible = json.optString("bike_accessible", "UNKNOWN");
+            v.wheelchairAccessible = json.optString("wheelchair_accessible", "UNKNOWN");
+            
+            
             Object idObj = json.opt("id");
             v.id = (idObj == null) ? null : idObj.toString();
             if (v.id == null) {
