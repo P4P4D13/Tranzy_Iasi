@@ -683,23 +683,22 @@ public class InterfataGrafica extends JFrame {
     
     //adaug butonul in dreapta jos
     /**
-     * adauga butonul in coltul din dreapta jos
+     * adauga butonul in coltul din dreapta sus
      * se verifica existenta sa pentru a evita crearea multipla
      */
     
-    //nu e ok, freaca layout ul de grid cu layout ul Flow, crreaza un panel nou pentru buton eventual
     private void addBackButton() {
     	
     	
     	backButtonPanel = new JPanel();
-        backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual
-        backButtonPanel.setPreferredSize(new Dimension(450, 65));
+        backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual       
+        backButtonPanel.setPreferredSize(new Dimension(450, 67));
 
         if(backButton ==null) {
         
         // creare buton Back
         backButton = new JButton("Back");
-        backButton.setBounds(335, 30, 75, 30); 
+        backButton.setBounds(335, 37, 75, 30); 
         backButton.setFocusable(false);
         backButton.setVisible(true);  
         backButton.addActionListener(new ActionListener() {
@@ -711,7 +710,7 @@ public class InterfataGrafica extends JFrame {
         });
 
         
-        backButtonPanel.add(backButton);
+        backButtonPanel.add(backButton); 
         contentPane.add(backButtonPanel, BorderLayout.NORTH); 
 
         contentPane.revalidate();
@@ -719,7 +718,7 @@ public class InterfataGrafica extends JFrame {
     	
         }
     }
-    
+ 
 
 //pt claritate, mai pot fi facute modificari
 //posibil sa poata fi apelata si sus la generarea initiala????
