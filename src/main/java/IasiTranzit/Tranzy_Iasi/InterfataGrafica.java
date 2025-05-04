@@ -30,41 +30,119 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Clasa {@code InterfataGrafica} reprezinta fereastra pricipala a aplicatiei,
+ * ce gestioneaza interfata grafica si comunicarea cu API-ul Tranzy OpenData.
+ * Aceasta clasa extinde {@link JFrame} si include componente pentru introducerea datelor,
+ * afisarea rezultatelor, selectarea temei si a dimensiunii fontului, precum si elemente 
+ * pentru animatii simple ale interfetei.
+ * Utilizeaza un API extern pentru a prelua informatii despre vehicule, rute, curse si statii.
+ */
+
 public class InterfataGrafica extends JFrame {
 	//logica buna aici
+	
+	/** Serial version UID generat automat pentru clasa JFrame */
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    
+    /** Camp text unde utilizatorul introduce ID-ul vehiculului de urmarit */
     private JTextField vehicleIdInput;
+    
+    /** 
+     * Grup de butoane pentru a asigura selectarea exclusiva a unui singur radio button
+     * pentru dimensiunea fontului
+     */
     private final ButtonGroup grupFont = new ButtonGroup();
+    
+    /**
+     * Grup de butoane pentru a asigura selectarea exclusiva a unui singur radio button
+     * pentru tema interfetei
+     */
     private final ButtonGroup grupTheme = new ButtonGroup();
+    
+    /** Buton pentru initierea urmaririi vehiculului */
     private JButton trackButton;
+    
+    /** Radio buttons pentru selectarea dimensiunii fontului */
     private JRadioButton b12, b14, b16;
+    
+    /** Radio buttons pentru selectarea temei (luminoasa/intunecata) */
     private JRadioButton rbLight, rbDark;
+
+    /** Initializare buton pentru revenire la landing page */
+    private JButton backButton;
+
+    /** Timer folosit pentru animarea tranzitiilor UI */
+
     private Timer animationTimer;
+    
     //aici modificam viteza la animatie dupa buton
+    
+    /** Durata totala a unei animatii, in milisecunde */
     private final int ANIMATION_DURATION_MS = 500;
+    
+    /** Intervalul de timp intre doua actualizari ale animatiei, in milisecunde */
     private final int TIMER_DELAY_MS = 10;
+    
+    /** Momentul de start al animatiei, in milisecunde */
     private long animationStartTime;
+    
+    /** Pozitia initiala a campului de introducere */
     private Point initialPosInput;
+    
+    /** Dimensiunea initiala a campului de introducere */
     private Dimension initialSizeInput;
+    
+    /** Pozitia tinta pe axa Y pentru textul de input */
     private int targetYText = 10;
+    
+    /** Latimea tinta pentru campul de input */
     private int targetWidth;
+    
+    /** Spatiul orizontal folosit in layout/animatie */
     private int horizontalPadding = 10;
+    
+    /** Opacitatea initiala a butonului de urmarire */
     private float initialButtonAlpha = 1.0f;
+    
+    /** Opacitatea tinta a butonului de urmarire dupa animatie */
     private float targetButtonAlpha = 0.0f;
+    
+    /** Panou pentru campul de introducere */
     private JPanel inputPanel;
+    
+    /** Panou superior pentru titlu si selectii */
     private JPanel topPanel;
+    
+    /** Panou destinat afisarii rezultatelor */
     private JPanel resultsPanel;
+    
+    /** ScrollPane pentru lista de rezultate */
     private JScrollPane resultsScrollPane;
+    
+    /** Eticheta pentru afisarea statusului aplicatiei */
     private JLabel statusLabel;
     //Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari
     private Map<String, Route> routesMap = new HashMap<>();
+    
+    /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
     private Map<String, Stop> stopsMap = new HashMap<>();
     private List<StopTime> stopTimesList = new ArrayList<>();
+    /** Initializare panel buton back pentru pozitionarea sa in interfata  */
+	private JPanel backButtonPanel;
+    
+    /** Layout ul gridbag pentru pozitonare elemente */
+    private GridBagConstraints gbc = new GridBagConstraints();
+    
 /**
- * Configurare de baza a proiectului setare titlu dimensiuni,layout, content
+ * Constructorul {@code InterfataGrafica} initializeaza si configureaza 
+ * interfata grafica a aplicatiei.
+ * Seteaza titlul, dimensiunile, layout-ul, content-ul. 
+ * 
  */
+
     public InterfataGrafica() {
         setTitle("Tranzy Iasi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,10 +157,7 @@ public class InterfataGrafica extends JFrame {
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
         contentPane.add(inputPanel, BorderLayout.CENTER);
-        /**
-         * gbc= layout ul gridbag pentru pozitonare elemente
-         */
-        GridBagConstraints gbc = new GridBagConstraints();
+        
         gbc.insets = new Insets(10, 5, 10, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
@@ -141,7 +216,7 @@ public class InterfataGrafica extends JFrame {
         return content.toString();
     }
     /**
-     * Inacarca date statice, rute si trasee, folosind SwingWorker
+     * Incarca date statice, rute si trasee, folosind SwingWorker
      * Actualizeaza interfata in functie de succesul sau esecul operatiei
      */
     
@@ -395,6 +470,12 @@ public class InterfataGrafica extends JFrame {
              trackButton.setVisible(newAlpha > 0.05f);
          }
      }
+     
+     /**
+      * Metoda apelata la finalizarea animatiei.
+      * Reseteaza panourile de input si top, reseteaza starea butonului, 
+      * actualizeaza interfata grafica si initiaza incarcarea datelor despre vehicule.
+      */
     private void onAnimationFinished() {
     	resetInputPanel();
     	resetTopPanelLayout();
@@ -405,7 +486,13 @@ public class InterfataGrafica extends JFrame {
     }
     
     //fiecare fct verifica conditia de null -> se reduc sansele de aparitie a erorilor
+
     
+    /**
+     * Elimina componentele de input si butonul de urmarire din panoul de input si din cel principal.
+     * Verifica daca nu sunt null pentru a evita eventualele erori la rulare.
+     */
+
     private void resetInputPanel() {
     	if(inputPanel != null) {
     		inputPanel.remove(vehicleIdInput);
@@ -416,6 +503,10 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Reseteaza panoul superior si rearanjeaza componentele principale.
+     * Elimina componentele asociate panoului de sus si adauga un nou imput pentru ID-ul vehiculului.
+     */
     private void resetTopPanelLayout() {
     	if(topPanel!= null) {
     		topPanel.removeAll();
@@ -432,6 +523,9 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Reseteaza starea vizuala a butonului de urmarire.
+	 */
     private void resetButtonState() {
     	if (trackButton instanceof FadeButton) {
             ((FadeButton) trackButton).setAlpha(initialButtonAlpha);
@@ -441,6 +535,10 @@ public class InterfataGrafica extends JFrame {
     	}
     }
     
+    /**
+     * Actualizeaza interfata grafica prin revalidarea si reimprospatarea panoului principal.
+	 */
+
     private void refreshUI() {
     	if(contentPane != null) {
     		 contentPane.revalidate();
@@ -448,6 +546,7 @@ public class InterfataGrafica extends JFrame {
     	}
     }
 
+    
     private void fetchAndDisplayVehicleData() {
         String targetId = vehicleIdInput.getText().trim().toLowerCase();
         resultsPanel.removeAll();
@@ -555,13 +654,118 @@ public class InterfataGrafica extends JFrame {
                      resultsPanel.revalidate();
                      resultsPanel.repaint();
                      trackButton.setEnabled(true);
+                     //fct noua pt buton de back
+                     addBackButton();
                 }
             }
         };
         worker.execute();
     }
-//functie importanta, nu alterati prea tare
     
+    //adaug butonul in dreapta jos
+    /**
+     * adauga butonul in coltul din dreapta sus
+     * se verifica existenta sa pentru a evita crearea multipla
+     */
+    
+    private void addBackButton() {
+    	
+    	
+    	backButtonPanel = new JPanel();
+        backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual       
+        backButtonPanel.setPreferredSize(new Dimension(450, 67));
+
+        if(backButton ==null) {
+        
+        // creare buton Back
+        backButton = new JButton("Back");
+        backButton.setBounds(335, 37, 75, 30); 
+        backButton.setFocusable(false);
+        backButton.setVisible(true);  
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goBackToInitial();
+               
+            }
+        });
+
+        
+        backButtonPanel.add(backButton); 
+        contentPane.add(backButtonPanel, BorderLayout.NORTH); 
+
+        contentPane.revalidate();
+        contentPane.repaint();  
+    	
+        }
+    }
+ 
+
+//pt claritate, mai pot fi facute modificari
+//posibil sa poata fi apelata si sus la generarea initiala????
+    /**
+     * opreste animatiile si reconstruieste interfata
+     */
+    private void goBackToInitial() {
+    	if(animationTimer != null && animationTimer.isRunning()) {
+    		animationTimer.stop();
+    	}
+    	
+    	//golesc contentPane
+    	if(contentPane != null) {
+    		contentPane.removeAll();
+    	}
+    	
+    	//sterg butonul de back
+    	if (backButtonPanel != null) {
+            contentPane.remove(backButtonPanel);
+            backButtonPanel = null;
+            backButton = null;
+            contentPane.revalidate();
+            contentPane.repaint();
+        }
+    	
+    	// reconstruire
+        inputPanel.removeAll();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 5, 10, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(vehicleIdInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.ipady = 10;
+        gbc.insets = new Insets(20, 5, 10, 5);
+        inputPanel.add(trackButton, gbc);
+
+        if (trackButton instanceof FadeButton) {
+            ((FadeButton) trackButton).setAlpha(1.0f);
+        }
+        trackButton.setVisible(true);
+        trackButton.setEnabled(true);
+
+        statusLabel.setText("Ready to search.");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.ipady = 0;
+        gbc.insets = new Insets(10, 5, 10, 5);
+        inputPanel.add(statusLabel, gbc);
+
+        contentPane.add(inputPanel, BorderLayout.CENTER);
+
+        SwingUtilities.updateComponentTreeUI(this);
+        contentPane.revalidate();
+        contentPane.repaint();
+    }
+//functie importanta, nu alterati prea tare
+
     private JPanel createVehiclePanel(DisplayVehicleInfo info) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -785,7 +989,11 @@ public class InterfataGrafica extends JFrame {
              }
          }
     }
-
+    
+/**
+ * Actualizeaza tema aplicatiei in functie de alegerea utilizatorului
+ * @param e evenimentul generat de selectia temei
+ */
     private void updateTheme(ActionEvent e) {
         String theme = e.getActionCommand();
         try {
@@ -798,12 +1006,29 @@ public class InterfataGrafica extends JFrame {
             UIManager.put("Button.arc", 10);
 
             SwingUtilities.updateComponentTreeUI(this);
+            
+            //revalidare completa
+            refreshUI();
+            resetBackgrounds();
 
         } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Failed to set theme: " + ex.getMessage());
         }
     }
 
+    //necesar, daca aleg Dark theme fundalul ramane partial alb
+    /**
+     * Reseteaza culoarea de fundal a tuturor componentelor pentru a se potrivi cu tema
+     * Asigura uniformitatea culorii de fundal dupa schimbarea temei
+     */
+    private void resetBackgrounds() {
+    	Color defaultBg=UIManager.getColor("Panel.background");
+    	if(contentPane != null) contentPane.setBackground(defaultBg);
+    	if(inputPanel != null) inputPanel.setBackground(defaultBg);
+    	if(topPanel != null) topPanel.setBackground(defaultBg);
+    	if(resultsPanel != null) resultsPanel.setBackground(defaultBg);
+    }
+    
     private static class FadeButton extends JButton {
         private static final long serialVersionUID = 1L;
         private float alpha = 1.0f;
@@ -1052,7 +1277,13 @@ public class InterfataGrafica extends JFrame {
         String tripHeadsign;
     }
 
-
+    /** 
+     * Metoda principala care porneste aplicatia.
+     * Initializeaza tema vizuala FlatLaf Light si configureaza aspectul componentelor
+     * grafice, apoi lanseaza interfata grafica {@link InterfataGrafica}
+     *
+     * @param args argumentele din linia de comanda (neutilizate)
+     */
     public static void main(String[] args) {
     	Date_agentie.main(args);
     	Date_rute.main(args);
