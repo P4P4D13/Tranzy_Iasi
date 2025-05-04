@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"IasiTranzit.Tranzy_Iasi","c":"InterfataGrafica","l":"InterfataGrafica()","u":"%3Cinit%3E()"},{"p":"IasiTranzit.Tranzy_Iasi","c":"InterfataGrafica","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
