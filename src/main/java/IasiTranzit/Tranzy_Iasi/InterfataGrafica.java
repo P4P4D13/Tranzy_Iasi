@@ -100,6 +100,7 @@ public class InterfataGrafica extends JFrame {
     /** Radio buttons pentru selectarea temei (luminoasa/intunecata) */
     private JRadioButton rbLight, rbDark;
 
+    /** Initializare buton pentru revenire la landing page */
     private JButton backButton;
 
     /** Timer folosit pentru animarea tranzitiilor UI */
@@ -160,7 +161,7 @@ public class InterfataGrafica extends JFrame {
     
     /** Mapare ID cursa catre obiect */
     private Map<String, Trip> tripsMap = new HashMap<>();
-
+    /** Initializare panel buton back pentru pozitionarea sa in interfata  */
 	private JPanel backButtonPanel;
     
 /**
