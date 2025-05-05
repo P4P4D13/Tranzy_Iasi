@@ -72,6 +72,9 @@ public class InterfataGrafica extends JFrame {
 
     /** Initializare buton pentru revenire la landing page */
     private JButton backButton;
+    
+    /** Initializare buton pentru preluarea datelor actuale */
+    private JButton refreshButton;
 
     /** Timer folosit pentru animarea tranzitiilor UI */
 
@@ -656,6 +659,8 @@ public class InterfataGrafica extends JFrame {
                      trackButton.setEnabled(true);
                      //fct noua pt buton de back
                      addBackButton();
+                   //fct noua pt buton de refresh
+                     addRefreshButton();
                 }
             }
         };
@@ -698,6 +703,36 @@ public class InterfataGrafica extends JFrame {
         contentPane.repaint();  
     	
         }
+    }
+    
+    private void addRefreshButton() {
+    	 if (backButtonPanel == null) {
+    	        backButtonPanel = new JPanel();
+    	        backButtonPanel.setLayout(null);       
+    	        backButtonPanel.setPreferredSize(new Dimension(450, 67));
+    	        contentPane.add(backButtonPanel, BorderLayout.NORTH); 
+    	    }
+
+    	if(refreshButton ==null) {
+    		 // creare buton refresh
+            refreshButton = new JButton("Refresh");
+            refreshButton.setBounds(10, 37, 75, 30); 
+            refreshButton.setFocusable(false);
+            refreshButton.setVisible(true);  
+            refreshButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                		fetchAndDisplayVehicleData();
+                   
+                }
+            });
+                      
+            backButtonPanel.add(refreshButton); 
+            contentPane.add(backButtonPanel, BorderLayout.NORTH); 
+
+            contentPane.revalidate();
+            contentPane.repaint();  
+    	}
     }
  
 
