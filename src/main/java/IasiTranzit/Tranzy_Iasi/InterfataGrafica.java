@@ -173,6 +173,13 @@ public class InterfataGrafica extends JFrame {
         gbc.ipady = 10;
         gbc.insets = new Insets(20, 5, 10, 5);
         inputPanel.add(trackButton, gbc);
+        
+        vehicleIdInput.addActionListener(e -> {
+            if (trackButton.isEnabled()) {
+                trackButton.doClick(); // Simulează click pe buton
+            }
+        });
+
 
         statusLabel = new JLabel("Loading initial data...", SwingConstants.CENTER);
         gbc.gridx = 0; gbc.gridy = 2;
@@ -775,6 +782,7 @@ public class InterfataGrafica extends JFrame {
         ));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        // Adăugăm informațiile vehiculului
         JLabel titleLabel = new JLabel(String.format("Vehicle: %s (Route: %s)", info.vehicle.label, info.routeShortName));
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, titleLabel.getFont().getSize() + 1f));
         panel.add(titleLabel);
@@ -782,7 +790,8 @@ public class InterfataGrafica extends JFrame {
 
         panel.add(new JLabel(String.format("Destination: %s", info.tripHeadsign)));
         panel.add(Box.createRigidArea(new Dimension(0, 8)));
-        
+
+        // Detalii suplimentare despre vehicul
         JPanel detailsPanel = new JPanel(new GridBagLayout());
         detailsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -790,9 +799,7 @@ public class InterfataGrafica extends JFrame {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(1, 0, 1, 10);
-        
-        //ciudat, poate incercam sa vedem ce inseamna N/A (not applicable) poate indica ca trebuei sa mearga in DEPOU
-        //de discutat
+
         String locationStr = "N/A";
         if (info.vehicle.latitude != null && info.vehicle.longitude != null) {
             locationStr = String.format("%.5f, %.5f", info.vehicle.latitude, info.vehicle.longitude);
@@ -801,45 +808,75 @@ public class InterfataGrafica extends JFrame {
         String speedStr = "N/A";
         if (info.vehicle.speedKmH != null) {
             speedStr = String.format("%.1f km/h", info.vehicle.speedKmH);
-            //aveam probleme aici, nu imi dau seama daca era problema de ziua de paste dar aveam viteze de peste 130 la ora la unele autobuze
-            //posibila eroare la Tranzy.ai de testat in cod
-            if (info.vehicle.speedKmH > 100.0) { 
-                speedStr += "viteza neprecisa";
+            if (info.vehicle.speedKmH > 100.0) {
+                speedStr += " (inaccurate speed)";
             }
         }
-        //recomandat aici, 
-        //sectiunile: Last known position, sau Last stop
-        gbc.gridx = 0; gbc.gridy = 0;
+
+        // Adăugăm informațiile despre locație, viteză și altele
+        gbc.gridx = 0; 
+        gbc.gridy = 0;
+        gbc.weightx = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
         detailsPanel.add(new JLabel("Location:"), gbc);
-        gbc.gridx++;
+
+        gbc.gridx = 1;
         gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         detailsPanel.add(new JLabel(locationStr), gbc);
 
-        gbc.gridx = 0; gbc.gridy++; gbc.weightx = 0.0;
+        gbc.gridx = 0; 
+        gbc.gridy++;
+        gbc.weightx = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
         detailsPanel.add(new JLabel("Speed:"), gbc);
-        gbc.gridx++;
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         detailsPanel.add(new JLabel(speedStr), gbc);
 
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0; 
+        gbc.gridy++;
+        gbc.weightx = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
         detailsPanel.add(new JLabel("Last Update:"), gbc);
-        gbc.gridx++;
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         detailsPanel.add(new JLabel(info.vehicle.getFormattedTimestamp()), gbc);
 
-        gbc.gridx = 0; gbc.gridy++;
+        gbc.gridx = 0; 
+        gbc.gridy++;
+        gbc.weightx = 0.0;
+        gbc.fill = GridBagConstraints.NONE;
         detailsPanel.add(new JLabel("Type:"), gbc);
-        gbc.gridx++;
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         detailsPanel.add(new JLabel(info.vehicle.getVehicleTypeString()), gbc);
 
         panel.add(detailsPanel);
 
-    
+        // Adăugăm numele celui mai apropiat stop
         panel.add(new JLabel(findClosestStopName(info.vehicle)));
-        //ATENTIE
-        //maximum size trebuie pus dupa ce sunt puse toate componentele
+
+        // Asigură-te că dimensiunile sunt setate corect pentru panou
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
-        
-        return panel;
+
+        // Învelește panoul într-un JScrollPane pentru a evita tăierea datelor
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setPreferredSize(new Dimension(100, 200)); // Ajustează dimensiunea după cum e necesar
+
+        // Returnează un JPanel care conține JScrollPane
+        JPanel containerPanel = new JPanel(new BorderLayout());
+        containerPanel.add(scrollPane, BorderLayout.CENTER);
+
+        return containerPanel;
     }
+
     private String findClosestStopName(Vehicle vehicle) {
         if (vehicle.tripId == null || vehicle.latitude == null || vehicle.longitude == null)
             return "Depou / Poziție necunoscută";
@@ -968,27 +1005,37 @@ public class InterfataGrafica extends JFrame {
             baseFont = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
         }
 
-        Font newFont = baseFont.deriveFont((float)fontSize);
+        Font newFont = baseFont.deriveFont((float) fontSize);
 
+        // Aplică fontul recursiv
         updateComponentFont(this, newFont);
 
+        // Doar o singură dată UI refresh
         SwingUtilities.updateComponentTreeUI(this);
+        this.revalidate();
+        this.repaint();
     }
 
-    private void updateComponentFont(java.awt.Component comp, Font font) {
+    private void updateComponentFont(Component comp, Font font) {
         comp.setFont(font);
-        if (comp instanceof java.awt.Container) {
-            for (java.awt.Component child : ((java.awt.Container) comp).getComponents()) {
+
+        // Tratează JScrollPane separat, o singură dată
+        if (comp instanceof JScrollPane scrollPane) {
+            Component view = scrollPane.getViewport().getView();
+            if (view != null) {
+                updateComponentFont(view, font);
+            }
+        }
+
+        // Recursiv pentru containere
+        if (comp instanceof Container container) {
+            for (Component child : container.getComponents()) {
                 updateComponentFont(child, font);
             }
         }
-         if (comp instanceof JScrollPane) {
-            JScrollPane scrollPane = (JScrollPane) comp;
-             if (scrollPane.getViewport() != null && scrollPane.getViewport().getView() != null) {
-                 updateComponentFont(scrollPane.getViewport().getView(), font);
-             }
-         }
     }
+
+
     
 /**
  * Actualizeaza tema aplicatiei in functie de alegerea utilizatorului
