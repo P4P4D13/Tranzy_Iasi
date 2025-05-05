@@ -667,7 +667,7 @@ public class InterfataGrafica extends JFrame {
         worker.execute();
     }
     
-    //adaug butonul in dreapta jos
+    //adaug butonul in dreapta sus
     /**
      * adauga butonul in coltul din dreapta sus
      * se verifica existenta sa pentru a evita crearea multipla
@@ -705,6 +705,10 @@ public class InterfataGrafica extends JFrame {
         }
     }
     
+    /**
+     * adauga butonul in coltul din stanga sus
+     * se verifica existenta sa pentru a evita crearea multipla
+     */
     private void addRefreshButton() {
     	 if (backButtonPanel == null) {
     	        backButtonPanel = new JPanel();
@@ -751,11 +755,12 @@ public class InterfataGrafica extends JFrame {
     		contentPane.removeAll();
     	}
     	
-    	//sterg butonul de back
+    	//sterg butoanele de back si refresh
     	if (backButtonPanel != null) {
             contentPane.remove(backButtonPanel);
             backButtonPanel = null;
             backButton = null;
+            refreshButton = null;
             contentPane.revalidate();
             contentPane.repaint();
         }
