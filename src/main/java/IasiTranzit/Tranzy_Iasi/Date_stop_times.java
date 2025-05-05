@@ -14,46 +14,46 @@ public class Date_stop_times {
 	private static final String ST_ID = "1"; // ID-ul agenției
 
 	public static String getTransportData() throws Exception {	
-	URL url = new URL(API_URL);
-	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	conn.setRequestMethod("GET");
-	conn.setRequestProperty("Accept", "application/json");
-	conn.setRequestProperty("X-API-KEY", API_KEY); // Modificat corect
-	conn.setRequestProperty("X-Agency-Id", ST_ID); // Modificat corect
-	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Evităm blocarea cererii
+		URL url = new URL(API_URL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setRequestProperty("X-API-KEY", API_KEY); // Modificat corect
+		conn.setRequestProperty("X-Agency-Id", ST_ID); // Modificat corect
+		conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Evităm blocarea cererii
 
-	if (conn.getResponseCode() != 200) {
-	throw new RuntimeException("HTTP error code : " + conn.getResponseCode());
-	}
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("HTTP error code : " + conn.getResponseCode());
+		}
 
-	BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-	StringBuilder response = new StringBuilder();
-	String output;
-	while ((output = br.readLine()) != null) {
-	response.append(output);
-	}
-	conn.disconnect();
-	return response.toString();
+		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+		StringBuilder response = new StringBuilder();
+		String output;
+		while ((output = br.readLine()) != null) {
+			response.append(output);
+		}
+		conn.disconnect();
+		return response.toString();
 	}
 
 	public static void writeToFile(String jsonContent, String filename) {
-	    try (FileWriter file = new FileWriter(filename)) {
-	    	JSONArray json=new JSONArray(jsonContent);
-	        file.write(json.toString(4)); 
-	        System.out.println("Datele au fost scrise în fișierul: " + filename);
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+		try (FileWriter file = new FileWriter(filename)) {
+			JSONArray json=new JSONArray(jsonContent);
+			file.write(json.toString(4)); 
+			System.out.println("Datele au fost scrise în fișierul: " + filename);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
-	try {
-	String jsonResponse = getTransportData();
-	System.out.println("Response from API:\n" + jsonResponse);
-	writeToFile(jsonResponse, "resources/date_stops_times.json"); 
-	} catch (Exception e) {
-	e.printStackTrace();
-	}
+		try {
+			String jsonResponse = getTransportData();
+			System.out.println("Response from API:\n" + jsonResponse);
+			writeToFile(jsonResponse, "resources/date_stops_times.json"); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
