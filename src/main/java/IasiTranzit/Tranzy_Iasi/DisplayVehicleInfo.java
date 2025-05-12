@@ -1,7 +1,7 @@
 package IasiTranzit.Tranzy_Iasi;
 
 /**
- * Clasa {@code DisplayVehicleInfo} encapsulează informațiile necesare pentru afișarea unui vehicul în interfața grafică.
+ * Clasa {@code DisplayVehicleInfo} encapsuleaza informatiile necesare pentru afisarea unui vehicul in interfata grafica.
  * Aceasta combină datele despre vehicul cu informații suplimentare despre rută și destinație.
  */
 public class DisplayVehicleInfo {

@@ -424,9 +424,9 @@
     },
     {
         "route_id": 100,
-        "route_long_name": "Podu Ros-Frigorifer\u2013Visan",
+        "route_long_name": "Podu Ros-Frigoriferâ\u20ac\u201cVisan",
         "route_type": 3,
-        "route_desc": "P.Ros-Frigorifer\u2013Visan",
+        "route_desc": "P.Ros-Frigoriferâ\u20ac\u201cVisan",
         "agency_id": "1",
         "route_short_name": "203",
         "route_color": "#000"

@@ -10,8 +10,8 @@ import org.json.*;
 
 public class Date_stops {
 	private static final String API_URL = "https://api.tranzy.ai/v1/opendata/stops";
-	private static final String API_KEY = "7DgYhGzTQc5Nn8FfFeuFmhCAWcbadYQEShUjwu3e"; // Înlocuiește cu cheia API
-	private static final String STOP_ID = "1"; // ID-ul agenției
+	private static final String API_KEY = "7DgYhGzTQc5Nn8FfFeuFmhCAWcbadYQEShUjwu3e"; // Inlocuieste cu cheia API
+	private static final String STOP_ID = "1"; // ID-ul agentiei
 
 	public static String getTransportData() throws Exception {	
 	URL url = new URL(API_URL);
@@ -20,7 +20,7 @@ public class Date_stops {
 	conn.setRequestProperty("Accept", "application/json");
 	conn.setRequestProperty("X-API-KEY", API_KEY); // Modificat corect
 	conn.setRequestProperty("X-Agency-Id", STOP_ID); // Modificat corect
-	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Evităm blocarea cererii
+	conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"); // Evitam blocarea cererii
 
 	if (conn.getResponseCode() != 200) {
 	throw new RuntimeException("HTTP error code : " + conn.getResponseCode());
@@ -40,7 +40,7 @@ public class Date_stops {
 	    try (FileWriter file = new FileWriter(filename)) {
 	    	JSONArray json=new JSONArray(jsonContent);
 	        file.write(json.toString(4));  
-	        System.out.println("Datele au fost scrise în fișierul: " + filename);
+	        System.out.println("Datele au fost scrise in fisierul: " + filename);
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }

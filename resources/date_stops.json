@@ -52,7 +52,7 @@
         "stop_id": 7,
         "stop_code": "",
         "stop_lat": 47.165551,
-        "stop_name": "Pia»õa Unirii",
+        "stop_name": "Pia»\u203aa Unirii",
         "location_type": 0
     },
     {
@@ -140,7 +140,7 @@
         "stop_id": 18,
         "stop_code": "",
         "stop_lat": 47.14556411,
-        "stop_name": "Pia»õa Ing. V. SƒÉhleanu",
+        "stop_name": "Pia»\u203aa Ing. V. SƒÉhleanu",
         "location_type": 0
     },
     {
@@ -188,7 +188,7 @@
         "stop_id": 26,
         "stop_code": "",
         "stop_lat": 47.16139161,
-        "stop_name": "Muzeul Municipal \u201eRegina Maria\u201c",
+        "stop_name": "Muzeul Municipal ‚\u20acûRegina Maria‚\u20acú",
         "location_type": 0
     },
     {
@@ -212,7 +212,7 @@
         "stop_id": 29,
         "stop_code": "",
         "stop_lat": 47.165517,
-        "stop_name": "Pia»õa Unirii",
+        "stop_name": "Pia»\u203aa Unirii",
         "location_type": 0
     },
     {
@@ -220,7 +220,7 @@
         "stop_id": 30,
         "stop_code": "",
         "stop_lat": 47.16865733,
-        "stop_name": "Pia»õa Mihai Eminescu",
+        "stop_name": "Pia»\u203aa Mihai Eminescu",
         "location_type": 0
     },
     {
@@ -308,7 +308,7 @@
         "stop_id": 42,
         "stop_code": "",
         "stop_lat": 47.16791686,
-        "stop_name": "Pia»õa Independen»õei",
+        "stop_name": "Pia»\u203aa Independen»\u203aei",
         "location_type": 0
     },
     {
@@ -316,7 +316,7 @@
         "stop_id": 43,
         "stop_code": "",
         "stop_lat": 47.16138066,
-        "stop_name": "Muzeul Municipal \u201eRegina Maria\u201c",
+        "stop_name": "Muzeul Municipal ‚\u20acûRegina Maria‚\u20acú",
         "location_type": 0
     },
     {
@@ -380,7 +380,7 @@
         "stop_id": 53,
         "stop_code": "",
         "stop_lat": 47.13550826,
-        "stop_name": "Blocuri CetƒÉ»õuia",
+        "stop_name": "Blocuri CetƒÉ»\u203auia",
         "location_type": 0
     },
     {
@@ -404,7 +404,7 @@
         "stop_id": 56,
         "stop_code": "",
         "stop_lat": 47.13541323,
-        "stop_name": "Blocuri CetƒÉ»õuia",
+        "stop_name": "Blocuri CetƒÉ»\u203auia",
         "location_type": 0
     },
     {
@@ -468,7 +468,7 @@
         "stop_id": 65,
         "stop_code": "",
         "stop_lat": 47.16101289,
-        "stop_name": "Muzeul Municipal \u201eRegina Maria\u201c",
+        "stop_name": "Muzeul Municipal ‚\u20acûRegina Maria‚\u20acú",
         "location_type": 0
     },
     {
@@ -484,7 +484,7 @@
         "stop_id": 67,
         "stop_code": "",
         "stop_lat": 47.16858,
-        "stop_name": "Pia»õa Independen»õei",
+        "stop_name": "Pia»\u203aa Independen»\u203aei",
         "location_type": 0
     },
     {
@@ -612,7 +612,7 @@
         "stop_id": 85,
         "stop_code": "",
         "stop_lat": 47.16786484,
-        "stop_name": "Voin»õa",
+        "stop_name": "Voin»\u203aa",
         "location_type": 0
     },
     {
@@ -740,7 +740,7 @@
         "stop_id": 102,
         "stop_code": "",
         "stop_lat": 47.14996091,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -756,7 +756,7 @@
         "stop_id": 104,
         "stop_code": "",
         "stop_lat": 47.14644895,
-        "stop_name": "Pia»õa Nicolina",
+        "stop_name": "Pia»\u203aa Nicolina",
         "location_type": 0
     },
     {
@@ -804,7 +804,7 @@
         "stop_id": 110,
         "stop_code": "",
         "stop_lat": 47.11901483,
-        "stop_name": "Plopii fƒÉrƒÉ so»õ",
+        "stop_name": "Plopii fƒÉrƒÉ so»\u203a",
         "location_type": 0
     },
     {
@@ -828,7 +828,7 @@
         "stop_id": 113,
         "stop_code": "",
         "stop_lat": 47.11885285,
-        "stop_name": "Plopii fƒÉrƒÉ so»õ",
+        "stop_name": "Plopii fƒÉrƒÉ so»\u203a",
         "location_type": 0
     },
     {
@@ -876,7 +876,7 @@
         "stop_id": 119,
         "stop_code": "",
         "stop_lat": 47.14615413,
-        "stop_name": "Pia»õa Nicolina",
+        "stop_name": "Pia»\u203aa Nicolina",
         "location_type": 0
     },
     {
@@ -892,7 +892,7 @@
         "stop_id": 121,
         "stop_code": "",
         "stop_lat": 47.1490868,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -1020,7 +1020,7 @@
         "stop_id": 138,
         "stop_code": "",
         "stop_lat": 47.15397,
-        "stop_name": "C.T.P. - Sec»õia nr. 1",
+        "stop_name": "C.T.P. - Sec»\u203aia nr. 1",
         "location_type": 0
     },
     {
@@ -1044,7 +1044,7 @@
         "stop_id": 145,
         "stop_code": "",
         "stop_lat": 47.15384,
-        "stop_name": "C.T.P. - Sec»õia nr. 1",
+        "stop_name": "C.T.P. - Sec»\u203aia nr. 1",
         "location_type": 0
     },
     {
@@ -1052,7 +1052,7 @@
         "stop_id": 146,
         "stop_code": "",
         "stop_lat": 47.16136073,
-        "stop_name": "Muzeul Municipal \u201eRegina Maria\u201c",
+        "stop_name": "Muzeul Municipal ‚\u20acûRegina Maria‚\u20acú",
         "location_type": 0
     },
     {
@@ -1100,7 +1100,7 @@
         "stop_id": 152,
         "stop_code": "",
         "stop_lat": 47.12851136,
-        "stop_name": "Biserica √énƒÉl»õarea Domnului",
+        "stop_name": "Biserica √énƒÉl»\u203aarea Domnului",
         "location_type": 0
     },
     {
@@ -1188,7 +1188,7 @@
         "stop_id": 163,
         "stop_code": "",
         "stop_lat": 47.1470459,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -1212,7 +1212,7 @@
         "stop_id": 167,
         "stop_code": "",
         "stop_lat": 47.16026999,
-        "stop_name": "Pia»õa Alexandru cel Bun",
+        "stop_name": "Pia»\u203aa Alexandru cel Bun",
         "location_type": 0
     },
     {
@@ -1220,7 +1220,7 @@
         "stop_id": 168,
         "stop_code": "",
         "stop_lat": 47.16196497,
-        "stop_name": "Pia»õa Alexandru cel Bun II",
+        "stop_name": "Pia»\u203aa Alexandru cel Bun II",
         "location_type": 0
     },
     {
@@ -1308,7 +1308,7 @@
         "stop_id": 179,
         "stop_code": "",
         "stop_lat": 47.16046949,
-        "stop_name": "Pia»õa Alexandru cel Bun",
+        "stop_name": "Pia»\u203aa Alexandru cel Bun",
         "location_type": 0
     },
     {
@@ -1380,7 +1380,7 @@
         "stop_id": 191,
         "stop_code": "",
         "stop_lat": 47.14560146,
-        "stop_name": "Pia»õa Ing. Virgil SƒÉhleanu",
+        "stop_name": "Pia»\u203aa Ing. Virgil SƒÉhleanu",
         "location_type": 0
     },
     {
@@ -1428,7 +1428,7 @@
         "stop_id": 197,
         "stop_code": "",
         "stop_lat": 47.12940211,
-        "stop_name": "Biserica √énƒÉl»õarea Domnului",
+        "stop_name": "Biserica √énƒÉl»\u203aarea Domnului",
         "location_type": 0
     },
     {
@@ -1452,7 +1452,7 @@
         "stop_id": 200,
         "stop_code": "",
         "stop_lat": 47.16895337,
-        "stop_name": "Pia»õa Mihai Eminescu",
+        "stop_name": "Pia»\u203aa Mihai Eminescu",
         "location_type": 0
     },
     {
@@ -1524,7 +1524,7 @@
         "stop_id": 215,
         "stop_code": "",
         "stop_lat": 47.11728001,
-        "stop_name": "O»õelarie",
+        "stop_name": "O»\u203aelarie",
         "location_type": 0
     },
     {
@@ -1556,7 +1556,7 @@
         "stop_id": 219,
         "stop_code": "",
         "stop_lat": 47.10066568,
-        "stop_name": "Lunca CetƒÉ»õuii",
+        "stop_name": "Lunca CetƒÉ»\u203auii",
         "location_type": 0
     },
     {
@@ -1596,7 +1596,7 @@
         "stop_id": 224,
         "stop_code": "",
         "stop_lat": 47.10033048,
-        "stop_name": "Lunca CetƒÉ»õuii",
+        "stop_name": "Lunca CetƒÉ»\u203auii",
         "location_type": 0
     },
     {
@@ -1628,7 +1628,7 @@
         "stop_id": 228,
         "stop_code": "",
         "stop_lat": 47.1167579,
-        "stop_name": "O»õelƒÉrie",
+        "stop_name": "O»\u203aelƒÉrie",
         "location_type": 0
     },
     {
@@ -1660,7 +1660,7 @@
         "stop_id": 232,
         "stop_code": "",
         "stop_lat": 47.14334593,
-        "stop_name": "»öu»õora",
+        "stop_name": "»öu»\u203aora",
         "location_type": 0
     },
     {
@@ -1700,7 +1700,7 @@
         "stop_id": 239,
         "stop_code": "",
         "stop_lat": 47.14350848,
-        "stop_name": "»öu»õora",
+        "stop_name": "»öu»\u203aora",
         "location_type": 0
     },
     {
@@ -1740,7 +1740,7 @@
         "stop_id": 244,
         "stop_code": "",
         "stop_lat": 47.20277829,
-        "stop_name": "Sta»õiunea ViticolƒÉ",
+        "stop_name": "Sta»\u203aiunea ViticolƒÉ",
         "location_type": 0
     },
     {
@@ -1764,7 +1764,7 @@
         "stop_id": 253,
         "stop_code": "",
         "stop_lat": 47.20262038,
-        "stop_name": "Sta»õiunea ViticolƒÉ",
+        "stop_name": "Sta»\u203aiunea ViticolƒÉ",
         "location_type": 0
     },
     {
@@ -1788,7 +1788,7 @@
         "stop_id": 256,
         "stop_code": "",
         "stop_lat": 47.1430695,
-        "stop_name": "Liceul de Construc»õii",
+        "stop_name": "Liceul de Construc»\u203aii",
         "location_type": 0
     },
     {
@@ -1996,7 +1996,7 @@
         "stop_id": 290,
         "stop_code": "",
         "stop_lat": 47.13477417,
-        "stop_name": "Pia»õa C.U.G.",
+        "stop_name": "Pia»\u203aa C.U.G.",
         "location_type": 0
     },
     {
@@ -2004,7 +2004,7 @@
         "stop_id": 291,
         "stop_code": "",
         "stop_lat": 47.14780194,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -2012,7 +2012,7 @@
         "stop_id": 292,
         "stop_code": "",
         "stop_lat": 47.16945389,
-        "stop_name": "Pia»õa Dacia",
+        "stop_name": "Pia»\u203aa Dacia",
         "location_type": 0
     },
     {
@@ -2020,7 +2020,7 @@
         "stop_id": 294,
         "stop_code": "",
         "stop_lat": 47.16897576,
-        "stop_name": "Pia»õa Dacia",
+        "stop_name": "Pia»\u203aa Dacia",
         "location_type": 0
     },
     {
@@ -2124,7 +2124,7 @@
         "stop_id": 311,
         "stop_code": "",
         "stop_lat": 47.14562,
-        "stop_name": "Pia»õa Ing. Virgil SƒÉhleanu",
+        "stop_name": "Pia»\u203aa Ing. Virgil SƒÉhleanu",
         "location_type": 0
     },
     {
@@ -2132,7 +2132,7 @@
         "stop_id": 312,
         "stop_code": "",
         "stop_lat": 47.14628,
-        "stop_name": "Pia»õa Ing. Virgil SƒÉhleanu",
+        "stop_name": "Pia»\u203aa Ing. Virgil SƒÉhleanu",
         "location_type": 0
     },
     {
@@ -2140,7 +2140,7 @@
         "stop_id": 313,
         "stop_code": "",
         "stop_lat": 47.14342,
-        "stop_name": "Rond »öu»õora",
+        "stop_name": "Rond »öu»\u203aora",
         "location_type": 0
     },
     {
@@ -2380,7 +2380,7 @@
         "stop_id": 347,
         "stop_code": "",
         "stop_lat": 47.16020431,
-        "stop_name": "Pia»õa Alexandru cel Bun",
+        "stop_name": "Pia»\u203aa Alexandru cel Bun",
         "location_type": 0
     },
     {
@@ -2388,7 +2388,7 @@
         "stop_id": 348,
         "stop_code": "",
         "stop_lat": 47.1348815,
-        "stop_name": "Pia»õa C.U.G.",
+        "stop_name": "Pia»\u203aa C.U.G.",
         "location_type": 0
     },
     {
@@ -2396,7 +2396,7 @@
         "stop_id": 349,
         "stop_code": "",
         "stop_lat": 47.16815216,
-        "stop_name": "Pia»õa Sf. Anton de Padova",
+        "stop_name": "Pia»\u203aa Sf. Anton de Padova",
         "location_type": 0
     },
     {
@@ -2404,7 +2404,7 @@
         "stop_id": 350,
         "stop_code": "",
         "stop_lat": 47.16829,
-        "stop_name": "Pia»õa Sf. Anton de Padova",
+        "stop_name": "Pia»\u203aa Sf. Anton de Padova",
         "location_type": 0
     },
     {
@@ -2412,7 +2412,7 @@
         "stop_id": 351,
         "stop_code": "",
         "stop_lat": 47.16808,
-        "stop_name": "Pia»õa Sf. Anton de Padova",
+        "stop_name": "Pia»\u203aa Sf. Anton de Padova",
         "location_type": 0
     },
     {
@@ -2492,7 +2492,7 @@
         "stop_id": 361,
         "stop_code": "",
         "stop_lat": 47.17519509,
-        "stop_name": "Troi»õa V.Lupului",
+        "stop_name": "Troi»\u203aa V.Lupului",
         "location_type": 0
     },
     {
@@ -2500,7 +2500,7 @@
         "stop_id": 362,
         "stop_code": "",
         "stop_lat": 47.17503007,
-        "stop_name": "Troi»õa V.Lupului",
+        "stop_name": "Troi»\u203aa V.Lupului",
         "location_type": 0
     },
     {
@@ -2548,7 +2548,7 @@
         "stop_id": 370,
         "stop_code": "",
         "stop_lat": 47.14335173,
-        "stop_name": "»öu»õora",
+        "stop_name": "»öu»\u203aora",
         "location_type": 0
     },
     {
@@ -2556,7 +2556,7 @@
         "stop_id": 371,
         "stop_code": "",
         "stop_lat": 47.14335431,
-        "stop_name": "»öu»õora",
+        "stop_name": "»öu»\u203aora",
         "location_type": 0
     },
     {
@@ -2564,7 +2564,7 @@
         "stop_id": 372,
         "stop_code": "",
         "stop_lat": 47.15999,
-        "stop_name": "Pia»õa Alexandru cel Bun",
+        "stop_name": "Pia»\u203aa Alexandru cel Bun",
         "location_type": 0
     },
     {
@@ -2820,7 +2820,7 @@
         "stop_id": 404,
         "stop_code": "",
         "stop_lat": 47.15040181,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -2828,7 +2828,7 @@
         "stop_id": 405,
         "stop_code": "",
         "stop_lat": 47.14911582,
-        "stop_name": "Gara Interna»õionalƒÉ",
+        "stop_name": "Gara Interna»\u203aionalƒÉ",
         "location_type": 0
     },
     {
@@ -2844,7 +2844,7 @@
         "stop_id": 407,
         "stop_code": "",
         "stop_lat": 47.14630698,
-        "stop_name": "Pia»õa Nicolina",
+        "stop_name": "Pia»\u203aa Nicolina",
         "location_type": 0
     },
     {
@@ -2852,7 +2852,7 @@
         "stop_id": 408,
         "stop_code": "",
         "stop_lat": 47.14638289,
-        "stop_name": "Pia»õa Nicolina",
+        "stop_name": "Pia»\u203aa Nicolina",
         "location_type": 0
     },
     {
@@ -2860,7 +2860,7 @@
         "stop_id": 409,
         "stop_code": "",
         "stop_lat": 47.1453899,
-        "stop_name": "Pia»õa Ing. Virgil SƒÉhleanu",
+        "stop_name": "Pia»\u203aa Ing. Virgil SƒÉhleanu",
         "location_type": 0
     },
     {
@@ -2900,7 +2900,7 @@
         "stop_id": 414,
         "stop_code": "",
         "stop_lat": 47.14347,
-        "stop_name": "Rond »öu»õora",
+        "stop_name": "Rond »öu»\u203aora",
         "location_type": 0
     },
     {
@@ -3044,7 +3044,7 @@
         "stop_id": 435,
         "stop_code": "",
         "stop_lat": 47.15897,
-        "stop_name": "Str. Avia»õiei",
+        "stop_name": "Str. Avia»\u203aiei",
         "location_type": 0
     },
     {
@@ -3052,7 +3052,7 @@
         "stop_id": 436,
         "stop_code": "",
         "stop_lat": 47.16057,
-        "stop_name": "Str. Mo»õilor",
+        "stop_name": "Str. Mo»\u203ailor",
         "location_type": 0
     },
     {
@@ -3060,7 +3060,7 @@
         "stop_id": 437,
         "stop_code": "",
         "stop_lat": 47.16216,
-        "stop_name": "Str. Mistre»õului",
+        "stop_name": "Str. Mistre»\u203aului",
         "location_type": 0
     },
     {
@@ -3340,7 +3340,7 @@
         "stop_id": 492,
         "stop_code": "",
         "stop_lat": 47.176618,
-        "stop_name": "Centrul Reziden»õial pentru Mame »ôi Copii",
+        "stop_name": "Centrul Reziden»\u203aial pentru Mame »ôi Copii",
         "location_type": 0
     },
     {
@@ -3348,7 +3348,7 @@
         "stop_id": 493,
         "stop_code": "",
         "stop_lat": 47.176368,
-        "stop_name": "Centrul Reziden»õial pentru Mame »ôi Copii",
+        "stop_name": "Centrul Reziden»\u203aial pentru Mame »ôi Copii",
         "location_type": 0
     },
     {

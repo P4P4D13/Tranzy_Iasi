@@ -745,6 +745,97 @@ public class InterfataGrafica extends JFrame {
         
         return panel;
     }
+    
+    //functii pentru functionarea grafica a interfetei
+    /**
+     * 
+     */
+    private void updateFont() {
+        if (grupFont.getSelection() == null) return;
+
+        String selectedSize = grupFont.getSelection().getActionCommand();
+        int fontSize = Integer.parseInt(selectedSize);
+
+        Font baseFont = UIManager.getFont("Label.font");
+        if (baseFont == null) {
+            baseFont = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+        }
+
+        Font newFont = baseFont.deriveFont((float) fontSize);
+
+        // Aplică fontul recursiv
+        updateComponentFont(this, newFont);
+
+        // Doar o singură dată UI refresh
+        SwingUtilities.updateComponentTreeUI(this);
+        this.revalidate();
+        this.repaint();
+    }
+    
+    /**
+     * 
+     * @param comp
+     * @param font
+     */
+    private void updateComponentFont(Component comp, Font font) {
+        comp.setFont(font);
+
+        // Tratează JScrollPane separat, o singură dată
+        if (comp instanceof JScrollPane scrollPane) {
+            Component view = scrollPane.getViewport().getView();
+            if (view != null) {
+                updateComponentFont(view, font);
+            }
+        }
+
+        // Recursiv pentru containere
+        if (comp instanceof Container container) {
+            for (Component child : container.getComponents()) {
+                updateComponentFont(child, font);
+            }
+        }
+    }
+    /**
+     * Actualizeaza tema aplicatiei in functie de alegerea utilizatorului
+     * @param e evenimentul generat de selectia temei
+     */
+        private void updateTheme(ActionEvent e) {
+            String theme = e.getActionCommand();
+            try {
+                if ("Dark".equals(theme)) {
+                    UIManager.setLookAndFeel(new FlatDarkLaf());
+                } else {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                }
+                UIManager.put("TextComponent.arc"	, 10);
+                UIManager.put("Button.arc", 10);
+
+                SwingUtilities.updateComponentTreeUI(this);
+                
+                //revalidare completa
+                refreshUI();
+                resetBackgrounds();
+
+            } catch (UnsupportedLookAndFeelException ex) {
+                System.err.println("Failed to set theme: " + ex.getMessage());
+            }
+        }
+        
+        /**
+         * Reseteaza culoarea de fundal a tuturor componentelor pentru a se potrivi cu tema
+         * Asigura uniformitatea culorii de fundal dupa schimbarea temei
+         */
+        private void resetBackgrounds() {
+        	Color defaultBg=UIManager.getColor("Panel.background");
+        	if(contentPane != null) contentPane.setBackground(defaultBg);
+        	if(inputPanel != null) inputPanel.setBackground(defaultBg);
+        	if(topPanel != null) topPanel.setBackground(defaultBg);
+        	if(resultsPanel != null) resultsPanel.setBackground(defaultBg);
+        }
+
+
+
+
   //basic aici
     private void setupMenuBar() {
         JMenuBar menuBar = new JMenuBar();

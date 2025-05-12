@@ -14,8 +14,8 @@
 	import java.util.Map;
 	
 	/**
-	 * Clasa {@code DataManager} se ocupă cu obținerea și procesarea datelor pentru aplicația Tranzy Iasi.
-	 * Oferă metode pentru încărcarea rutelor, traseelor, stațiilor, și vehiculelor din fișiere locale.
+	 * Clasa {@code DataManager} se ocupa cu obtinerea si procesarea datelor pentru aplicatia Tranzy Iasi.
+	 * Ofera metode pentru incarcarea rutelor, traseelor, statiilor, si vehiculelor din fisiere locale.
 	 */
 	public class DataManager {
 	    private Map<String, Route> routesMap = new HashMap<>();
@@ -31,11 +31,11 @@
 	    }
 	    
 	    /**
-	     * Obține conținutul unui fișier din resursele aplicației
+	     * Obtine continutul unui fisier din resursele aplicatiei
 	     * 
-	     * @param fileName numele fișierului care trebuie citit
-	     * @return conținutul fișierului ca string
-	     * @throws IOException dacă fișierul nu poate fi citit
+	     * @param fileName numele fisierului care trebuie citit
+	     * @return continutul fisierului ca string
+	     * @throws IOException daca fisierul nu poate fi citit
 	     */
 	    public String fetchData(String fileName) throws IOException {
 	        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
@@ -53,11 +53,11 @@
 	    }
 	    
 	    /**
-	     * Încarcă informațiile despre rute din fișierul JSON
+	     * Incarcam informatiile despre rute din fisierul JSON
 	     * 
-	     * @return o hartă cu ID-urile de rută și obiectele Route corespunzătoare
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @return o harta cu ID-urile de ruta si obiectele Route corespunzatoare
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public Map<String, Route> loadRoutes() throws IOException, JSONException {
 	        String routesJson = fetchData("date_rute.json");
@@ -72,11 +72,11 @@
 	    }
 	    
 	    /**
-	     * Încarcă informațiile despre trasee din fișierul JSON
+	     * Incara informatiile despre trasee din fisierul JSON
 	     * 
-	     * @return o hartă cu ID-urile de traseu și obiectele Trip corespunzătoare
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @return o harta cu ID-urile de traseu si obiectele Trip corespunzatoare
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public Map<String, Trip> loadTrips() throws IOException, JSONException {
 	        String tripsJson = fetchData("date_trips.json");
@@ -91,11 +91,11 @@
 	    }
 	    
 	    /**
-	     * Încarcă informațiile despre stații din fișierul JSON
+	     * Incarcam informatiile despre statii din fisierul JSON
 	     * 
-	     * @return o hartă cu ID-urile stațiilor și obiectele Stop corespunzătoare
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @return o harta cu ID-urile statiilor si obiectele Stop corespunzatoare
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public Map<String, Stop> loadStops() throws IOException, JSONException {
 	        String stopsJson = fetchData("date_stops.json");
@@ -110,11 +110,11 @@
 	    }
 	    
 	    /**
-	     * Încarcă informațiile despre orarele stațiilor din fișierul JSON
+	     * Incarcam informatiile despre orarele statiilor din fisierul JSON
 	     * 
-	     * @return o listă cu obiectele StopTime
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @return o lista cu obiectele StopTime
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public List<StopTime> loadStopTimes() throws IOException, JSONException {
 	        String stopTimesJson = fetchData("date_stops_times.json");
@@ -129,11 +129,11 @@
 	    }
 	    
 	    /**
-	     * Încarcă informațiile despre vehicule din fișierul JSON
+	     * Incarcam informatiile despre vehicule din fisierul JSON
 	     * 
 	     * @return JSONArray cu toate vehiculele disponibile
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public JSONArray loadVehicles() throws IOException, JSONException {
 	        String vehiclesJson = fetchData("date_vehicule.json");
@@ -141,12 +141,12 @@
 	    }
 	    
 	    /**
-	     * Caută vehicule care se potrivesc cu ID-ul sau ruta specificată
+	     * Cauta vehicule care se potrivesc cu ID-ul sau ruta specificata
 	     * 
-	     * @param targetId ID-ul sau ruta vehiculului căutat
-	     * @return lista de informații despre vehiculele găsite
-	     * @throws IOException dacă apare o eroare la citirea fișierului
-	     * @throws JSONException dacă formatul JSON este invalid
+	     * @param targetId ID-ul sau ruta vehiculului cautat
+	     * @return lista de informatii despre vehiculele gasite
+	     * @throws IOException daca apare o eroare la citirea fisierului
+	     * @throws JSONException daca formatul JSON este invalid
 	     */
 	    public List<DisplayVehicleInfo> findVehicles(String targetId) throws IOException, JSONException {
 	        List<DisplayVehicleInfo> foundVehicles = new ArrayList<>();
@@ -183,13 +183,13 @@
 	    }
 	    
 	    /**
-	     * Calculează distanța între două puncte folosind formula Haversine
+	     * Calculeaza distanta intre doua puncte folosind formula Haversine
 	     * 
 	     * @param lat1 latitudinea primului punct
 	     * @param lon1 longitudinea primului punct
 	     * @param lat2 latitudinea celui de-al doilea punct
 	     * @param lon2 longitudinea celui de-al doilea punct
-	     * @return distanța în kilometri
+	     * @return distana in kilometri
 	     */
 	    public double haversine(double lat1, double lon1, double lat2, double lon2) {
 	        final int R = 6371; // Raza Pământului în km
@@ -203,16 +203,16 @@
 	    }
 	    
 	    /**
-	     * Găsește numele celei mai apropiate stații pentru un vehicul
+	     * Gaseste numele celei mai apropiate statii pentru un vehicul
 	     * 
-	     * @param vehicle vehiculul pentru care se caută stația cea mai apropiată
-	     * @return un string care descrie stația curentă sau următoarea stație
+	     * @param vehicle vehiculul pentru care se cauta statia cea mai apropiata
+	     * @return un string care descrie statia curenta sau urmatoarea statie
 	     */
 	    public String findClosestStopName(Vehicle vehicle) {
 	        if (vehicle.tripId == null || vehicle.latitude == null || vehicle.longitude == null)
 	            return "Depou / Poziție necunoscută";
 	        
-	        // Filtrează lista de StopTime pentru a include doar opririle pentru acest trip
+	        // Filtreaza lista de StopTime pentru a include doar opririle pentru acest trip
 	        List<StopTime> stopsForTrip = new ArrayList<>();
 	        for (StopTime st : stopTimesList) {
 	            if (vehicle.tripId.equals(st.tripId)) {
@@ -220,7 +220,7 @@
 	            }
 	        }
 	        
-	        // Sortează opririle după secvența lor
+	        // Sorteaza opririle dupa secventa lor
 	        stopsForTrip.sort((st1, st2) -> Integer.compare(st1.stopSequence, st2.stopSequence));
 	        
 	        Stop closestStop = null;
@@ -241,16 +241,16 @@
 	        }
 	        
 	        if (closestStop == null)
-	            return "Fără stații pe traseu";
+	            return "Fara statii pe traseu";
 	        
-	        if (minDistance < 0.01) // Aproape de o stație (10 metri)
-	            return "Stația curentă: " + closestStop.name;
+	        if (minDistance < 0.01) // Aproape de o statie (10 metri)
+	            return "Statia curenta: " + closestStop.name;
 	        
 	        if (currentIndex + 1 < stopsForTrip.size()) {
 	            StopTime nextStopTime = stopsForTrip.get(currentIndex + 1);
 	            Stop nextStop = stopsMap.get(nextStopTime.stopId);
 	            if (nextStop != null)
-	                return "Următoarea stație: " + nextStop.name;
+	                return "Urmatoarea statie: " + nextStop.name;
 	        }
 	        
 	        return "Traseu necunoscut";
