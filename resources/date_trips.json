@@ -116,7 +116,7 @@
         "direction_id": 1,
         "route_id": 12,
         "shape_id": "12_1",
-        "trip_headsign": "Pia�\u203aa Independen�\u203aei",
+        "trip_headsign": "Piața Independenței",
         "block_id": 12
     },
     {
@@ -124,7 +124,7 @@
         "direction_id": 0,
         "route_id": 13,
         "shape_id": "13_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 13
     },
     {
@@ -140,7 +140,7 @@
         "direction_id": 0,
         "route_id": 14,
         "shape_id": "14_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 14
     },
     {
@@ -396,7 +396,7 @@
         "direction_id": 1,
         "route_id": 54,
         "shape_id": "54_1",
-        "trip_headsign": "Pia�\u203aa Alexandru cel Bun",
+        "trip_headsign": "Piața Alexandru cel Bun",
         "block_id": 54
     },
     {
@@ -404,7 +404,7 @@
         "direction_id": 0,
         "route_id": 57,
         "shape_id": "57_0",
-        "trip_headsign": "Str. Mistre�\u203aului",
+        "trip_headsign": "Str. Mistrețului",
         "block_id": 57
     },
     {
@@ -508,7 +508,7 @@
         "direction_id": 0,
         "route_id": 85,
         "shape_id": "85_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 85
     },
     {
@@ -580,7 +580,7 @@
         "direction_id": 1,
         "route_id": 90,
         "shape_id": "90_1",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 90
     },
     {
@@ -596,7 +596,7 @@
         "direction_id": 1,
         "route_id": 91,
         "shape_id": "91_1",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 91
     },
     {
@@ -788,7 +788,7 @@
         "direction_id": 1,
         "route_id": 103,
         "shape_id": "103_1",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 103
     },
     {
@@ -804,7 +804,7 @@
         "direction_id": 0,
         "route_id": 105,
         "shape_id": "105_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 105
     },
     {
@@ -828,7 +828,7 @@
         "direction_id": 1,
         "route_id": 107,
         "shape_id": "107_1",
-        "trip_headsign": "Pia�\u203aa Independen�\u203aei",
+        "trip_headsign": "Piața Independenței",
         "block_id": 107
     },
     {
@@ -860,7 +860,7 @@
         "direction_id": 1,
         "route_id": 110,
         "shape_id": "110_1",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 110
     },
     {
@@ -876,7 +876,7 @@
         "direction_id": 0,
         "route_id": 115,
         "shape_id": "115_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 115
     },
     {
@@ -892,7 +892,7 @@
         "direction_id": 0,
         "route_id": 116,
         "shape_id": "116_0",
-        "trip_headsign": "Rond Țu�\u203aora",
+        "trip_headsign": "Rond Țuțora",
         "block_id": 116
     },
     {
