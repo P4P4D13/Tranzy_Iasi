@@ -8,7 +8,12 @@ public class Trip {
     String routeId;
     String headsign;
     int directionId;
-
+    /**
+     * 
+     * @param json-primeste un fisier json ca parametru pentru procesare
+     * @return returneaza un obiect Trip, care contine parametrii necesari pentru procesare
+     * @throws JSONException-arunca exceptie in caz de nu primeste fisier 
+     */
     static Trip fromJson(JSONObject json) throws JSONException {
         Trip t = new Trip();
          Object tripIdObj = json.opt("trip_id");

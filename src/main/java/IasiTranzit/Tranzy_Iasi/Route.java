@@ -11,8 +11,12 @@ public class Route {
     String color;
     int type;
     String desc;
-
-    static Route fromJson(JSONObject json) throws JSONException {
+    /**
+     * 
+     * @param son-primeste un fisier json ca parametru pentru procesare
+     * @return returneaza datele despre ruta pentru a face legatura cu id mijlocului de transport
+     */
+    static Route fromJson(JSONObject json) {
         Route r = new Route();
         r.id = String.valueOf(json.getInt("route_id"));
         r.shortName = json.optString("route_short_name", "");

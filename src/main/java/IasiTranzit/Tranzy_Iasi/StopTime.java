@@ -5,6 +5,11 @@ public class StopTime {
     String tripId;
     String stopId;
     int stopSequence;
+    /**
+     * 
+     * @param json-primeste un fisier json ca parametru pentru procesare
+     * @return returneaza un obiect de tip StopTime pentru a ne ajuta la calculare de distante/statie
+     */
 
     static StopTime fromJson(JSONObject json) {
         StopTime st = new StopTime();
