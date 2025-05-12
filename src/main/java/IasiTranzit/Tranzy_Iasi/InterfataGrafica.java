@@ -44,6 +44,8 @@ public class InterfataGrafica extends JFrame {
 
 	/** Serial version UID generat automat pentru clasa JFrame */
 	private static final long serialVersionUID = 1L;
+	
+	/** Panoul destinat vizualizarii */
 	private JPanel contentPane;
 
 	/** Camp text unde utilizatorul introduce ID-ul vehiculului de urmarit */
@@ -123,13 +125,19 @@ public class InterfataGrafica extends JFrame {
 
 	/** Eticheta pentru afisarea statusului aplicatiei */
 	private JLabel statusLabel;
-	//Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari
+
+	/** Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari */
 	private Map<String, Route> routesMap = new HashMap<>();
 
 	/** Mapare ID cursa catre obiect */
 	private Map<String, Trip> tripsMap = new HashMap<>();
+
+	/** Mapare ID stopuri */
 	private Map<String, Stop> stopsMap = new HashMap<>();
+
+	/** Lista stopuri timp */
 	private List<StopTime> stopTimesList = new ArrayList<>();
+
 	/** Initializare panel buton back pentru pozitionarea sa in interfata  */
 	private JPanel backButtonPanel;
 
@@ -200,7 +208,12 @@ public class InterfataGrafica extends JFrame {
 		loadStaticData();
 	}
 	//OK 
-	//Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
+	/** 
+	 * Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
+	 * @param fileName reprezinta numele fisierului
+	 * @return continutul complet al fisierului sub forma de sir de caractere
+	 * @throws IOException
+	 */
 	private String fetchData(String fileName) throws IOException {
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
 		if (inputStream == null) {
@@ -215,11 +228,11 @@ public class InterfataGrafica extends JFrame {
 		}
 		return content.toString();
 	}
+	
 	/**
 	 * Incarca date statice, rute si trasee, folosind SwingWorker
 	 * Actualizeaza interfata in functie de succesul sau esecul operatiei
 	 */
-
 	private void loadStaticData() {
 		statusLabel.setText("Loading Data...");
 		trackButton.setEnabled(false);
@@ -263,7 +276,8 @@ public class InterfataGrafica extends JFrame {
 
 	//fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
 	/**
-	 * 
+	 * Incarca rutele disponibile intr-un fisier JSON si le transforma intr-o mapare de la
+	 * ID-urile rutelor la obiecte
 	 * @return o harta a ID-urilor de ruta catre obiectele Route
 	 * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
 	 * @throws JSONException daca datele JSON nu sunt valide(alt format)
@@ -298,7 +312,12 @@ public class InterfataGrafica extends JFrame {
 		return tempTripsMap;
 	}
 
-
+	/**
+	 * Incarca datele despre opriri intr-un fisier JSON
+	 * @return o harta a ID-urilor de opriri catre obiectele Stop
+	 * @throws IOException aca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
+	 * @throws JSONException daca datele JSON nu sunt valide(alt format)
+	 */
 	private Map<String, Stop> loadStops() throws IOException, JSONException {
 		String stopsJson = fetchData("date_stops.json");
 		JSONArray stopsArray = new JSONArray(stopsJson);
@@ -310,6 +329,12 @@ public class InterfataGrafica extends JFrame {
 		return tempStopsMap;
 	}
 
+	/**
+	 * Incarca datele despre timpul opririlor
+	 * @return o lista cu timpul opririlor
+	 * @throws IOException aca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
+	 * @throws JSONException daca datele JSON nu sunt valide(alt format)
+	 */
 	private List<StopTime> loadStopTimes() throws IOException, JSONException {
 		String stopTimesJson = fetchData("date_stops_times.json");
 		JSONArray stopTimesArray = new JSONArray(stopTimesJson);
@@ -975,7 +1000,7 @@ public class InterfataGrafica extends JFrame {
 
 		SwingUtilities.invokeLater(this::updateFont);
 	}
-	
+
 	//fonturile 
 	private void updateFont() {
 		if (grupFont.getSelection() == null) return;
