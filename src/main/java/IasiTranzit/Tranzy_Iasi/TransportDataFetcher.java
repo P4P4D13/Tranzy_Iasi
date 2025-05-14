@@ -3,6 +3,7 @@ package IasiTranzit.Tranzy_Iasi;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -113,4 +114,21 @@ public class TransportDataFetcher {
             System.out.println("Datele au fost scrise în fișierul: " + filename);
         }
     }
+    //Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
+    public String fetchData(String fileName) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        if (inputStream == null) {
+            throw new IOException("Fisierul nu a fost gasit: " + fileName);
+        }
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+        }
+        return content.toString();
+    }    
+    
+    
 }

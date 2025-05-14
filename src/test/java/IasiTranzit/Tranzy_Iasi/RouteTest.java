@@ -1,34 +1,54 @@
 package IasiTranzit.Tranzy_Iasi;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.json.JSONObject;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
-class RouteTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
+public class RouteTest {
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+    @Test
+    void testFromJson_withValidJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("route_id", 1);
+        json.put("route_short_name", "A");
+        json.put("route_long_name", "Main Street");
+        json.put("route_color", "123456");
+        json.put("route_type", 2);
+        json.put("route_desc", "Test description");
 
-	@BeforeEach
-	void setUp() throws Exception {
-	}
+        Route route = Route.fromJson(json);
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+        assertEquals("1", route.id);
+        assertEquals("A", route.shortName);
+        assertEquals("Main Street", route.longName);
+        assertEquals("123456", route.color);
+        assertEquals(2, route.type);
+        assertEquals("Test description", route.desc);
+    }
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+    @Test
+    void testFromJson_withMissingOptionalFields() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("route_id", 2);
 
+        Route route = Route.fromJson(json);
+
+        assertEquals("2", route.id);
+        assertEquals("", route.shortName);
+        assertEquals("", route.longName);
+        assertEquals("FFFFFF", route.color);
+        assertEquals(-1, route.type);
+        assertEquals("", route.desc);
+    }
+
+    @Test
+    void testFromJson_missingRequiredField_throwsException() {
+        JSONObject json = new JSONObject(); // missing route_id
+
+        assertThrows(JSONException.class, () -> {
+            Route.fromJson(json);
+        });
+    }
 }
