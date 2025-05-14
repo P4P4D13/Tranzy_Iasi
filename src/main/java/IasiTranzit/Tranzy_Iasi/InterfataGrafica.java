@@ -14,22 +14,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-//tot nu functioneaza aici
-import java.util.TimeZone; 
 import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 /**
  * Clasa {@code InterfataGrafica} reprezinta fereastra pricipala a aplicatiei,
  * ce gestioneaza interfata grafica si comunicarea cu API-ul Tranzy OpenData.
@@ -38,10 +30,7 @@ import javax.swing.border.EmptyBorder;
  * pentru animatii simple ale interfetei.
  * Utilizeaza un API extern pentru a prelua informatii despre vehicule, rute, curse si statii.
  */
-
 public class InterfataGrafica extends JFrame {
-	//logica buna aici
-	
 	/** Serial version UID generat automat pentru clasa JFrame */
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -133,6 +122,7 @@ public class InterfataGrafica extends JFrame {
     private Map<String, Trip> tripsMap = new HashMap<>();
     private Map<String, Stop> stopsMap = new HashMap<>();
     private List<StopTime> stopTimesList = new ArrayList<>();
+    
     /** Initializare panel buton back pentru pozitionarea sa in interfata  */
 	private JPanel backButtonPanel;
     
@@ -145,26 +135,20 @@ public class InterfataGrafica extends JFrame {
  * Seteaza titlul, dimensiunile, layout-ul, content-ul. 
  * 
  */
-
     public InterfataGrafica() {
         setTitle("Tranzy Iasi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(450, 650));
         setResizable(true);
-
         setupMenuBar();
-
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
-
         inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
         contentPane.add(inputPanel, BorderLayout.CENTER);
-        
         gbc.insets = new Insets(10, 5, 10, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
-
         vehicleIdInput = new JTextField(20);
         vehicleIdInput.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter Bus/Tram Label or Route (e.g., 3b, 7, 123)");
         gbc.gridx = 0; gbc.gridy = 0;
@@ -176,20 +160,16 @@ public class InterfataGrafica extends JFrame {
         gbc.ipady = 10;
         gbc.insets = new Insets(20, 5, 10, 5);
         inputPanel.add(trackButton, gbc);
-        
         vehicleIdInput.addActionListener(e -> {
             if (trackButton.isEnabled()) {
                 trackButton.doClick(); // Simulează click pe buton
             }
         });
-
-
+        
         statusLabel = new JLabel("Loading initial data...", SwingConstants.CENTER);
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.ipady = 0;
         inputPanel.add(statusLabel, gbc);
-
-//ca sa putem da scroll, e ok 
         resultsPanel = new JPanel();
         resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
         resultsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -197,19 +177,14 @@ public class InterfataGrafica extends JFrame {
         resultsScrollPane.setBorder(BorderFactory.createEmptyBorder());
         resultsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         resultsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-
         topPanel = new JPanel(new GridBagLayout());
         topPanel.setBorder(new EmptyBorder(5, horizontalPadding, 5, horizontalPadding));
-
         trackButton.addActionListener(e -> startAnimation());
-
         pack();
         setLocationRelativeTo(null);
-
         loadStaticData();
     }
-    //OK 
+    
     //Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
     private String fetchData(String fileName) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
@@ -224,16 +199,15 @@ public class InterfataGrafica extends JFrame {
             }
         }
         return content.toString();
-    }
+    }    
+    
     /**
      * Incarca date statice, rute si trasee, folosind SwingWorker
      * Actualizeaza interfata in functie de succesul sau esecul operatiei
      */
-    
     private void loadStaticData() {
         statusLabel.setText("Loading Data...");
         trackButton.setEnabled(false);
-
         SwingWorker<Boolean, Void> staticDataLoader = new SwingWorker<Boolean, Void>() {
             @Override
             protected Boolean doInBackground() throws Exception {
@@ -249,7 +223,7 @@ public class InterfataGrafica extends JFrame {
                     throw e;
                 }
             }
-            
+        
             @Override
             protected void done() {
                 try {
@@ -270,10 +244,8 @@ public class InterfataGrafica extends JFrame {
         staticDataLoader.execute();
     }
     
-
-    //fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
 /**
- * 
+ * fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
  * @return o harta a ID-urilor de ruta catre obiectele Route
  * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
  * @throws JSONException daca datele JSON nu sunt valide(alt format)
@@ -289,10 +261,9 @@ public class InterfataGrafica extends JFrame {
         return tempRoutesMap;
     }
     
-    //fct pt incarcarea traseelor,luat codul din functia doInBackground
     /**
      * Incarca datele despre trasee de la un anumit endpoint
-     * 
+     * fct pt incarcarea traseelor,luat codul din functia doInBackground
      * @return o harta a ID-urilor de traseu catre obiectele Trip
      * @throws IOException aca apare o eroare de retea, conexiunea nu merge sau serverul nu raspunde
      * @throws JSONException daca datele JSON nu sunt valide(alt format)
@@ -307,8 +278,6 @@ public class InterfataGrafica extends JFrame {
         }
 		return tempTripsMap;
     }
-
-
     private Map<String, Stop> loadStops() throws IOException, JSONException {
         String stopsJson = fetchData("date_stops.json");
         JSONArray stopsArray = new JSONArray(stopsJson);
@@ -331,7 +300,6 @@ public class InterfataGrafica extends JFrame {
         return tempList;
     }
     
-    //fct mici pt a nu fi incarcat codul din fct principala
     /**
      * Actualizeaza interfata pentru a indica faptul ca datele au fost incarcate cu succes
      */
@@ -378,8 +346,6 @@ public class InterfataGrafica extends JFrame {
     }
     
     
-//folosit la animatie ca sa incetineasca cand ajunge aprope de bara de sus
-    //din nou mult slop aici
     /**
      * Aplica functia pentru a obtine o tranzitie cat mai lina in animatie
      * @param t progresul liniar al animatiei
@@ -402,7 +368,6 @@ public class InterfataGrafica extends JFrame {
             JOptionPane.showMessageDialog(this, "Static data is still loading or failed to load. Please wait.", "Please Wait", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         trackButton.setEnabled(false);
         prepareAnimation();
         
@@ -410,7 +375,6 @@ public class InterfataGrafica extends JFrame {
         if (animationTimer != null && animationTimer.isRunning()) {
             animationTimer.stop();
         }
-
         animationTimer = new Timer(TIMER_DELAY_MS, new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 long now = System.currentTimeMillis();
@@ -438,14 +402,11 @@ public class InterfataGrafica extends JFrame {
          initialPosInput = vehicleIdInput.getLocation();
          initialSizeInput = vehicleIdInput.getSize();
          targetWidth = inputPanel.getWidth() - (2 * horizontalPadding);
-
          inputPanel.setLayout(null);
          vehicleIdInput.setBounds(initialPosInput.x, initialPosInput.y, initialSizeInput.width, initialSizeInput.height);
-
          Point initialPosButton = trackButton.getLocation();
          Dimension initialSizeButton = trackButton.getSize();
          trackButton.setBounds(initialPosButton.x, initialPosButton.y, initialSizeButton.width, initialSizeButton.height);
-
          inputPanel.add(vehicleIdInput);
          inputPanel.add(trackButton);
          inputPanel.revalidate();
@@ -674,7 +635,6 @@ public class InterfataGrafica extends JFrame {
         worker.execute();
     }
     
-    //adaug butonul in dreapta sus
     /**
      * adauga butonul in coltul din dreapta sus
      * se verifica existenta sa pentru a evita crearea multipla
@@ -686,9 +646,7 @@ public class InterfataGrafica extends JFrame {
     	backButtonPanel = new JPanel();
         backButtonPanel.setLayout(null);  // layout null pentru a plasa butonul manual       
         backButtonPanel.setPreferredSize(new Dimension(450, 67));
-
         if(backButton ==null) {
-        
         // creare buton Back
         backButton = new JButton("Back");
         backButton.setBounds(335, 37, 75, 30); 
@@ -701,8 +659,6 @@ public class InterfataGrafica extends JFrame {
                
             }
         });
-
-        
         backButtonPanel.add(backButton); 
         contentPane.add(backButtonPanel, BorderLayout.NORTH); 
 
@@ -736,19 +692,14 @@ public class InterfataGrafica extends JFrame {
                 		fetchAndDisplayVehicleData();
                    
                 }
-            });
-                      
+            });              
             backButtonPanel.add(refreshButton); 
             contentPane.add(backButtonPanel, BorderLayout.NORTH); 
-
             contentPane.revalidate();
             contentPane.repaint();  
     	}
     }
  
-
-//pt claritate, mai pot fi facute modificari
-//posibil sa poata fi apelata si sus la generarea initiala????
     /**
      * opreste animatiile si reconstruieste interfata
      */
@@ -756,13 +707,9 @@ public class InterfataGrafica extends JFrame {
     	if(animationTimer != null && animationTimer.isRunning()) {
     		animationTimer.stop();
     	}
-    	
-    	//golesc contentPane
     	if(contentPane != null) {
     		contentPane.removeAll();
     	}
-    	
-    	//sterg butoanele de back si refresh
     	if (backButtonPanel != null) {
             contentPane.remove(backButtonPanel);
             backButtonPanel = null;
@@ -771,8 +718,6 @@ public class InterfataGrafica extends JFrame {
             contentPane.revalidate();
             contentPane.repaint();
         }
-    	
-    	// reconstruire
         inputPanel.removeAll();
         inputPanel.setLayout(new GridBagLayout());
         inputPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
@@ -811,8 +756,6 @@ public class InterfataGrafica extends JFrame {
         contentPane.revalidate();
         contentPane.repaint();
     }
-//functie importanta, nu alterati prea tare
-
     private JPanel createVehiclePanel(DisplayVehicleInfo info) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -1116,281 +1059,4 @@ public class InterfataGrafica extends JFrame {
     	if(resultsPanel != null) resultsPanel.setBackground(defaultBg);
     }
     
-    private static class FadeButton extends JButton {
-        private static final long serialVersionUID = 1L;
-        private float alpha = 1.0f;
-
-        public FadeButton(String text) {
-            super(text);
-            setOpaque(false);
-            setContentAreaFilled(false);
-            setBorderPainted(false);
-        }
-
-        public void setAlpha(float alpha) {
-            this.alpha = Math.max(0.0f, Math.min(1.0f, alpha));
-            repaint();
-        }
-
-        public float getAlpha() {
-            return alpha;
-        }
-
-        //BUTON CU FADE, functia pare ok nu e incarcata
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            if (this.alpha < 1.0f) {
-                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-            }
-
-            boolean originalContentAreaFilled = isContentAreaFilled();
-            boolean originalBorderPainted = isBorderPainted();
-            setContentAreaFilled(true);
-            setBorderPainted(true);
-
-            super.paintComponent(g2d);
-
-            setContentAreaFilled(originalContentAreaFilled);
-            setBorderPainted(originalBorderPainted);
-
-            g2d.dispose();
-        }
-
-        //probabil e pentru bara de sus, nu sunt sigur
-        @Override
-        public Dimension getPreferredSize() {
-             boolean ocf = isContentAreaFilled();
-             boolean obp = isBorderPainted();
-             setContentAreaFilled(true);
-             setBorderPainted(true);
-             Dimension size = super.getPreferredSize();
-             setContentAreaFilled(ocf);
-             setBorderPainted(obp);
-             return size;
-        }
-
-        @Override
-        public boolean contains(int x, int y) {
-            return alpha > 0.1f && super.contains(x, y);
-        }
-    }
-
-    private static class Vehicle {
-        String id;
-        String label;
-        Double latitude;
-        Double longitude;
-        long timestampEpochSeconds;
-        int vehicleType;
-        //consider inutil momentan adaugam poate mai tarziu
-//        String bikeAccessible;
-//        String wheelchairAccessible;
-        Double speedKmH;
-        String routeId;
-        String tripId;
-
-        static Vehicle fromJson(JSONObject json) throws JSONException {
-            Vehicle v = new Vehicle();
-
-            Object idObj = json.opt("id");
-            v.id = (idObj == null) ? null : idObj.toString();
-            if (v.id == null) {
-                throw new JSONException("Vehicle ID is missing or null in JSON");
-            }
-
-            v.label = json.optString("label", v.id);
-
-            if (json.has("latitude") && !json.isNull("latitude")) {
-                v.latitude = json.optDouble("latitude", Double.NaN);
-                if (Double.isNaN(v.latitude)) v.latitude = null;
-            } else {
-                v.latitude = null;
-            }
-
-             if (json.has("longitude") && !json.isNull("longitude")) {
-                v.longitude = json.optDouble("longitude", Double.NaN);
-                 if (Double.isNaN(v.longitude)) v.longitude = null;
-            } else {
-                v.longitude = null;
-            }
-             //aici sunt probleme, nu merge
-            try {
-                v.timestampEpochSeconds = json.getLong("timestamp");
-            } catch (JSONException e) {
-                String tsString = json.optString("timestamp", null);
-                if (tsString != null) {
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                        sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // <<< Uses TimeZone here
-                        Date date = sdf.parse(tsString);
-                        v.timestampEpochSeconds = date.getTime() / 1000L;
-                    } catch (ParseException pe) {
-                        System.err.println("Could not parse timestamp string: " + tsString + " - " + pe.getMessage());
-                        v.timestampEpochSeconds = 0;
-                    }
-                } else {
-                    System.err.println("Timestamp missing or not a recognized number/string in JSON: " + json.opt("timestamp"));
-                    v.timestampEpochSeconds = 0;
-                }
-            }
-
-            v.vehicleType = json.optInt("vehicle_type", -1);
-//            v.bikeAccessible = json.optString("bike_accessible", "UNKNOWN");
-//            v.wheelchairAccessible = json.optString("wheelchair_accessible", "UNKNOWN");
-            // aici viteza e transformata in km/h teoretic corect din nou nu sunt sigur de ce sunt erori in viteza 
-            if (json.has("speed") && !json.isNull("speed")) {
-                double speedMs = json.optDouble("speed", Double.NaN);
-                if (!Double.isNaN(speedMs)) {
-                     v.speedKmH = speedMs * 3.6;
-                } else {
-                    v.speedKmH = null;
-                }
-            } else {
-                v.speedKmH = null;
-            }
-//aici se repeta astea doua 
-            //nu cred ca e bine trebuie sa clarificam diferenta dintre route si trip
-            //1
-            Object routeIdObj = json.opt("route_id");
-             if (routeIdObj == null || routeIdObj == JSONObject.NULL) {
-                 v.routeId = null;
-             } else {
-                 String routeIdStr = routeIdObj.toString();
-                 if ("0".equals(routeIdStr)) {
-                     v.routeId = null;
-                 } else {
-                     v.routeId = routeIdStr;
-                 }
-             }
-            //2
-            Object tripIdObj = json.opt("trip_id");
-              if (tripIdObj == null || tripIdObj == JSONObject.NULL) {
-                  v.tripId = null;
-              } else {
-                   v.tripId = tripIdObj.toString();
-              }
-
-            return v;
-        }
-        String getFormattedTimestamp() {
-            if (timestampEpochSeconds <= 0) return "N/A";
-            Date date = new Date(timestampEpochSeconds * 1000L);
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            return sdf.format(date);
-        }
-
-        String getVehicleTypeString() {
-            switch (vehicleType) {
-                case 0: return "Tram";
-                case 3: return "Bus";
-                default: return "Unknown (" + vehicleType + ")";
-            }
-        }
-    }
-
-    private static class Route {
-        String id;
-        String shortName;
-        String longName;
-        String color;
-        int type;
-        String desc;
-
-        static Route fromJson(JSONObject json) throws JSONException {
-            Route r = new Route();
-            r.id = String.valueOf(json.getInt("route_id"));
-            r.shortName = json.optString("route_short_name", "");
-            r.longName = json.optString("route_long_name", "");
-            r.color = json.optString("route_color", "FFFFFF");
-            r.type = json.optInt("route_type", -1);
-            r.desc = json.optString("route_desc", "");
-            return r;
-        }
-    }
-
-    private static class Trip {
-        String id;
-        String routeId;
-        String headsign;
-        int directionId;
-
-        static Trip fromJson(JSONObject json) throws JSONException {
-            Trip t = new Trip();
-             Object tripIdObj = json.opt("trip_id");
-             t.id = (tripIdObj == null) ? null : tripIdObj.toString();
-            if (t.id == null) {
-                 throw new JSONException("Trip ID is missing or null in JSON");
-            }
-
-            t.routeId = String.valueOf(json.getInt("route_id"));
-
-            t.headsign = json.optString("trip_headsign", "N/A");
-            t.directionId = json.optInt("direction_id", -1);
-            return t;
-        }
-    }
-    private static class Stop {
-        String id, name;
-        double latitude, longitude;
-
-        static Stop fromJson(JSONObject json) {
-            Stop s = new Stop();
-            s.id = json.optString("stop_id");
-            s.name = json.optString("stop_name");
-            s.latitude = json.optDouble("stop_lat");
-            s.longitude = json.optDouble("stop_lon");
-            return s;
-        }
-    }
-
-    private static class StopTime {
-        String tripId;
-        String stopId;
-        int stopSequence;
-
-        static StopTime fromJson(JSONObject json) {
-            StopTime st = new StopTime();
-            st.tripId = json.optString("trip_id");
-            st.stopId = json.optString("stop_id");
-            st.stopSequence = json.optInt("stop_sequence");
-            return st;
-        }
-    }
-
-    private static class DisplayVehicleInfo {
-        Vehicle vehicle;
-        String routeShortName;
-        String tripHeadsign;
-    }
-
-    /** 
-     * Metoda principala care porneste aplicatia.
-     * Initializeaza tema vizuala FlatLaf Light si configureaza aspectul componentelor
-     * grafice, apoi lanseaza interfata grafica {@link InterfataGrafica}
-     *
-     * @param args argumentele din linia de comanda (neutilizate)
-     */
-    public static void main(String[] args) {
-        // Extrage datele transport într-un thread separat
-        new Thread(() -> {
-            TransportDataFetcher.fetchAllData();
-        }).start();
-    
-        // Configurează aspect UI
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-            UIManager.put("TextComponent.arc", 10);
-            UIManager.put("Button.arc", 10);
-        } catch (UnsupportedLookAndFeelException e) {
-            System.err.println("Eroare inițializare FlatLaf:");
-            e.printStackTrace();
-        }
-
-        // Pornește interfața grafică
-        SwingUtilities.invokeLater(() -> {
-            InterfataGrafica frame = new InterfataGrafica();
-            frame.setVisible(true);
-        });
-    }
 }
