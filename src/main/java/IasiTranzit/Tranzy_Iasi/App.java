@@ -6,7 +6,19 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+/**
+ * Clasa principala a aplicatiei Tranzy Iasi.
+ * Contine metoda {@code main} care serveste ca punct de intrare in aplicatie.
+ */
 public class App {
+	
+	/**
+     * Creeaza o noua instanța a clasei {@code App}.
+     * Constructorul nu are functionalitate, deoarece clasa este utilizata doar pentru metoda {@code main}.
+     */
+    public App() {
+        // Constructor gol
+    }
 
     /** 
      * Metoda principala care porneste aplicatia.
@@ -18,10 +30,10 @@ public class App {
     public static void main(String[] args) {
         // Extrage datele transport într-un thread separat
         new Thread(() -> {
-            TransportDataFetcher.fetchAllApiData();;
+            TransportDataFetcher.fetchAllApiData();
         }).start();
     
-        // Configurează aspect UI
+        // Configureaza aspect UI
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
             UIManager.put("TextComponent.arc", 10);
@@ -31,7 +43,7 @@ public class App {
             e.printStackTrace();
         }
 
-        // Pornește interfața grafică
+        // Porneste interfata grafica
         SwingUtilities.invokeLater(() -> {
             InterfataGrafica frame = new InterfataGrafica();
             frame.setVisible(true);

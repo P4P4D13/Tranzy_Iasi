@@ -10,10 +10,6 @@ import java.util.Map;
  * 
  * Această clasă oferă funcționalități pentru calcularea celei mai apropiate stații
  * sau a următoarei stații pentru un vehicul dat, pe baza traseului și poziției sale.
- * 
- * @author Echipa Tranzy Iași
- * @version 1.0
- * @since 2024
  */
 public class RouteService {
 
@@ -38,8 +34,6 @@ public class RouteService {
      *         - "Nu s-au găsit stații valide pe traseu." - dacă stațiile nu au coordonate valide
      * 
      * @throws NullPointerException dacă vehicle, stopsMap sau stopTimesList sunt null
-     * 
-     * @see #haversine(double, double, double, double)
      */
     public static String findClosestStopName(Vehicle vehicle, Map<String, Stop> stopsMap, List<StopTime> stopTimesList) {
         if (vehicle.tripId == null || vehicle.latitude == null || vehicle.longitude == null) {
@@ -113,8 +107,6 @@ public class RouteService {
      * @param lat2 Latitudinea celui de-al doilea punct în grade decimale. Intervalul valid: [-90, 90]
      * @param lon2 Longitudinea celui de-al doilea punct în grade decimale. Intervalul valid: [-180, 180]
      * @return Distanța în kilometri între cele două puncte geografice (valoare pozitivă)
-     * 
-     * @see <a href="https://en.wikipedia.org/wiki/Haversine_formula">Formula Haversine pe Wikipedia</a>
      */
     private static double haversine(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371; // Raza Pământului în kilometri

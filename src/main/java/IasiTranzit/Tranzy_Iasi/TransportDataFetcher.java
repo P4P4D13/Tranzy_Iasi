@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Clasa responsabila pentru descarcarea si incarcarea datelor statice si dinamice
+ * din API-ul Tranzy si pentru salvarea acestora local.
+ */
 public class TransportDataFetcher {
     private static final String API_URL_ROUTES = "https://api.tranzy.ai/v1/opendata/routes";
     private static final String API_URL_STOP_TIMES = "https://api.tranzy.ai/v1/opendata/stop_times";
@@ -26,6 +30,17 @@ public class TransportDataFetcher {
     private static final String AGENCY_ID = "1";
     private static final String OUTPUT_FOLDER = "src/main/resources/"; // Correct path for resources folder
 
+    /**
+	 * Constructor implicit, nu este folosit
+	 */
+	public TransportDataFetcher() {
+	    // constructor implicit gol
+	}
+	
+    /**
+     * Descarca toate seturile de date disponibile de la API si suprascrie complet
+     * fisierele locale cu datele actualizate.
+     */
     public static void fetchAllApiData() {
         try {
             System.out.println("Downloading all data from Tranzy API...");
@@ -55,8 +70,13 @@ public class TransportDataFetcher {
     }
 
     /**
-     * Incarca date statice, rute si trasee, folosind SwingWorker Actualizeaza
-     * interfata in functie de succesul sau esecul operatiei
+     * Incarca date statice, rute si trasee, folosind SwingWorker 
+     * Actualizeaza interfata in functie de succesul sau esecul operatiei
+     * 
+     * @param apiUrl URL-ul API-ului de unde se descarca datele.
+     * @param needsAgencyId Daca e true, adauga header-ul X-Agency-Id cu valoarea corespunzatoare.
+     * @return Raspunsul de la API ca String JSON.
+     * @throws IOException In caz de eroare de retea sau cod HTTP diferit de 200.
      */
     private static String fetchApiData(String apiUrl, boolean needsAgencyId) throws IOException {
         System.out.println("Fetching latest data from: " + apiUrl);
@@ -88,11 +108,17 @@ public class TransportDataFetcher {
     }
     
     /**
-     * Saves JSON content to file, completely overwriting any existing file.
-     * Uses modern Java NIO for more reliable file operations.
+     * Salveaza continutul JSON intr-un fisier, suprascriind complet orice fisier existent.
+     * Creeaza directorul de iesire daca nu exista.
+     * Formateaza JSON-ul pentru o mai buna lizibilitate inainte de salvare.
+     * 
+     * @param jsonContent continutul JSON ca String ce trebuie salvat in fisier
+     * @param filename numele fisierului in care se va salva continutul JSON
+     * @throws IOException in cazul in care apar erori la operatiile de citire/scriere fisier
+     * @throws JSONException in cazul in care continutul JSON este invalid si nu poate fi procesat
      */
     private static void saveToFileWithOverwrite(String jsonContent, String filename) throws IOException, JSONException {
-        // Ensure output directory exists
+    	// Asigurare ca directorul de iesire exista
         Path outputDir = Paths.get(OUTPUT_FOLDER);
         if (!Files.exists(outputDir)) {
             Files.createDirectories(outputDir);
@@ -100,24 +126,24 @@ public class TransportDataFetcher {
         
         Path filePath = outputDir.resolve(filename);
         
-        // Delete existing file if it exists to ensure complete overwrite
+        // Sterge fisierul existent daca exista pentru a asigura suprascriere completa
         if (Files.exists(filePath)) {
             Files.delete(filePath);
             System.out.println("Deleted existing file: " + filename);
         }
         
         try {
-            // Parse and format JSON for better readability
+        	// Parcurge si formateaza JSON-ul pentru o mai buna lizibilitate
             Object json = new org.json.JSONTokener(jsonContent).nextValue();
             String formattedJson;
             
             if (json instanceof JSONArray) {
-                formattedJson = ((JSONArray) json).toString(4); // Pretty print with 4-space indent
+                formattedJson = ((JSONArray) json).toString(4); // Afisare cu indentare de 4 spatii
             } else {
                 formattedJson = json.toString();
             }
             
-            // Write new content to file (CREATE_NEW ensures it's a fresh file)
+            // Scrie continutul nou in fisier (CREATE_NEW asigura ca e un fisier nou)
             Files.write(filePath, formattedJson.getBytes(), 
                        StandardOpenOption.CREATE, 
                        StandardOpenOption.WRITE, 
@@ -128,7 +154,7 @@ public class TransportDataFetcher {
             
         } catch (JSONException e) {
             System.err.println("Invalid JSON received for " + filename + ": " + e.getMessage());
-            // Save raw content for debugging
+         // Salveaza continutul brut pentru debugging
             Files.write(filePath, jsonContent.getBytes(), 
                        StandardOpenOption.CREATE, 
                        StandardOpenOption.WRITE, 
@@ -139,7 +165,12 @@ public class TransportDataFetcher {
     }
     
     /**
-     * Alternative method using the original approach but with explicit overwrite confirmation
+     * Salveaza continutul JSON intr-un fisier, suprascriind fisierul existent.
+     *
+     * @param jsonContent continutul JSON de salvat
+     * @param filename numele fisierului tinta
+     * @throws IOException daca apare o eroare la scriere
+     * @throws JSONException daca JSON-ul este invalid
      */
     private static void saveToFile(String jsonContent, String filename) throws IOException, JSONException {
         File directory = new File(OUTPUT_FOLDER);
@@ -152,9 +183,9 @@ public class TransportDataFetcher {
             System.out.println("Overwriting existing file: " + filename);
         }
         
-        // FileWriter with default constructor truncates the file (overwrites completely)
-        try (FileWriter file = new FileWriter(targetFile, false)) { // false = overwrite mode
-            // Assume the API might return a single object or an array
+        // FileWriter cu constructorul implicit trunchiaza fisierul (suprascrie complet)
+        try (FileWriter file = new FileWriter(targetFile, false)) { // false = modul de suprascriere
+        	// Se presupune ca API-ul poate returna un singur obiect sau un array
             Object json = new org.json.JSONTokener(jsonContent).nextValue();
             if (json instanceof JSONArray) {
                 file.write(((JSONArray) json).toString(4));
@@ -165,11 +196,13 @@ public class TransportDataFetcher {
         }
     }
 
-    // --- PART 2: Loading Data From Files for the GUI ---
-    
     /**
-     * Loads all static data needed by the application from local files.
-     * This is the main method the GUI will call.
+     * Incarca toate datele statice necesare aplicatiei din fisiere locale.
+     * Metoda principala apelata de GUI.
+     * 
+     * @return obiect StaticData cu toate datele incarcate
+     * @throws IOException in caz de eroare la citirea fisierelor
+     * @throws JSONException daca datele JSON sunt invalide
      */
     public StaticData loadAllStaticData() throws IOException, JSONException {
         Map<String, Route> routes = loadRoutes();
@@ -180,7 +213,10 @@ public class TransportDataFetcher {
     }
 
     /**
-     * Loads vehicle data from the local file.
+     * Incarca datele despre vehicule din fisierul local.
+     * @return lista cu obiecte Vehicle
+     * @throws IOException la eroare de citire fisier
+     * @throws JSONException la date JSON invalide
      */
     public List<Vehicle> loadVehicles() throws IOException, JSONException {
         String vehiclesJson = readFromResources("date_vehicule.json");
@@ -193,11 +229,11 @@ public class TransportDataFetcher {
     }
     
     /**
-     * fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
+     * Incarca rutele din fisierul local, clarifica ce se intampla in metoda doInBackground.
      * 
      * @return o harta a ID-urilor de ruta catre obiectele Route
-     * @throws IOException   daca apare o eroare de retea, conexiunea nu merge sau
-     *                       serverul nu raspunde
+     * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau
+     * serverul nu raspunde
      * @throws JSONException daca datele JSON nu sunt valide(alt format)
      */
     private Map<String, Route> loadRoutes() throws IOException, JSONException {
@@ -212,12 +248,11 @@ public class TransportDataFetcher {
     }
     
     /**
-     * Incarca datele despre trasee de la un anumit endpoint fct pt incarcarea
-     * traseelor,luat codul din functia doInBackground
+     * Incarca datele despre trasee de la un anumit endpoint, cod luat din functia doInBackground
      * 
      * @return o harta a ID-urilor de traseu catre obiectele Trip
-     * @throws IOException   aca apare o eroare de retea, conexiunea nu merge sau
-     *                       serverul nu raspunde
+     * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau
+     * serverul nu raspunde
      * @throws JSONException daca datele JSON nu sunt valide(alt format)
      */
     private Map<String, Trip> loadTrips() throws IOException, JSONException {
@@ -231,6 +266,14 @@ public class TransportDataFetcher {
         return tempTripsMap;
     }
 
+    /**
+     * Incarca statii din fisierul local JSON.
+     * 
+     * @return o harta a ID-urilor de statie catre obiectele Stop
+     * @throws IOException daca apare o eroare de retea, conexiunea nu merge sau
+     * serverul nu raspunde
+     * @throws JSONException daca datele JSON nu sunt valide(alt format)
+     */
     private Map<String, Stop> loadStops() throws IOException, JSONException {
         String stopsJson = readFromResources("date_stops.json");
         JSONArray stopsArray = new JSONArray(stopsJson);
@@ -242,6 +285,13 @@ public class TransportDataFetcher {
         return tempStopsMap;
     }
 
+    /**
+     * Incarca timpii de oprire din fisierul local JSON.
+     * 
+     * @return lista cu obiecte StopTime
+     * @throws IOException daca apare o eroare la citirea fisierului
+     * @throws JSONException daca datele JSON nu sunt valide
+     */
     private List<StopTime> loadStopTimes() throws IOException, JSONException {
         String stopTimesJson = readFromResources("date_stops_times.json");
         JSONArray stopTimesArray = new JSONArray(stopTimesJson);
@@ -253,7 +303,13 @@ public class TransportDataFetcher {
         return tempList;
     }
 
-    // Renamed your 'fetchData' to be more specific about its source.
+    /**
+     * Citeste continutul unui fisier din resurse
+     * 
+     * @param fileName numele fisierului din resurse
+     * @return continutul fisierului ca string
+     * @throws IOException daca fisierul nu exista sau apare o eroare
+     */
     private String readFromResources(String fileName) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -270,7 +326,8 @@ public class TransportDataFetcher {
     }
     
     /**
-     * Method to refresh all data - fetches latest from API and completely overwrites local files
+     * Metoda pentru reimprospatarea tuturor datelor - preia ultimele informatii de la API
+     * si suprascrie complet fisierele locale.
      */
     public static void refreshAllData() {
         System.out.println("=== REFRESHING ALL DATA ===");

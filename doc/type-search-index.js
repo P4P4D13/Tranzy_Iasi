@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"IasiTranzit.Tranzy_Iasi","l":"App"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"IasiTranzit.Tranzy_Iasi","l":"Vehicle"}];updateSearchResults();

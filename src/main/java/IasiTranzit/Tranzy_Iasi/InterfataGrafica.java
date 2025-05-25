@@ -29,6 +29,8 @@ import javax.swing.border.EmptyBorder;
 public class InterfataGrafica extends JFrame {
 	/** Serial version UID generat automat pentru clasa JFrame */
 	private static final long serialVersionUID = 1L;
+	
+	/** Panoul destinat vizualizarii */
 	public JPanel contentPane;
 
 	/** Camp text unde utilizatorul introduce ID-ul vehiculului de urmarit */
@@ -62,7 +64,6 @@ public class InterfataGrafica extends JFrame {
 	public JButton refreshButton;
 
 	/** Timer folosit pentru animarea tranzitiilor UI */
-
 	public Timer animationTimer;
 
 	// aici modificam viteza la animatie dupa buton
@@ -111,12 +112,18 @@ public class InterfataGrafica extends JFrame {
 
 	/** Eticheta pentru afisarea statusului aplicatiei */
 	public JLabel statusLabel;
+	
 	// Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari
+	/** Mapare ID rute */
 	public Map<String, Route> routesMap = new HashMap<>();
 
 	/** Mapare ID cursa catre obiect */
 	public Map<String, Trip> tripsMap = new HashMap<>();
+	
+	/** Mapare ID stopuri */
 	public Map<String, Stop> stopsMap = new HashMap<>();
+	
+	/** Lista stopuri timp */
 	public List<StopTime> stopTimesList = new ArrayList<>();
 
 	/** Initializare panel buton back pentru pozitionarea sa in interfata */
@@ -125,6 +132,7 @@ public class InterfataGrafica extends JFrame {
 	/** Layout ul gridbag pentru pozitonare elemente */
 	public GridBagConstraints gbc = new GridBagConstraints();
 	
+	/** Extrage si gestioneaza datele despre transport. */
 	private final TransportDataFetcher dataFetcher;
 
 	/**
@@ -188,6 +196,10 @@ public class InterfataGrafica extends JFrame {
 		loadStaticData();
 	}
 
+	/**
+	 * Incarca date statice, rute si trasee, folosind SwingWorker
+	 * Actualizeaza interfata in functie de succesul sau esecul operatiei
+	 */
 	private void loadStaticData() {
 	    statusLabel.setText("Loading Data...");
 	    trackButton.setEnabled(false);
@@ -387,7 +399,6 @@ public class InterfataGrafica extends JFrame {
 	 * din cel principal. Verifica daca nu sunt null pentru a evita eventualele
 	 * erori la rulare.
 	 */
-
 	private void resetInputPanel() {
 		if (inputPanel != null) {
 			inputPanel.remove(vehicleIdInput);
@@ -436,7 +447,6 @@ public class InterfataGrafica extends JFrame {
 	 * Actualizeaza interfata grafica prin revalidarea si reimprospatarea panoului
 	 * principal.
 	 */
-
 	private void refreshUI() {
 		if (contentPane != null) {
 			contentPane.revalidate();
@@ -444,6 +454,11 @@ public class InterfataGrafica extends JFrame {
 		}
 	}
 
+	/**
+	 * Porneste procesul de preluare si afisare a datelor despre vehicule.
+	 * Foloseste un SwingWorker pentru a rula operatia in fundal si a actualiza interfata.
+	 * Afiseaza mesaje intermediare, trateaza erorile si afiseaza rezultatele.
+	 */
 	private void fetchAndDisplayVehicleData() {
 		resultsPanel.removeAll();
 		resultsPanel.add(new JLabel("Fetching data for '" + vehicleIdInput.getText().trim() + "'..."));
@@ -451,6 +466,12 @@ public class InterfataGrafica extends JFrame {
 		resultsPanel.repaint();
 
 		SwingWorker<List<DisplayVehicleInfo>, String> worker = new SwingWorker<List<DisplayVehicleInfo>, String>() {
+			
+			/**
+			 * Ruleaza in background: extrage, proceseaza si filtreaza datele vehiculelor.
+			 * @return Lista de vehicule filtrate.
+			 * @throws Exception Daca apare o eroare la preluarea datelor.
+			 */
 			@Override
 			protected List<DisplayVehicleInfo> doInBackground() throws Exception {
 			    List<DisplayVehicleInfo> foundVehicles = new ArrayList<>();
@@ -493,6 +514,12 @@ public class InterfataGrafica extends JFrame {
 			    return foundVehicles;
 			}
 
+			/**
+			 * Proceseaza mesajele intermediare publicate in timpul executiei in fundal.
+			 * Actualizeaza panoul de rezultate cu cel mai recent mesaj.
+			 * 
+			 * @param chunks Lista de mesaje de stare.
+			 */
 			@Override
 			protected void process(List<String> chunks) {
 				if (!chunks.isEmpty()) {
@@ -503,6 +530,11 @@ public class InterfataGrafica extends JFrame {
 				}
 			}
 
+			/**
+			 * Se executa dupa ce taskul din fundal s-a terminat.
+			 * Actualizeaza panoul de rezultate cu vehiculele gasite sau afiseaza erori.
+			 * Reactiveaza butoanele si adauga optiunile de intoarcere si reimprospatare.
+			 */
 			@Override
 			protected void done() {
 				resultsPanel.removeAll();
@@ -562,10 +594,9 @@ public class InterfataGrafica extends JFrame {
 	}
 
 	/**
-	 * adauga butonul in coltul din dreapta sus se verifica existenta sa pentru a
+	 * Adauga butonul in coltul din dreapta sus se verifica existenta sa pentru a
 	 * evita crearea multipla
 	 */
-
 	private void addBackButton() {
 
 		backButtonPanel = new JPanel();
@@ -594,7 +625,7 @@ public class InterfataGrafica extends JFrame {
 	}
 
 	/**
-	 * adauga butonul in coltul din stanga sus se verifica existenta sa pentru a
+	 * Adauga butonul in coltul din stanga sus se verifica existenta sa pentru a
 	 * evita crearea multipla
 	 */
 	private void addRefreshButton() {
@@ -626,7 +657,7 @@ public class InterfataGrafica extends JFrame {
 	}
 
 	/**
-	 * opreste animatiile si reconstruieste interfata
+	 * Opreste animatiile si reconstruieste interfata
 	 */
 	private void goBackToInitial() {
 		if (animationTimer != null && animationTimer.isRunning()) {
@@ -682,6 +713,15 @@ public class InterfataGrafica extends JFrame {
 		contentPane.repaint();
 	}
 
+	/**
+	 * Creeaza un panou grafic (JPanel) care afiseaza informatii detaliate despre un vehicul.
+	 * Informatiile includ eticheta vehiculului, ruta, destinatia, locatia, viteza, ora ultimei actualizari,
+	 * tipul vehiculului si cea mai apropiata statie.
+	 * Panoul este incapsulat intr-un JScrollPane pentru a permite scroll-ul cand continutul este mare.
+	 * 
+	 * @param info obiectul DisplayVehicleInfo care contine datele vehiculului de afisat
+	 * @return un JPanel care contine toate informatiile despre vehicul intr-un format scroll
+	 */
 	private JPanel createVehiclePanel(DisplayVehicleInfo info) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -783,6 +823,11 @@ public class InterfataGrafica extends JFrame {
 
 		return containerPanel;
 	}
+	
+	/**
+	 * Configureaza bara de meniu cu optiuni pentru font si tema (light/dark).
+	 * Seteaza fontul initial si tema curenta in functie de LookAndFeel.
+	 */
 	void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -845,7 +890,9 @@ public class InterfataGrafica extends JFrame {
 		SwingUtilities.invokeLater(this::updateFont);
 	}
 
-//fonturile 
+	/**
+	 * Actualizeaza fontul intregii interfete in functie de optiunea selectata din meniu.
+	 */
 	void updateFont() {
 		if (grupFont.getSelection() == null)
 			return;
@@ -869,6 +916,12 @@ public class InterfataGrafica extends JFrame {
 		this.repaint();
 	}
 
+	/**
+	 * Aplica fontul dat tuturor, recursiv.
+	 *
+	 * @param comp componenta de actualizat
+	 * @param font fontul care va fi aplicat
+	 */
 	void updateComponentFont(Component comp, Font font) {
 		comp.setFont(font);
 

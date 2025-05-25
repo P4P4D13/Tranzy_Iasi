@@ -8,21 +8,52 @@ import java.util.TimeZone;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * Clasa reprezinta un vehicul cu date precum pozitia, tipul, viteza si traseul asociat.
+ */
 public class Vehicle {
+	
+	/**
+	 * Constructor implicit gol, instantele Vehicle sunt create in general prin metoda fromJson().
+	 */
+	public Vehicle() {
+	    // constructor implicit gol
+	}
+	
+	/** ID-ul vehiculului */
     String id;
+    
+    /** Eticheta/denumirea vehiculului */
     String label;
+    
+    /** Latitudinea curenta */
     Double latitude;
+    
+    /** Longitudinea curenta */
     Double longitude;
+    
+    /** Timestamp-ul in secunde (epoch) */
     long timestampEpochSeconds;
+    
+    /** Tipul vehiculului*/
     int vehicleType;
-    //consider inutil momentan adaugam poate mai tarziu
-//    String bikeAccessible;
-//    String wheelchairAccessible;
+    
+    /** Viteza in km/h */
     Double speedKmH;
+    
+    /** ID ruta asociata */
     String routeId;
+    
+    /** ID traseu asociat */
     String tripId;
 
+    /**
+     * Creeaza un obiect Vehicle dintr-un JSONObject.
+     * 
+     * @param json obiect JSON cu datele vehiculului
+     * @return obiect Vehicle initializat
+     * @throws JSONException daca lipseste ID-ul vehiculului sau datele sunt invalide
+     */
     static Vehicle fromJson(JSONObject json) throws JSONException {
         Vehicle v = new Vehicle();
 
@@ -47,7 +78,7 @@ public class Vehicle {
         } else {
             v.longitude = null;
         }
-         //aici sunt probleme, nu merge
+         
         try {
             v.timestampEpochSeconds = json.getLong("timestamp");
         } catch (JSONException e) {
@@ -55,7 +86,7 @@ public class Vehicle {
             if (tsString != null) {
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                    sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // <<< Uses TimeZone here
+                    sdf.setTimeZone(TimeZone.getTimeZone("UTC")); 
                     Date date = sdf.parse(tsString);
                     v.timestampEpochSeconds = date.getTime() / 1000L;
                 } catch (ParseException pe) {
@@ -69,9 +100,8 @@ public class Vehicle {
         }
 
         v.vehicleType = json.optInt("vehicle_type", -1);
-//        v.bikeAccessible = json.optString("bike_accessible", "UNKNOWN");
-//        v.wheelchairAccessible = json.optString("wheelchair_accessible", "UNKNOWN");
-        // aici viteza e transformata in km/h teoretic corect din nou nu sunt sigur de ce sunt erori in viteza 
+
+        // aici viteza e transformata in km/h teoretic corect, sunt erori in viteza din cauza la TranzyAI
         if (json.has("speed") && !json.isNull("speed")) {
             double speedMs = json.optDouble("speed", Double.NaN);
             if (!Double.isNaN(speedMs)) {
@@ -82,9 +112,7 @@ public class Vehicle {
         } else {
             v.speedKmH = null;
         }
-//aici se repeta astea doua 
-        //nu cred ca e bine trebuie sa clarificam diferenta dintre route si trip
-        //1
+
         Object routeIdObj = json.opt("route_id");
          if (routeIdObj == null || routeIdObj == JSONObject.NULL) {
              v.routeId = null;
@@ -96,7 +124,7 @@ public class Vehicle {
                  v.routeId = routeIdStr;
              }
          }
-        //2
+        
         Object tripIdObj = json.opt("trip_id");
           if (tripIdObj == null || tripIdObj == JSONObject.NULL) {
               v.tripId = null;
@@ -106,6 +134,12 @@ public class Vehicle {
 
         return v;
     }
+    
+    /**
+     * Returneaza timestamp-ul formatat (HH:mm:ss) sau "N/A" daca nu este valid.
+     * 
+     * @return timestamp formatat ca ora
+     */
     String getFormattedTimestamp() {
         if (timestampEpochSeconds <= 0) return "N/A";
         Date date = new Date(timestampEpochSeconds * 1000L);
@@ -113,6 +147,11 @@ public class Vehicle {
         return sdf.format(date);
     }
 
+    /**
+     * Returneaza tipul vehiculului ca text.
+     * 
+     * @return tip vehicul sau Unknown cu codul numeric
+     */
     String getVehicleTypeString() {
         switch (vehicleType) {
             case 0: return "Tram";
