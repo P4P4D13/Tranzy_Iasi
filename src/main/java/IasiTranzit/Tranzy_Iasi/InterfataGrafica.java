@@ -29,6 +29,8 @@ import javax.swing.border.EmptyBorder;
 public class InterfataGrafica extends JFrame {
 	/** Serial version UID generat automat pentru clasa JFrame */
 	private static final long serialVersionUID = 1L;
+	
+	/** Panoul destinat vizualizarii */
 	public JPanel contentPane;
 
 	/** Camp text unde utilizatorul introduce ID-ul vehiculului de urmarit */
@@ -62,7 +64,6 @@ public class InterfataGrafica extends JFrame {
 	public JButton refreshButton;
 
 	/** Timer folosit pentru animarea tranzitiilor UI */
-
 	public Timer animationTimer;
 
 	// aici modificam viteza la animatie dupa buton
@@ -112,11 +113,16 @@ public class InterfataGrafica extends JFrame {
 	/** Eticheta pentru afisarea statusului aplicatiei */
 	public JLabel statusLabel;
 	// Acestea sunt folosite pentru a stoca datele si la diferite calcule si afisari
+	/** Mapare ID rute */
 	public Map<String, Route> routesMap = new HashMap<>();
 
 	/** Mapare ID cursa catre obiect */
 	public Map<String, Trip> tripsMap = new HashMap<>();
+	
+	/** Mapare ID stopuri */
 	public Map<String, Stop> stopsMap = new HashMap<>();
+	
+	/** Lista stopuri timp */
 	public List<StopTime> stopTimesList = new ArrayList<>();
 
 	/** Initializare panel buton back pentru pozitionarea sa in interfata */
@@ -125,6 +131,7 @@ public class InterfataGrafica extends JFrame {
 	/** Layout ul gridbag pentru pozitonare elemente */
 	public GridBagConstraints gbc = new GridBagConstraints();
 	
+	/** Extrage si gestioneaza datele despre transport. */
 	private final TransportDataFetcher dataFetcher;
 
 	/**
@@ -188,6 +195,10 @@ public class InterfataGrafica extends JFrame {
 		loadStaticData();
 	}
 
+	/**
+	 * Incarca date statice, rute si trasee, folosind SwingWorker
+	 * Actualizeaza interfata in functie de succesul sau esecul operatiei
+	 */
 	private void loadStaticData() {
 	    statusLabel.setText("Loading Data...");
 	    trackButton.setEnabled(false);
@@ -436,7 +447,6 @@ public class InterfataGrafica extends JFrame {
 	 * Actualizeaza interfata grafica prin revalidarea si reimprospatarea panoului
 	 * principal.
 	 */
-
 	private void refreshUI() {
 		if (contentPane != null) {
 			contentPane.revalidate();
@@ -565,7 +575,6 @@ public class InterfataGrafica extends JFrame {
 	 * adauga butonul in coltul din dreapta sus se verifica existenta sa pentru a
 	 * evita crearea multipla
 	 */
-
 	private void addBackButton() {
 
 		backButtonPanel = new JPanel();
