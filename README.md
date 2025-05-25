@@ -19,5 +19,6 @@ JSON
 Git & GitHub
 
 ##Instalare si Rulare
+
 Cloneaza repository-ul:
 https://github.com/P4P4D13/Tranzy_Iasi.git
