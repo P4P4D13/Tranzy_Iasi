@@ -391,8 +391,7 @@ public class InterfataGrafica extends JFrame {
 		fetchAndDisplayVehicleData();
 	}
 
-	// fiecare fct verifica conditia de null -> se reduc sansele de aparitie a
-	// erorilor
+	// fiecare fct verifica conditia de null -> se reduc sansele de aparitie a erorilor
 
 	/**
 	 * Elimina componentele de input si butonul de urmarire din panoul de input si
@@ -583,9 +582,8 @@ public class InterfataGrafica extends JFrame {
 					resultsPanel.revalidate();
 					resultsPanel.repaint();
 					trackButton.setEnabled(true);
-					// fct noua pt buton de back
+					//adaugare butoane pentru refresh si intoarcere la pagina initiala
 					addBackButton();
-					// fct noua pt buton de refresh
 					addRefreshButton();
 				}
 			}
@@ -631,7 +629,7 @@ public class InterfataGrafica extends JFrame {
 	private void addRefreshButton() {
 		if (backButtonPanel == null) {
 			backButtonPanel = new JPanel();
-			backButtonPanel.setLayout(null);
+			backButtonPanel.setLayout(null); //layout null pentru a plasa butonul manual
 			backButtonPanel.setPreferredSize(new Dimension(450, 67));
 			contentPane.add(backButtonPanel, BorderLayout.NORTH);
 		}
