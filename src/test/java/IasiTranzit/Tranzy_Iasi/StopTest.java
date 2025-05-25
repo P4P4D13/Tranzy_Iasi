@@ -5,8 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Clasa de test pentru clasa Stop care reprezintă o stație de transport public.
+ * Această clasă testează funcționalitatea de conversie din JSON în obiecte Stop.
+ */
 public class StopTest {
 
+    /**
+     * Testează crearea unui obiect Stop din JSON cu date complete și valide.
+     * Verifică dacă toate câmpurile (ID, nume, latitudine, longitudine) sunt parsate corect.
+     */
     @Test
     void testFromJson_withValidData() {
         JSONObject json = new JSONObject();
@@ -23,9 +31,15 @@ public class StopTest {
         assertEquals(27.574, stop.longitude, 0.0001);
     }
 
+    /**
+     * Testează crearea unui obiect Stop din JSON fără niciun câmp specificat.
+     * Verifică dacă valorile implicite sunt setate corect:
+     * - șiruri de caractere goale pentru ID și nume
+     * - 0.0 pentru coordonatele geografice
+     */
     @Test
     void testFromJson_withMissingFields() {
-        JSONObject json = new JSONObject(); // no fields
+        JSONObject json = new JSONObject(); // fără câmpuri
 
         Stop stop = Stop.fromJson(json);
 
@@ -35,6 +49,12 @@ public class StopTest {
         assertEquals(0.0, stop.longitude, 0.0001);
     }
 
+    /**
+     * Testează crearea unui obiect Stop din JSON cu doar unele câmpuri specificate.
+     * Verifică dacă:
+     * - câmpurile prezente sunt parsate corect
+     * - câmpurile lipsă primesc valori implicite
+     */
     @Test
     void testFromJson_withPartialFields() {
         JSONObject json = new JSONObject();

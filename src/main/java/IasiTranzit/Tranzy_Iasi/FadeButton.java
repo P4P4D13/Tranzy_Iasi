@@ -47,8 +47,7 @@ public class FadeButton extends JButton {
 
         g2d.dispose();
     }
-
-    //probabil e pentru bara de sus, nu sunt sigur
+    
     @Override
     public Dimension getPreferredSize() {
          boolean ocf = isContentAreaFilled();
