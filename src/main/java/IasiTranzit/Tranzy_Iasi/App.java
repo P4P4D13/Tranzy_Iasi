@@ -18,7 +18,7 @@ public class App {
     public static void main(String[] args) {
         // Extrage datele transport într-un thread separat
         new Thread(() -> {
-            TransportDataFetcher.fetchAllData();
+            TransportDataFetcher.fetchAllApiData();;
         }).start();
     
         // Configurează aspect UI

@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class Stop {
     String id, name;
-    double latitude, longitude;
+    Double latitude, longitude;
 
     static Stop fromJson(JSONObject json) {
         Stop s = new Stop();

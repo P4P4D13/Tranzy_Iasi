@@ -3,25 +3,19 @@ package IasiTranzit.Tranzy_Iasi;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 
 /**
  * Clasa {@code InterfataGrafica} reprezinta fereastra pricipala a aplicatiei,
@@ -130,6 +124,8 @@ public class InterfataGrafica extends JFrame {
 
 	/** Layout ul gridbag pentru pozitonare elemente */
 	public GridBagConstraints gbc = new GridBagConstraints();
+	
+	private final TransportDataFetcher dataFetcher;
 
 	/**
 	 * Constructorul {@code InterfataGrafica} initializeaza si configureaza
@@ -138,6 +134,7 @@ public class InterfataGrafica extends JFrame {
 	 * 
 	 */
 	public InterfataGrafica() {
+		this.dataFetcher = new TransportDataFetcher(); // Add this line
 		setTitle("Tranzy Iasi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(450, 650));
@@ -185,131 +182,42 @@ public class InterfataGrafica extends JFrame {
 		resultsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		topPanel = new JPanel(new GridBagLayout());
 		topPanel.setBorder(new EmptyBorder(5, horizontalPadding, 5, horizontalPadding));
-		trackButton.addActionListener(e -> startAnimation());
+		trackButton.addActionListener((ActionEvent e) -> startAnimation());
 		pack();
 		setLocationRelativeTo(null);
 		loadStaticData();
 	}
 
-	// Functia aceasta preaia din fisierele locale date pentru a intocmi raportul
-	private String fetchData(String fileName) throws IOException {
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
-		if (inputStream == null) {
-			throw new IOException("Fisierul nu a fost gasit: " + fileName);
-		}
-		StringBuilder content = new StringBuilder();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				content.append(line);
-			}
-		}
-		return content.toString();
-	}
-
-	/**
-	 * Incarca date statice, rute si trasee, folosind SwingWorker Actualizeaza
-	 * interfata in functie de succesul sau esecul operatiei
-	 */
 	private void loadStaticData() {
-		statusLabel.setText("Loading Data...");
-		trackButton.setEnabled(false);
-		SwingWorker<Boolean, Void> staticDataLoader = new SwingWorker<Boolean, Void>() {
-			@Override
-			protected Boolean doInBackground() throws Exception {
-				try {
-					routesMap = loadRoutes();
-					tripsMap = loadTrips();
-					stopsMap = loadStops();
-					stopTimesList = loadStopTimes();
-					return true;
-				} catch (IOException | JSONException e) {
-					System.err.println("Error during static data loading: " + e.getMessage());
-					e.printStackTrace();
-					throw e;
-				}
-			}
+	    statusLabel.setText("Loading Data...");
+	    trackButton.setEnabled(false);
 
-			@Override
-			protected void done() {
-				try {
-					Boolean success = get();
-					if (success) {
-						loadingSuccess();
-					} else {
-						loadingFail(
-								"Failed to load necessary route/trip data.\\nPlease check configuration or network.");
-					}
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-					loadingWarning("Data loading interrupted");
-				} catch (ExecutionException e) {
-					onLoadingException(e.getCause());
-				}
-			}
-		};
-		staticDataLoader.execute();
-	}
-
-	/**
-	 * fct pt incarcarea rutelor,clarifica ce se intampla in doInBackground
-	 * 
-	 * @return o harta a ID-urilor de ruta catre obiectele Route
-	 * @throws IOException   daca apare o eroare de retea, conexiunea nu merge sau
-	 *                       serverul nu raspunde
-	 * @throws JSONException daca datele JSON nu sunt valide(alt format)
-	 */
-	private Map<String, Route> loadRoutes() throws IOException, JSONException {
-		String routesJson = fetchData("date_rute.json");
-		JSONArray routesArray = new JSONArray(routesJson);
-		Map<String, Route> tempRoutesMap = new HashMap<>();
-		for (int i = 0; i < routesArray.length(); i++) {
-			Route route = Route.fromJson(routesArray.getJSONObject(i));
-			tempRoutesMap.put(route.id, route);
-		}
-		return tempRoutesMap;
-	}
-
-	/**
-	 * Incarca datele despre trasee de la un anumit endpoint fct pt incarcarea
-	 * traseelor,luat codul din functia doInBackground
-	 * 
-	 * @return o harta a ID-urilor de traseu catre obiectele Trip
-	 * @throws IOException   aca apare o eroare de retea, conexiunea nu merge sau
-	 *                       serverul nu raspunde
-	 * @throws JSONException daca datele JSON nu sunt valide(alt format)
-	 */
-	private Map<String, Trip> loadTrips() throws IOException, JSONException {
-		String tripsJson = fetchData("date_trips.json");
-		JSONArray tripsArray = new JSONArray(tripsJson);
-		Map<String, Trip> tempTripsMap = new HashMap<>();
-		for (int i = 0; i < tripsArray.length(); i++) {
-			Trip trip = Trip.fromJson(tripsArray.getJSONObject(i));
-			tempTripsMap.put(trip.id, trip);
-		}
-		return tempTripsMap;
-	}
-
-	private Map<String, Stop> loadStops() throws IOException, JSONException {
-		String stopsJson = fetchData("date_stops.json");
-		JSONArray stopsArray = new JSONArray(stopsJson);
-		Map<String, Stop> tempStopsMap = new HashMap<>();
-		for (int i = 0; i < stopsArray.length(); i++) {
-			Stop stop = Stop.fromJson(stopsArray.getJSONObject(i));
-			tempStopsMap.put(stop.id, stop);
-		}
-		return tempStopsMap;
-	}
-
-	private List<StopTime> loadStopTimes() throws IOException, JSONException {
-		String stopTimesJson = fetchData("date_stops_times.json");
-		JSONArray stopTimesArray = new JSONArray(stopTimesJson);
-		List<StopTime> tempList = new ArrayList<>();
-		for (int i = 0; i < stopTimesArray.length(); i++) {
-			StopTime st = StopTime.fromJson(stopTimesArray.getJSONObject(i));
-			tempList.add(st);
-		}
-		return tempList;
+	    SwingWorker<StaticData, Void> staticDataLoader = new SwingWorker<>() {
+	        @Override
+	        protected StaticData doInBackground() throws Exception {
+	            // The background work is now a single, clean call
+	            return dataFetcher.loadAllStaticData();
+	        }
+	        @Override
+	        protected void done() {
+	            try {
+	                // Get the single data object
+	                StaticData staticData = get();
+	                // Assign the data to your class fields
+	                routesMap = staticData.routesMap;
+	                tripsMap = staticData.tripsMap;
+	                stopsMap = staticData.stopsMap;
+	                stopTimesList = staticData.stopTimesList;
+	                loadingSuccess();
+	            } catch (InterruptedException e) {
+	                Thread.currentThread().interrupt();
+	                loadingWarning("Data loading interrupted");
+	            } catch (ExecutionException e) {
+	                onLoadingException(e.getCause());
+	            }
+	        }
+	    };
+	    staticDataLoader.execute();
 	}
 
 	/**
@@ -329,16 +237,6 @@ public class InterfataGrafica extends JFrame {
 	private void loadingWarning(String message) {
 		statusLabel.setText("Data loading interrupted.");
 		JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
-	}
-
-	/**
-	 * Afiseaza un mesaj de eroare in cazul esuarii incarcarii datelor statice
-	 * 
-	 * @param message mesajul de eroare care va fi afisat
-	 */
-	private void loadingFail(String message) {
-		statusLabel.setText("Failed to load static data.");
-		JOptionPane.showMessageDialog(this, message, "Data Loading Error", JOptionPane.ERROR_MESSAGE);
 	}
 
 	/**
@@ -547,7 +445,6 @@ public class InterfataGrafica extends JFrame {
 	}
 
 	private void fetchAndDisplayVehicleData() {
-		String targetId = vehicleIdInput.getText().trim().toLowerCase();
 		resultsPanel.removeAll();
 		resultsPanel.add(new JLabel("Fetching data for '" + vehicleIdInput.getText().trim() + "'..."));
 		resultsPanel.revalidate();
@@ -556,45 +453,44 @@ public class InterfataGrafica extends JFrame {
 		SwingWorker<List<DisplayVehicleInfo>, String> worker = new SwingWorker<List<DisplayVehicleInfo>, String>() {
 			@Override
 			protected List<DisplayVehicleInfo> doInBackground() throws Exception {
-				List<DisplayVehicleInfo> foundVehicles = new ArrayList<>();
-				try {
-					publish("Fetching vehicle data...");
-					String vehiclesJson = fetchData("date_vehicule.json");
-					JSONArray vehiclesArray = new JSONArray(vehiclesJson);
-					publish("Processing " + vehiclesArray.length() + " vehicles...");
+			    List<DisplayVehicleInfo> foundVehicles = new ArrayList<>();
+			    try {
+			        publish("Fetching vehicle data...");
+			        // This is the main change: a clean call to the dataFetcher
+			        List<Vehicle> vehicles = dataFetcher.loadVehicles();
+			        publish("Processing " + vehicles.size() + " vehicles...");
 
-					for (int i = 0; i < vehiclesArray.length(); i++) {
-						JSONObject vehicleJson = vehiclesArray.getJSONObject(i);
-						try {
-							Vehicle vehicle = Vehicle.fromJson(vehicleJson);
+			        String targetId = vehicleIdInput.getText().trim().toLowerCase();
 
-							Route route = (vehicle.routeId != null) ? routesMap.get(vehicle.routeId) : null;
-							String routeShortName = (route != null) ? route.shortName.toLowerCase() : "";
+			        for (Vehicle vehicle : vehicles) {
+			            try {
+			                // The rest of your logic remains the same
+			                Route route = (vehicle.routeId != null) ? routesMap.get(vehicle.routeId) : null;
+			                String routeShortName = (route != null) ? route.shortName.toLowerCase() : "";
 
-							Trip trip = (vehicle.tripId != null) ? tripsMap.get(vehicle.tripId) : null;
-							String tripHeadsign = (trip != null) ? trip.headsign : "N/A";
+			                Trip trip = (vehicle.tripId != null) ? tripsMap.get(vehicle.tripId) : null;
+			                String tripHeadsign = (trip != null) ? trip.headsign : "N/A";
 
-							boolean labelMatch = vehicle.label.toLowerCase().equals(targetId);
-							boolean routeMatch = !routeShortName.isEmpty() && routeShortName.equals(targetId);
+			                boolean labelMatch = vehicle.label.toLowerCase().equals(targetId);
+			                boolean routeMatch = !routeShortName.isEmpty() && routeShortName.equals(targetId);
 
-							if (labelMatch || routeMatch) {
-								DisplayVehicleInfo displayInfo = new DisplayVehicleInfo();
-								displayInfo.vehicle = vehicle;
-								displayInfo.routeShortName = (route != null) ? route.shortName : "N/A";
-								displayInfo.tripHeadsign = tripHeadsign;
-								foundVehicles.add(displayInfo);
-							}
-						} catch (JSONException jsonEx) {
-							System.err.println("Skipping vehicle due to JSON parsing error: " + jsonEx.getMessage()
-									+ " in JSON: " + vehicleJson.toString(2));
-						}
-					}
-				} catch (IOException | JSONException e) {
-					System.err.println("Error fetching or parsing vehicle data: " + e.getMessage());
-					e.printStackTrace();
-					throw e;
-				}
-				return foundVehicles;
+			                if (labelMatch || routeMatch) {
+			                    DisplayVehicleInfo displayInfo = new DisplayVehicleInfo();
+			                    displayInfo.vehicle = vehicle;
+			                    displayInfo.routeShortName = (route != null) ? route.shortName : "N/A";
+			                    displayInfo.tripHeadsign = tripHeadsign;
+			                    foundVehicles.add(displayInfo);
+			                }
+			            } catch (JSONException jsonEx) {
+			                 // Your error handling here
+			            }
+			        }
+			    } catch (IOException | JSONException e) {
+			        System.err.println("Error fetching or parsing vehicle data: " + e.getMessage());
+			        e.printStackTrace();
+			        throw e;
+			    }
+			    return foundVehicles;
 			}
 
 			@Override
@@ -825,7 +721,6 @@ public class InterfataGrafica extends JFrame {
 				speedStr += " (inaccurate speed)";
 			}
 		}
-
 		// Adăugăm informațiile despre locație, viteză și altele
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -872,12 +767,11 @@ public class InterfataGrafica extends JFrame {
 		detailsPanel.add(new JLabel(info.vehicle.getVehicleTypeString()), gbc);
 
 		panel.add(detailsPanel);
-
-		// Adăugăm numele celui mai apropiat stop
-		panel.add(new JLabel(findClosestStopName(info.vehicle)));
-
-		// Asigură-te că dimensiunile sunt setate corect pentru panou
-		panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
+	    String closestStopText = RouteService.findClosestStopName(info.vehicle, stopsMap, stopTimesList);
+	    JLabel closestStopLabel = new JLabel(closestStopText);
+	    closestStopLabel.setFont(closestStopLabel.getFont().deriveFont(Font.ITALIC)); // Optional: style it
+	    panel.add(closestStopLabel);
+	    panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
 
 		// Învelește panoul într-un JScrollPane pentru a evita tăierea datelor
 		JScrollPane scrollPane = new JScrollPane(panel);
@@ -889,66 +783,12 @@ public class InterfataGrafica extends JFrame {
 
 		return containerPanel;
 	}
-
-	private String findClosestStopName(Vehicle vehicle) {
-		if (vehicle.tripId == null || vehicle.latitude == null || vehicle.longitude == null)
-			return "Depou / Poziție necunoscută";
-
-		List<StopTime> stopsForTrip = stopTimesList.stream().filter(st -> vehicle.tripId.equals(st.tripId))
-				.sorted(Comparator.comparingInt(st -> st.stopSequence)).toList();
-
-		Stop closestStop = null;
-		double minDistance = Double.MAX_VALUE;
-		int currentIndex = -1;
-
-		for (int i = 0; i < stopsForTrip.size(); i++) {
-			StopTime st = stopsForTrip.get(i);
-			Stop stop = stopsMap.get(st.stopId);
-			if (stop == null)
-				continue;
-
-			double distance = haversine(vehicle.latitude, vehicle.longitude, stop.latitude, stop.longitude);
-			if (distance < minDistance) {
-				minDistance = distance;
-				closestStop = stop;
-				currentIndex = i;
-			}
-		}
-
-		if (closestStop == null)
-			return "Fără stații pe traseu";
-
-		if (minDistance < 0.01) // Aproape de o stație (10 metri)
-			return "Stația curentă: " + closestStop.name;
-
-		if (currentIndex + 1 < stopsForTrip.size()) {
-			StopTime nextStopTime = stopsForTrip.get(currentIndex + 1);
-			Stop nextStop = stopsMap.get(nextStopTime.stopId);
-			if (nextStop != null)
-				return "Următoarea stație: " + nextStop.name;
-		}
-
-		return "Traseu necunoscut";
-	}
-
-	private double haversine(double lat1, double lon1, double lat2, double lon2) {
-		final int R = 6371; // Earth radius in km
-		double latDistance = Math.toRadians(lat2 - lat1);
-		double lonDistance = Math.toRadians(lon2 - lon1);
-		double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + Math.cos(Math.toRadians(lat1))
-				* Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return R * c;
-	}
-
 	void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-
 		JMenu mnFont = new JMenu("Font");
 		menuBar.add(mnFont);
 		ActionListener fontListener = e -> updateFont();
-
 		b12 = new JRadioButton("12");
 		b12.setActionCommand("12");
 		b12.setSelected(true);
