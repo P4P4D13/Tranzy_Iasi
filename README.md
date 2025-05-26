@@ -2,8 +2,6 @@
 
 **Version:** v1.00 BETA  
 **Status:** Active | In Development  
-**Author(s):** Your Name(s)  
-**License:** MIT (or your preferred license)
 
 ---
 
@@ -62,10 +60,3 @@ This is the **first beta release (v1.00 BETA)** and includes full core functiona
    ```bash
    git clone https://github.com/your-username/Tranzy_Iasi.git
 
-
-Git & GitHub
-
-## Instalare si Rulare
-
-Cloneaza repository-ul:
-https://github.com/P4P4D13/Tranzy_Iasi.git
